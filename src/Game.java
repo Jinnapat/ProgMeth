@@ -18,6 +18,7 @@ public class Game extends Application{
 		
 		System.out.println("This is first.");
 		System.out.println("this is second");
+		System.out.println("This is third");
 		p.setScene(scene);
 		p.show();
 	}
