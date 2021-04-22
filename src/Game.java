@@ -17,6 +17,7 @@ public class Game extends Application{
 		Scene scene = new Scene(root);
 		
 		System.out.println("This is first.");
+		System.out.println("this is second");
 		p.setScene(scene);
 		p.show();
 	}
