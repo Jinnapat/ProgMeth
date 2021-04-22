@@ -16,7 +16,7 @@ public class Game extends Application{
 		
 		Scene scene = new Scene(root);
 		
-		
+		System.out.println("test");
 		p.setScene(scene);
 		p.show();
 	}
