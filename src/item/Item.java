@@ -1,13 +1,20 @@
-package Item;
+package item;
 
 public abstract class Item {
 	
 	protected String name;
 	protected String sprite;
-	int x;
-	int y;
+	protected double x;
+	protected double y;
 	
-	public Item(String name, String sprite, int x, int y) {
+	
+	
+	public Item() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Item(String name, String sprite, double x, double y) {
 		super();
 		this.name = name;
 		this.sprite = sprite;
@@ -36,20 +43,22 @@ public abstract class Item {
 		this.sprite = sprite;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
+
+	
 	
 }
