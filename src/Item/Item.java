@@ -7,6 +7,14 @@ public abstract class Item {
 	int x;
 	int y;
 	
+	public Item(String name, String sprite, int x, int y) {
+		super();
+		this.name = name;
+		this.sprite = sprite;
+		this.x = x;
+		this.y = y;
+	}
+
 	// TODO
 	public void collectBy() {
 		
