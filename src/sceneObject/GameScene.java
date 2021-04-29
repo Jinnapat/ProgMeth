@@ -11,7 +11,7 @@ public class GameScene {
 	public static HashMap<String, Boolean> keyPressed = new HashMap();
 	public static AnchorPane root = new AnchorPane();
 	public static Scene scene = new Scene(root, 1200, 800);
-	public static double gravity_g = 5;
+	public static double gravity_g = 0.3;
 	
 	public GameScene() {};
 	
@@ -28,7 +28,6 @@ public class GameScene {
 				String k = arg0.getText();
 				if (!keyPressed.get(k)) {
 					keyPressed.replace(k, true);
-					System.out.println(keyPressed);
 				}
 			}
 			
@@ -40,7 +39,6 @@ public class GameScene {
 			public void handle(KeyEvent arg0) {
 				String k = arg0.getText();
 				keyPressed.replace(k, false);
-				System.out.println(keyPressed);
 			}
 			
 		});

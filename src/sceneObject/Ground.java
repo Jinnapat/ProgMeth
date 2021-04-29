@@ -9,7 +9,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-public class Ground extends SolidObject implements Collidable {
+public class Ground extends SolidObject {
 	private HBox groundBox;
 	private double x;
 	private double y;
@@ -56,12 +56,7 @@ public class Ground extends SolidObject implements Collidable {
 	}
 
 	@Override
-	public void onCollide(Collidable target) {
-		
-	}
-
-	@Override
-	public void onCollide() {
+	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
 		
 	}
