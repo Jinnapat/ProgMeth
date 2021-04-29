@@ -1,6 +1,7 @@
 package character;
 
 import interfaces.Movable;
+import item.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -11,12 +12,14 @@ import sceneObject.Ground;
 public class Character extends SolidObject implements Movable {
 	protected String name;
 	protected int ammo;
+	protected int maxHealth;
 	protected int health;
 	protected double speed;
 	protected AnimationTimer animationTimer;
 	protected long lastTimeTriggered;
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
+	protected Weapon weapon;
 	
 	public Character(double width, double height, double x, double y, double speed, double jumpStrength) {
 		super(width, height, x, y);
@@ -69,6 +72,14 @@ public class Character extends SolidObject implements Movable {
 		this.ammo = ammo;
 	}
 
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
 	public int getHealth() {
 		return health;
 	}
@@ -117,6 +128,11 @@ public class Character extends SolidObject implements Movable {
 		}
 	}
 
-	
-	
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}	
 }
