@@ -2,6 +2,7 @@ package character;
 
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
@@ -13,7 +14,6 @@ public class Character extends SolidObject implements Movable {
 	protected int health;
 	protected double speed;
 	protected AnimationTimer animationTimer;
-	protected AnimationTimer animationTimer2;
 	protected long lastTimeTriggered;
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
@@ -33,11 +33,11 @@ public class Character extends SolidObject implements Movable {
 				if (now - lastTimeTriggered >= 10000000) {
 					
 					
-					if (GameScene.keyPressed.get("a")) {
+					if (GameScene.keyPressed.get(KeyCode.A)) {
 						setSpeed_x(-speed);
 					}
 					
-					if (GameScene.keyPressed.get("d")) {
+					if (GameScene.keyPressed.get(KeyCode.D)) {
 						setSpeed_x(speed);
 					}
 					
@@ -90,7 +90,7 @@ public class Character extends SolidObject implements Movable {
 					setY(target.getY() - getHeight());
 				}
 				
-				if (GameScene.keyPressed.get("w")) {
+				if (GameScene.keyPressed.get(KeyCode.W)) {
 					if (getSpeed_y() < 0.5) {
 						setSpeed_y(-this.jumpStrength);
 					}

@@ -17,15 +17,18 @@ public class Game extends Application{
 		Scout myChar = new Scout(50.0, 50.0, 10.0, 10.0, 10.0, 10);
 		Ground ground1 = new Ground(100, 20, 10, 670, Color.BLACK);
 		Ground ground2 = new Ground(400, 20, 200, 530, Color.BLACK);
+		Ground ground3 = new Ground(300, 20, 600, 430, Color.BLACK);
 		Ground base = new Ground(1200, 50, 0, 700, Color.BLACK);
 		
 		myChar.addCollidableObject(ground1);
 		myChar.addCollidableObject(ground2);
+		myChar.addCollidableObject(ground3);
 		myChar.addCollidableObject(base);
 		myChar.checkCollide();
 		GameScene.root.getChildren().add(myChar.getBoundBox());
 		GameScene.root.getChildren().add(ground1.getGroundBox());
 		GameScene.root.getChildren().add(ground2.getGroundBox());
+		GameScene.root.getChildren().add(ground3.getGroundBox());
 		GameScene.root.getChildren().add(base.getGroundBox());
 		
 		GameScene.start();

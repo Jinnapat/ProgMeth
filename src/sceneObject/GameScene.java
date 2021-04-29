@@ -4,11 +4,12 @@ import java.util.HashMap;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class GameScene {
-	public static HashMap<String, Boolean> keyPressed = new HashMap();
+	public static HashMap<KeyCode, Boolean> keyPressed = new HashMap();
 	public static AnchorPane root = new AnchorPane();
 	public static Scene scene = new Scene(root, 1200, 800);
 	public static double gravity_g = 0.3;
@@ -16,18 +17,21 @@ public class GameScene {
 	public GameScene() {};
 	
 	public static void start() {
-		keyPressed.put("a", false);
-		keyPressed.put("s", false);
-		keyPressed.put("d", false);
-		keyPressed.put("w", false);
+		keyPressed.put(KeyCode.A, false);
+		keyPressed.put(KeyCode.S, false);
+		keyPressed.put(KeyCode.D, false);
+		keyPressed.put(KeyCode.W, false);
+		keyPressed.put(KeyCode.SPACE, false);
 		
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent arg0) {
-				String k = arg0.getText();
-				if (!keyPressed.get(k)) {
-					keyPressed.replace(k, true);
+				KeyCode k = arg0.getCode();
+				if (keyPressed.containsKey(k)) {
+					if (!keyPressed.get(k)) {
+						keyPressed.replace(k, true);
+					}
 				}
 			}
 			
@@ -37,8 +41,10 @@ public class GameScene {
 
 			@Override
 			public void handle(KeyEvent arg0) {
-				String k = arg0.getText();
-				keyPressed.replace(k, false);
+				KeyCode k = arg0.getCode();
+				if (keyPressed.containsKey(k)) {
+					keyPressed.replace(k, false);
+				}
 			}
 			
 		});
