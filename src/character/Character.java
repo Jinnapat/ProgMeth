@@ -34,11 +34,11 @@ public class Character extends SolidObject implements Movable {
 					
 					
 					if (GameScene.keyPressed.get("a")) {
-						setX(getX() - speed);
+						setSpeed_x(-speed);
 					}
 					
 					if (GameScene.keyPressed.get("d")) {
-						setX(getX() + speed);
+						setSpeed_x(speed);
 					}
 					
 					AnchorPane.setTopAnchor(getBoundBox(), getY());
@@ -95,6 +95,24 @@ public class Character extends SolidObject implements Movable {
 						setSpeed_y(-this.jumpStrength);
 					}
 				}
+			} else if (getSpeed_y() > 0.0) {
+			
+				double left_x = getX();
+				if (left_x >= target.getX() && left_x <= target.getX() + target.getWidth()) {
+					if (getSpeed_x() < 0.0) {
+						setX(target.getX() + target.getWidth());
+						setSpeed_x(0.0);
+					}
+				}
+				
+				double right_x = getX() + getWidth();
+				if (right_x >= target.getX() && right_x <= target.getX() + target.getWidth()) {
+					if (getSpeed_x() > 0.0) {
+						setX(target.getX() - getWidth());
+						setSpeed_x(0.0);
+					}
+				}
+				
 			}
 		}
 	}

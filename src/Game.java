@@ -15,8 +15,8 @@ public class Game extends Application{
 	public void start(Stage p) throws Exception {
 		
 		Scout myChar = new Scout(50.0, 50.0, 10.0, 10.0, 10.0, 10);
-		Ground ground1 = new Ground(100, 10, 10, 550, Color.BLACK);
-		Ground ground2 = new Ground(100, 10, 200, 530, Color.BLACK);
+		Ground ground1 = new Ground(100, 20, 10, 670, Color.BLACK);
+		Ground ground2 = new Ground(400, 20, 200, 530, Color.BLACK);
 		Ground base = new Ground(1200, 50, 0, 700, Color.BLACK);
 		
 		myChar.addCollidableObject(ground1);

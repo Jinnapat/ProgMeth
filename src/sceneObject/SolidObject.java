@@ -11,7 +11,9 @@ public abstract class SolidObject {
 	private double height;
 	private double x;
 	private double y;
+	private double speed_x;
 	private double speed_y;
+	private double friction;
 	
 	private ArrayList<SolidObject> collideList;
 	private long lastTimeTriggered;
@@ -22,8 +24,10 @@ public abstract class SolidObject {
 		this.height = height;
 		this.x = x;
 		this.y = y;
+		this.speed_x = 0.0;
 		this.speed_y = 0.0;
 		this.collideList = new ArrayList();
+		this.friction = 0.8;
 		
 		this.boundBox = new AnchorPane();
 		this.boundBox.setPrefSize(getWidth(), getHeight());
@@ -71,12 +75,29 @@ public abstract class SolidObject {
 	}
 
 	
+	public double getSpeed_x() {
+		return speed_x;
+	}
+
+	public void setSpeed_x(double speed_x) {
+		this.speed_x = speed_x;
+	}
+
 	public double getSpeed_y() {
 		return speed_y;
 	}
 
 	public void setSpeed_y(double speed_y) {
 		this.speed_y = speed_y;
+	}
+
+	
+	public double getFriction() {
+		return friction;
+	}
+
+	public void setFriction(double friction) {
+		this.friction = friction;
 	}
 
 	public void addCollidableObject(SolidObject target) {
@@ -92,7 +113,10 @@ public abstract class SolidObject {
 				
 				if (now - lastTimeTriggered >= 10000000) {
 					
+
+					setSpeed_x(getSpeed_x() * getFriction());
 					setSpeed_y(getSpeed_y() + GameScene.gravity_g);
+					
 					
 					for (int i = 0; i < collideList.size(); i++) {
 						SolidObject target = collideList.get(i);
@@ -143,7 +167,9 @@ public abstract class SolidObject {
 						
 					}
 					
+					setX(getX() + getSpeed_x());
 					setY(getY() + getSpeed_y());
+					AnchorPane.setLeftAnchor(boundBox, getX());
 					AnchorPane.setTopAnchor(boundBox, getY());
 				}
 			};
