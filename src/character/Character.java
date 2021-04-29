@@ -20,11 +20,19 @@ public class Character extends SolidObject implements Movable {
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
 	protected Weapon weapon;
+	private KeyCode leftKey;
+	private KeyCode rightKey;
+	private KeyCode jumpKey;
+	private KeyCode shootKey;
 	
-	public Character(double width, double height, double x, double y, double speed, double jumpStrength) {
-		super(width, height, x, y);
+	public Character(double width, double height, double speed, double jumpStrength) {
+		super(width, height);
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
+		this.leftKey = KeyCode.A;
+		this.rightKey = KeyCode.D;
+		this.jumpKey = KeyCode.W;
+		this.shootKey = KeyCode.SPACE;
 		
 		this.animationTimer = new AnimationTimer() {
 			
@@ -35,13 +43,29 @@ public class Character extends SolidObject implements Movable {
 				
 				if (now - lastTimeTriggered >= 10000000) {
 					
-					
-					if (GameScene.keyPressed.get(KeyCode.A)) {
-						setSpeed_x(-speed);
+					if (GameScene.keyPressed.containsKey(leftKey)) {
+						if (GameScene.keyPressed.get(leftKey)) {
+							setSpeed_x(-speed);
+							setHeadLeft(true);
+						}
 					}
 					
-					if (GameScene.keyPressed.get(KeyCode.D)) {
-						setSpeed_x(speed);
+					if (GameScene.keyPressed.containsKey(rightKey)) {
+						if (GameScene.keyPressed.get(rightKey)) {
+							setSpeed_x(speed);
+							setHeadLeft(false);
+			
+						}
+					}
+					
+					if (GameScene.keyPressed.containsKey(shootKey)) {
+						if (GameScene.keyPressed.get(shootKey)) {
+							if (getWeapon() != null) {
+								getWeapon().shoot();
+							} else {
+								System.out.println("No weapon!");
+							}
+						}
 					}
 					
 					AnchorPane.setTopAnchor(getBoundBox(), getY());
@@ -88,6 +112,46 @@ public class Character extends SolidObject implements Movable {
 		this.health = health;
 	}
 
+	public boolean isHeadLeft() {
+		return isHeadLeft;
+	}
+
+	public void setHeadLeft(boolean isHeadLeft) {
+		this.isHeadLeft = isHeadLeft;
+	}
+
+	public KeyCode getLeftKey() {
+		return leftKey;
+	}
+
+	public void setLeftKey(KeyCode leftKey) {
+		this.leftKey = leftKey;
+	}
+
+	public KeyCode getRightKey() {
+		return rightKey;
+	}
+
+	public void setRightKey(KeyCode rightKey) {
+		this.rightKey = rightKey;
+	}
+
+	public KeyCode getJumpKey() {
+		return jumpKey;
+	}
+
+	public void setJumpKey(KeyCode jumpKey) {
+		this.jumpKey = jumpKey;
+	}
+
+	public KeyCode getShootKey() {
+		return shootKey;
+	}
+
+	public void setShootKey(KeyCode shootKey) {
+		this.shootKey = shootKey;
+	}
+
 	@Override
 	public void onCollide(SolidObject target) {
 		
@@ -101,9 +165,11 @@ public class Character extends SolidObject implements Movable {
 					setY(target.getY() - getHeight());
 				}
 				
-				if (GameScene.keyPressed.get(KeyCode.W)) {
-					if (getSpeed_y() < 0.5) {
-						setSpeed_y(-this.jumpStrength);
+				if (GameScene.keyPressed.containsKey(jumpKey)) {
+					if (GameScene.keyPressed.get(jumpKey)) {
+						if (getSpeed_y() < 0.5) {
+							setSpeed_y(-this.jumpStrength);
+						}
 					}
 				}
 			} else if (getSpeed_y() > 0.0) {

@@ -35,7 +35,7 @@ public class Weapon extends Item{
 		this.bullets.clear();
 		this.bullets = new ArrayList<Bullet>();
 		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet());
+			bullets.add(new Bullet(i, i, i, i));
 		}
 	}
 	
@@ -44,6 +44,9 @@ public class Weapon extends Item{
 			this.currentAmmo -= 1;
 			this.bullets.get(currentAmmo).shoot();
 			this.bullets.remove(currentAmmo);
+			
+			// try to create bullet ui
+			
 		} else {
 			System.out.println("Can't shoot");
 		}

@@ -18,6 +18,36 @@ public abstract class SolidObject {
 	private ArrayList<SolidObject> collideList;
 	private long lastTimeTriggered;
 	
+	public SolidObject() {
+		super();
+		this.width = 50.0;
+		this.height = 50.0;
+		this.x = 0.0;
+		this.y = 0.0;
+		this.speed_x = 0.0;
+		this.speed_y = 0.0;
+		this.collideList = new ArrayList();
+		this.friction = 0.8;
+		
+		this.boundBox = new AnchorPane();
+		this.boundBox.setPrefSize(getWidth(), getHeight());
+	}
+	
+	public SolidObject(double width, double height) {
+		super();
+		this.width = width;
+		this.height = height;
+		this.x = 0.0;
+		this.y = 0.0;
+		this.speed_x = 0.0;
+		this.speed_y = 0.0;
+		this.collideList = new ArrayList();
+		this.friction = 0.8;
+		
+		this.boundBox = new AnchorPane();
+		this.boundBox.setPrefSize(getWidth(), getHeight());
+	}
+	
 	public SolidObject(double width, double height, double x, double y) {
 		super();
 		this.width = width;
@@ -102,6 +132,12 @@ public abstract class SolidObject {
 
 	public void addCollidableObject(SolidObject target) {
 		this.collideList.add(target);
+	}
+	
+	public void addAllCollidableObject(ArrayList<SolidObject> targetList) {
+		for (int i = 0; i < targetList.size(); i++) {
+			this.addCollidableObject(targetList.get(i));
+		}
 	}
 	
 	public void checkCollide() {

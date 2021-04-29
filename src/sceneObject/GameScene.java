@@ -17,11 +17,6 @@ public class GameScene {
 	public GameScene() {};
 	
 	public static void start() {
-		keyPressed.put(KeyCode.A, false);
-		keyPressed.put(KeyCode.S, false);
-		keyPressed.put(KeyCode.D, false);
-		keyPressed.put(KeyCode.W, false);
-		keyPressed.put(KeyCode.SPACE, false);
 		
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -32,6 +27,8 @@ public class GameScene {
 					if (!keyPressed.get(k)) {
 						keyPressed.replace(k, true);
 					}
+				} else {
+					keyPressed.put(k, true);
 				}
 			}
 			
