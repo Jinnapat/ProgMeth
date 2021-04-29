@@ -2,6 +2,7 @@ package character;
 
 import interfaces.Collidable;
 import interfaces.Movable;
+import item.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
@@ -11,6 +12,7 @@ import javafx.scene.layout.HBox;
 public class Character implements Collidable, Movable {
 	protected String name;
 	protected int ammo;
+	protected int maxHealth;
 	protected int health;
 	protected int speed;
 	protected HBox characterBox;
@@ -20,6 +22,7 @@ public class Character implements Collidable, Movable {
 	protected AnimationTimer animationTimer2;
 	protected long lastTimeTriggered;
 	protected boolean isKeyPress;
+	protected Weapon weapon;
 	
 	public Character() {
 		this.animationTimer = new AnimationTimer() {
@@ -81,6 +84,14 @@ public class Character implements Collidable, Movable {
 		this.ammo = ammo;
 	}
 
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
 	public int getHealth() {
 		return health;
 	}
@@ -105,8 +116,17 @@ public class Character implements Collidable, Movable {
 		this.characterBox = characterBox;
 	}
 
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
 	@Override
 	public void OnCollide(Collidable target) {}
+
 	
 	
 }

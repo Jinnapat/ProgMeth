@@ -1,11 +1,12 @@
 package item;
+import character.Character;
 
-public abstract class Item {
+public abstract class Item{
 	
 	protected String name;
 	protected String sprite;
-	protected double x;
-	protected double y;
+	protected double xPos;
+	protected double yPos;
 	
 	
 	
@@ -14,25 +15,23 @@ public abstract class Item {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(String name, String sprite, double x, double y) {
+	public Item(String name, String sprite, double xPos, double yPos) {
 		super();
-		this.name = name;
-		this.sprite = sprite;
-		this.x = x;
-		this.y = y;
+		this.setName(name);;
+		this.setSprite(sprite);
+		this.setxPos(xPos);
+		this.setyPos(yPos);
 	}
 
 	// TODO
-	public void collectBy() {
-		
-	}
+	public abstract void collectBy(Character character);
 
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.isBlank() ? "Unnamed": name;
 	}
 
 	public String getSprite() {
@@ -43,22 +42,20 @@ public abstract class Item {
 		this.sprite = sprite;
 	}
 
-	public double getX() {
-		return x;
+	public double getxPos() {
+		return xPos;
 	}
 
-	public void setX(double x) {
-		this.x = x;
+	public void setxPos(double xPos) {
+		this.xPos = xPos;
 	}
 
-	public double getY() {
-		return y;
+	public double getyPos() {
+		return yPos;
 	}
 
-	public void setY(double y) {
-		this.y = y;
+	public void setyPos(double yPos) {
+		this.yPos = yPos;
 	}
-
-	
 	
 }
