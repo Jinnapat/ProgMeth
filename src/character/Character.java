@@ -3,25 +3,27 @@ package character;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import sceneObject.SolidObject;
+import sceneObject.GameScene;
 
-public class Character implements Collidable, Movable {
+public class Character extends SolidObject implements Collidable, Movable {
 	protected String name;
 	protected int ammo;
 	protected int health;
-	protected int speed;
-	protected HBox characterBox;
-	protected double x;
-	protected double y;
+	protected double speed;
+	protected AnchorPane characterBox;
+	protected double y_speed;
 	protected AnimationTimer animationTimer;
 	protected AnimationTimer animationTimer2;
 	protected long lastTimeTriggered;
-	protected boolean isKeyPress;
+	protected boolean isHeadLeft;
 	
-	public Character() {
+	public Character(double width, double height, double x, double y, double speed) {
+		super(width, height, x, y);
+		setSpeed(speed);
+		setY_speed(0.0);
+		
 		this.animationTimer = new AnimationTimer() {
 			
 			@Override
@@ -31,14 +33,31 @@ public class Character implements Collidable, Movable {
 				
 				if (now - lastTimeTriggered >= 10000000)
 				{
-					if (y < 400) {
-						setY(y + 1);
+
+					
+					if (getY() < 400) {
+						setY(getY() + GameScene.gravity_g);
+					} else {
+						setY_speed(0.0);
 					}
 					
-					if (isKeyPress) {
-						setX(x + 1);
+					
+					if (GameScene.keyPressed.get("a")) {
+						System.out.println(getX());
+						
+						setX(getX() - getSpeed());
 					}
-					AnchorPane.setTopAnchor(characterBox, y);
+					
+					if (GameScene.keyPressed.get("d")) {
+						setX(getX() + getSpeed());
+					}
+					
+					if (GameScene.keyPressed.get("w")) {
+
+					}
+					
+					AnchorPane.setTopAnchor(characterBox, getY());
+					AnchorPane.setLeftAnchor(characterBox, getX());
 					lastTimeTriggered = now;
 				}
 			}
@@ -47,20 +66,17 @@ public class Character implements Collidable, Movable {
 		this.animationTimer.start();
 	}
 	
-	public double getX() {
-		return x;
+	
+	public double getY_speed() {
+		return y_speed;
 	}
 
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
+	public void setY_speed(double y_speed) {
+		if (y_speed > 0) {
+			this.y_speed = y_speed;
+		} else {
+			this.y_speed = 0;
+		}
 	}
 
 	public void draw(double x, double y) {};
@@ -89,24 +105,39 @@ public class Character implements Collidable, Movable {
 		this.health = health;
 	}
 
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setSpeed(double speed) {
+		if (speed > 0) {
+			this.speed = speed;
+		} else {
+			this.speed = 1;
+		}
+		
 	}
 
-	public HBox getCharacterBox() {
+	public AnchorPane getCharacterBox() {
 		return characterBox;
 	}
 
-	public void setCharacterBox(HBox characterBox) {
+	public void setCharacterBox(AnchorPane characterBox) {
 		this.characterBox = characterBox;
 	}
 
 	@Override
-	public void OnCollide(Collidable target) {}
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onCollide() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

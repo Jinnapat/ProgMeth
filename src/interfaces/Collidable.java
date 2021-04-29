@@ -1,5 +1,8 @@
 package interfaces;
 
 public interface Collidable {
-	abstract public void OnCollide(Collidable target);
+	
+	public abstract void checkCollide();
+	
+	public abstract void onCollide(Collidable target);
 }
