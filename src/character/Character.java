@@ -1,33 +1,47 @@
 package character;
 
-import interfaces.Collidable;
 import interfaces.Movable;
 import item.Weapon;
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextBoundsType;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
+import sceneObject.Ground;
 
-public class Character extends SolidObject implements Collidable, Movable {
+public class Character extends SolidObject implements Movable {
 	protected String name;
 	protected int ammo;
 	protected int maxHealth;
 	protected int health;
 	protected double speed;
-	protected AnchorPane characterBox;
-	protected double y_speed;
 	protected AnimationTimer animationTimer;
-	protected AnimationTimer animationTimer2;
 	protected long lastTimeTriggered;
-	protected boolean isKeyPress;
-	protected Weapon weapon;
-
 	protected boolean isHeadLeft;
+	protected double jumpStrength;
+	protected Weapon weapon;
+	private KeyCode leftKey;
+	private KeyCode rightKey;
+	private KeyCode jumpKey;
+	private KeyCode shootKey;
+	private Text nameTag;
 	
-	public Character(double width, double height, double x, double y, double speed) {
-		super(width, height, x, y);
-		setSpeed(speed);
-		setY_speed(0.0);
+	public Character(double width, double height, double speed, double jumpStrength) {
+		super(width, height);
+		this.speed = speed;
+		this.jumpStrength = jumpStrength;
+		this.leftKey = KeyCode.A;
+		this.rightKey = KeyCode.D;
+		this.jumpKey = KeyCode.W;
+		this.shootKey = KeyCode.SPACE;
+		this.nameTag = new Text("Tesa da");
+		this.nameTag.setTextAlignment(TextAlignment.CENTER);
+		
+		getBoundBox().getChildren().add(nameTag);
+		AnchorPane.setTopAnchor(nameTag, -20.0);
 		
 		this.animationTimer = new AnimationTimer() {
 			
@@ -36,52 +50,47 @@ public class Character extends SolidObject implements Collidable, Movable {
 				
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
 				
-				if (now - lastTimeTriggered >= 10000000)
-				{
-
+				if (now - lastTimeTriggered >= 10000000) {
 					
-					if (getY() < 400) {
-						setY(getY() + GameScene.gravity_g);
-					} else {
-						setY_speed(0.0);
+					if (GameScene.keyPressed.containsKey(leftKey)) {
+						if (GameScene.keyPressed.get(leftKey)) {
+							setSpeed_x(-speed);
+							setHeadLeft(true);
+						}
 					}
 					
-					
-					if (GameScene.keyPressed.get("a")) {
-						System.out.println(getX());
-						
-						setX(getX() - getSpeed());
+					if (GameScene.keyPressed.containsKey(rightKey)) {
+						if (GameScene.keyPressed.get(rightKey)) {
+							setSpeed_x(speed);
+							setHeadLeft(false);
+			
+						}
 					}
 					
-					if (GameScene.keyPressed.get("d")) {
-						setX(getX() + getSpeed());
+					if (GameScene.keyPressed.containsKey(shootKey)) {
+						if (GameScene.keyPressed.get(shootKey)) {
+							if (getWeapon() != null) {
+								double bulletSpawnX = 0.0;
+								if (isHeadLeft()) {
+									bulletSpawnX = getX();
+								} else {
+									bulletSpawnX = getX() + getWidth();
+								}
+								getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
+							} else {
+								System.out.println("No weapon!");
+							}
+						}
 					}
 					
-					if (GameScene.keyPressed.get("w")) {
-
-					}
-					
-					AnchorPane.setTopAnchor(characterBox, getY());
-					AnchorPane.setLeftAnchor(characterBox, getX());
+					AnchorPane.setTopAnchor(getBoundBox(), getY());
+					AnchorPane.setLeftAnchor(getBoundBox(), getX());
 					lastTimeTriggered = now;
 				}
 			}
 		};
 		
 		this.animationTimer.start();
-	}
-	
-	
-	public double getY_speed() {
-		return y_speed;
-	}
-
-	public void setY_speed(double y_speed) {
-		if (y_speed > 0) {
-			this.y_speed = y_speed;
-		} else {
-			this.y_speed = 0;
-		}
 	}
 
 	public void draw(double x, double y) {};
@@ -118,25 +127,86 @@ public class Character extends SolidObject implements Collidable, Movable {
 		this.health = health;
 	}
 
-	public double getSpeed() {
-		return speed;
+	public boolean isHeadLeft() {
+		return isHeadLeft;
 	}
 
-	public void setSpeed(double speed) {
-		if (speed > 0) {
-			this.speed = speed;
-		} else {
-			this.speed = 1;
-		}
+	public void setHeadLeft(boolean isHeadLeft) {
+		this.isHeadLeft = isHeadLeft;
+	}
+
+	public KeyCode getLeftKey() {
+		return leftKey;
+	}
+
+	public void setLeftKey(KeyCode leftKey) {
+		this.leftKey = leftKey;
+	}
+
+	public KeyCode getRightKey() {
+		return rightKey;
+	}
+
+	public void setRightKey(KeyCode rightKey) {
+		this.rightKey = rightKey;
+	}
+
+	public KeyCode getJumpKey() {
+		return jumpKey;
+	}
+
+	public void setJumpKey(KeyCode jumpKey) {
+		this.jumpKey = jumpKey;
+	}
+
+	public KeyCode getShootKey() {
+		return shootKey;
+	}
+
+	public void setShootKey(KeyCode shootKey) {
+		this.shootKey = shootKey;
+	}
+
+	@Override
+	public void onCollide(SolidObject target) {
 		
-	}
-
-	public AnchorPane getCharacterBox() {
-		return characterBox;
-	}
-
-	public void setCharacterBox(AnchorPane characterBox) {
-		this.characterBox = characterBox;
+		if (target instanceof Ground) {
+			
+			double bottom_y = getY() + getHeight();
+			if (bottom_y >= target.getY() && bottom_y <= target.getY() + target.getHeight()) {
+				
+				if (getSpeed_y() > 0) {
+					setSpeed_y(0.0);
+					setY(target.getY() - getHeight());
+				}
+				
+				if (GameScene.keyPressed.containsKey(jumpKey)) {
+					if (GameScene.keyPressed.get(jumpKey)) {
+						if (getSpeed_y() < 0.5) {
+							setSpeed_y(-this.jumpStrength);
+						}
+					}
+				}
+			} else if (getSpeed_y() > 0.0) {
+			
+				double left_x = getX();
+				if (left_x >= target.getX() && left_x <= target.getX() + target.getWidth()) {
+					if (getSpeed_x() < 0.0) {
+						setX(target.getX() + target.getWidth());
+						setSpeed_x(0.0);
+					}
+				}
+				
+				double right_x = getX() + getWidth();
+				if (right_x >= target.getX() && right_x <= target.getX() + target.getWidth()) {
+					if (getSpeed_x() > 0.0) {
+						setX(target.getX() - getWidth());
+						setSpeed_x(0.0);
+					}
+				}
+				
+			}
+		}
 	}
 
 	public Weapon getWeapon() {
@@ -145,21 +215,5 @@ public class Character extends SolidObject implements Collidable, Movable {
 
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
-	}
-
-
-	@Override
-	public void onCollide() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+	}	
 }
