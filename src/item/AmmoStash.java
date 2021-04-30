@@ -9,5 +9,11 @@ public class AmmoStash extends Utility{
 		System.out.println("Pick up AmmoStash");
 		character.getWeapon().refillAmmo();
 	}
+
+	@Override
+	public void onCollide() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

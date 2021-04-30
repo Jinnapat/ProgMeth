@@ -13,4 +13,10 @@ public class Bandage extends Utility{
 		character.setHealth(newHealth);
 	}
 
+	@Override
+	public void onCollide() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
