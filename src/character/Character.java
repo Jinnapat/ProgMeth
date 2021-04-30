@@ -147,25 +147,19 @@ public class Character extends SolidObject implements Collidable, Movable {
 		this.weapon = weapon;
 	}
 
-	@Override
-<<<<<<< HEAD
-	public void OnCollide(Collidable target) {}
-
-||||||| c11b1af
-	public void OnCollide(Collidable target) {}
-=======
-	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public void onCollide() {
 		// TODO Auto-generated method stub
 		
 	}
->>>>>>> ea4183c2867a1f7cce174e398a2471a7e8f9ddc8
+
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

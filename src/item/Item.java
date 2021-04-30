@@ -1,7 +1,8 @@
 package item;
 import character.Character;
+import sceneObject.SolidObject;
 
-public abstract class Item{
+public abstract class Item extends SolidObject{
 	
 	protected String name;
 	protected String sprite;
@@ -11,12 +12,12 @@ public abstract class Item{
 	
 	
 	public Item() {
-		super();
+		super(10, 10, 10, 10);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Item(String name, String sprite, double xPos, double yPos) {
-		super();
+		super(yPos, yPos, yPos, yPos);
 		this.setName(name);;
 		this.setSprite(sprite);
 		this.setxPos(xPos);

@@ -92,6 +92,12 @@ public class Weapon extends Item{
 	public void setRunSpeed(double runSpeed) {
 		this.runSpeed = Math.max(runSpeed, 0.00d);
 	}
+
+	@Override
+	public void onCollide() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
