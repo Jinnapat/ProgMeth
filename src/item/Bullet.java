@@ -24,24 +24,7 @@ public class Bullet extends SolidObject{
 	public void shoot() {
 		System.out.println("Bang!");
 		// TODO
-		AnimationTimer animationTimer = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
-				if (now - lastTimeTriggered >= 10000000) {
-					
-					setX(getX() + speed);
-					AnchorPane.setTopAnchor(getBoundBox(), getY());
-					AnchorPane.setLeftAnchor(getBoundBox(), getX());
-					lastTimeTriggered = now;
-				}
-			}
-		};
-		
-		animationTimer.start();
+
 	}
 
 	public double getSpeed() {

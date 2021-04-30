@@ -8,6 +8,7 @@ public class Weapon extends Item{
 	
 	private int maxAmmo;
 	private int currentAmmo;
+	private double coolDown;
 	private double fireRate;
 	private double range;
 	private double runSpeed; //percent
@@ -19,6 +20,8 @@ public class Weapon extends Item{
 		this.fireRate = 10;
 		this.range = 10;
 		this.runSpeed = 100.00;
+		this.coolDown = 0.0;
+		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 	}
 	
@@ -27,28 +30,34 @@ public class Weapon extends Item{
 		this.maxAmmo = maxAmmo;
 		this.setFireRate(fireRate);
 		this.setRunSpeed(runSpeed);
+		this.coolDown = 0.0;
+		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 	}
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
 		this.bullets.clear();
-		this.bullets = new ArrayList<Bullet>();
 		for(int i=0; i<this.maxAmmo; i++) {
 			bullets.add(new Bullet(i, i, i, i));
 		}
 	}
 	
 	public void shoot() {
-		if(this.currentAmmo > 0) {
-			this.currentAmmo -= 1;
-			this.bullets.get(currentAmmo).shoot();
-			this.bullets.remove(currentAmmo);
-			
-			// try to create bullet ui
-			
-		} else {
-			System.out.println("Can't shoot");
+		coolDown -= fireRate;
+		
+		if (coolDown <= 0.0) {
+			if(this.currentAmmo > 0) {
+				this.currentAmmo -= 1;
+				this.bullets.get(currentAmmo).shoot();
+				this.bullets.remove(currentAmmo);
+				
+				// try to create bullet ui
+				
+			} else {
+				System.out.println("Can't shoot");
+			}
+			coolDown = 100.0;
 		}
 	}
 
@@ -94,6 +103,14 @@ public class Weapon extends Item{
 
 	public void setRunSpeed(double runSpeed) {
 		this.runSpeed = Math.max(runSpeed, 0.00d);
+	}
+
+	public double getCoolDown() {
+		return coolDown;
+	}
+
+	public void setCoolDown(double coolDown) {
+		this.coolDown = coolDown;
 	}
 	
 	

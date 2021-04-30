@@ -23,6 +23,8 @@ public class Game extends Application{
 		Scout myChar = new Scout(50.0, 50.0, 10.0, 10);
 		myChar.setX(20.0);
 		myChar.setY(500.0);
+		myChar.setWeapon(new Weapon());
+		myChar.getWeapon().setFireRate(1);
 		
 		Scout myChar2 = new Scout(50.0, 50.0, 10.0, 10);
 		myChar2.setX(500.0);
@@ -45,7 +47,7 @@ public class Game extends Application{
 
 		myChar.addAllCollidableObject(solidObjects);
 		myChar2.addAllCollidableObject(solidObjects);
-		//myChar.setWeapon(new Weapon());
+		
 		myChar.checkCollide();
 		myChar2.checkCollide();
 		

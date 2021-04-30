@@ -5,6 +5,9 @@ import item.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextBoundsType;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
 import sceneObject.Ground;
@@ -24,6 +27,7 @@ public class Character extends SolidObject implements Movable {
 	private KeyCode rightKey;
 	private KeyCode jumpKey;
 	private KeyCode shootKey;
+	private Text nameTag;
 	
 	public Character(double width, double height, double speed, double jumpStrength) {
 		super(width, height);
@@ -33,6 +37,11 @@ public class Character extends SolidObject implements Movable {
 		this.rightKey = KeyCode.D;
 		this.jumpKey = KeyCode.W;
 		this.shootKey = KeyCode.SPACE;
+		this.nameTag = new Text("Tesa da");
+		this.nameTag.setTextAlignment(TextAlignment.CENTER);
+		
+		getBoundBox().getChildren().add(nameTag);
+		AnchorPane.setTopAnchor(nameTag, -20.0);
 		
 		this.animationTimer = new AnimationTimer() {
 			
