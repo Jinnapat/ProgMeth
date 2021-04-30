@@ -3,6 +3,7 @@ package item;
 import java.util.ArrayList;
 
 import character.Character;
+import javafx.animation.AnimationTimer;
 
 public class Weapon extends Item{
 	
@@ -13,6 +14,7 @@ public class Weapon extends Item{
 	private double range;
 	private double runSpeed; //percent
 	private ArrayList<Bullet> bullets;
+	private long lastTimeTriggered;
 	
 	public Weapon() {
 		super();
@@ -23,6 +25,26 @@ public class Weapon extends Item{
 		this.coolDown = 0.0;
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
+		
+		AnimationTimer animationTimer = new AnimationTimer() {
+			
+			@Override
+			public void handle(long now) {
+				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+				
+				if (now - lastTimeTriggered >= 10000000) {
+					
+					if (getCoolDown() > 0.0) {
+						setCoolDown(getCoolDown() - (getFireRate()));
+					}
+					
+					lastTimeTriggered = now;
+				}
+			}
+			
+		};
+		
+		animationTimer.start();
 	}
 	
 	public Weapon(int maxAmmo, double fireRate, double range, double runSpeed) {
@@ -39,17 +61,16 @@ public class Weapon extends Item{
 		this.currentAmmo = this.maxAmmo;
 		this.bullets.clear();
 		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet(i, i, i, i));
+			bullets.add(new Bullet());
 		}
 	}
 	
-	public void shoot() {
-		coolDown -= fireRate;
-		
+	public void shoot(double x, double y, boolean isLeftSide) {
+
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
 				this.currentAmmo -= 1;
-				this.bullets.get(currentAmmo).shoot();
+				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
 				this.bullets.remove(currentAmmo);
 				
 				// try to create bullet ui

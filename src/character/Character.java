@@ -70,7 +70,13 @@ public class Character extends SolidObject implements Movable {
 					if (GameScene.keyPressed.containsKey(shootKey)) {
 						if (GameScene.keyPressed.get(shootKey)) {
 							if (getWeapon() != null) {
-								getWeapon().shoot();
+								double bulletSpawnX = 0.0;
+								if (isHeadLeft()) {
+									bulletSpawnX = getX();
+								} else {
+									bulletSpawnX = getX() + getWidth();
+								}
+								getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
 							} else {
 								System.out.println("No weapon!");
 							}
