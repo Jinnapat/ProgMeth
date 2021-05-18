@@ -2,8 +2,8 @@ package character;
 
 public class Heavy extends Character {
 
-	public Heavy(double width, double height, double speed, double jumpStrength) {
-		super(width, height, speed, jumpStrength);
+	public Heavy() {
+		super(50.0, 50.0, 10.0, 10);
 		// TODO Auto-generated constructor stub
 	}
 

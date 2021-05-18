@@ -1,7 +1,5 @@
 package sceneObject;
 
-import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 
@@ -14,8 +12,6 @@ public abstract class SolidObject {
 	private double speed_x;
 	private double speed_y;
 	private double friction;
-	
-	private ArrayList<SolidObject> collideList;
 	private long lastTimeTriggered;
 	
 	public SolidObject(double width, double height) {
@@ -26,7 +22,6 @@ public abstract class SolidObject {
 		this.y = 0.0;
 		this.speed_x = 0.0;
 		this.speed_y = 0.0;
-		this.collideList = new ArrayList<SolidObject>();
 		this.friction = 0.8;
 		
 		this.boundBox = new AnchorPane();
@@ -99,16 +94,6 @@ public abstract class SolidObject {
 	public void setFriction(double friction) {
 		this.friction = friction;
 	}
-
-	public void addCollidableObject(SolidObject target) {
-		this.collideList.add(target);
-	}
-	
-	public void addAllCollidableObject(ArrayList<SolidObject> targetList) {
-		for (int i = 0; i < targetList.size(); i++) {
-			this.addCollidableObject(targetList.get(i));
-		}
-	}
 	
 	public void checkCollide() {
 		AnimationTimer animationTimer = new AnimationTimer() {
@@ -124,8 +109,8 @@ public abstract class SolidObject {
 					setSpeed_y(getSpeed_y() + GameScene.gravity_g);
 					
 					
-					for (int i = 0; i < collideList.size(); i++) {
-						SolidObject target = collideList.get(i);
+					for (int i = 0; i < GameScene.solidObjects.size(); i++) {
+						SolidObject target = GameScene.solidObjects.get(i);
 						
 						boolean x_collide = false;
 						boolean y_collide = false;

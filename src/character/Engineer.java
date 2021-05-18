@@ -2,8 +2,8 @@ package character;
 
 public class Engineer extends Character {
 
-	public Engineer(double width, double height, double speed, double jumpStrength) {
-		super(width, height, speed, jumpStrength);
+	public Engineer() {
+		super(50.0, 50.0, 10.0, 10);
 		
 	}
 

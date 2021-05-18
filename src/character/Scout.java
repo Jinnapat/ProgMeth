@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 
 public class Scout extends Character{
 	
-	public Scout(double width, double height, double speed, double jumpStrength) {
-		super(width, height, speed, jumpStrength);
+	public Scout() {
+		super(50.0, 50.0, 10.0, 10);
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.CHOCOLATE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 }

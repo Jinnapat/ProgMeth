@@ -2,8 +2,8 @@ package character;
 
 public class Shield extends Character {
 
-	public Shield(double width, double height, double speed, double jumpStrength) {
-		super(width, height, speed, jumpStrength);
+	public Shield() {
+		super(50.0, 50.0, 10.0, 10);
 		
 	}
 

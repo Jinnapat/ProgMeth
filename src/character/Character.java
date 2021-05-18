@@ -10,10 +10,10 @@ import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
 import sceneObject.Ground;
+import java.util.HashMap;
 
 public class Character extends SolidObject implements Movable {
 	protected String name;
-	protected int ammo;
 	protected int maxHealth;
 	protected int health;
 	protected double speed;
@@ -22,75 +22,27 @@ public class Character extends SolidObject implements Movable {
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
 	protected Weapon weapon;
-	private KeyCode leftKey;
-	private KeyCode rightKey;
-	private KeyCode jumpKey;
-	private KeyCode shootKey;
+	private HashMap<String, KeyCode> controlKeys = new HashMap<String, KeyCode>();
 	private Text nameTag;
 	
 	public Character(double width, double height, double speed, double jumpStrength) {
 		super(width, height);
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
-		this.leftKey = KeyCode.A;
-		this.rightKey = KeyCode.D;
-		this.jumpKey = KeyCode.W;
-		this.shootKey = KeyCode.SPACE;
-		this.nameTag = new Text("New Player");
-		this.nameTag.setTextAlignment(TextAlignment.CENTER);
+		nameTag = new Text("New Player");
+		nameTag.setTextAlignment(TextAlignment.CENTER);
 		
-		GameScene.root.getChildren().add(this.getBoundBox());
-		getBoundBox().getChildren().add(nameTag);
-		AnchorPane.setTopAnchor(nameTag, -20.0);
+		controlKeys = new HashMap<String, KeyCode>();
+		controlKeys.put("leftKey", KeyCode.A);
+		controlKeys.put("rightKey", KeyCode.D);
+		controlKeys.put("jumpKey", KeyCode.W);
+		controlKeys.put("shootKey", KeyCode.SPACE);
 		
-		this.animationTimer = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
-				if (now - lastTimeTriggered >= 10000000) {
-					
-					if (GameScene.keyPressed.containsKey(leftKey)) {
-						if (GameScene.keyPressed.get(leftKey)) {
-							setSpeed_x(-speed);
-							setHeadLeft(true);
-						}
-					}
-					
-					if (GameScene.keyPressed.containsKey(rightKey)) {
-						if (GameScene.keyPressed.get(rightKey)) {
-							setSpeed_x(speed);
-							setHeadLeft(false);
-			
-						}
-					}
-					
-					if (GameScene.keyPressed.containsKey(shootKey)) {
-						if (GameScene.keyPressed.get(shootKey)) {
-							if (getWeapon() != null) {
-								double bulletSpawnX = 0.0;
-								if (isHeadLeft()) {
-									bulletSpawnX = getX();
-								} else {
-									bulletSpawnX = getX() + getWidth();
-								}
-								getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
-							} else {
-								System.out.println("No weapon!");
-							}
-						}
-					}
-					
-					AnchorPane.setTopAnchor(getBoundBox(), getY());
-					AnchorPane.setLeftAnchor(getBoundBox(), getX());
-					lastTimeTriggered = now;
-				}
-			}
-		};
+		GameScene.solidObjects.add(this);
+		GameScene.root.getChildren().add(getBoundBox());
+		GameScene.root.getChildren().add(nameTag);
 		
-		this.animationTimer.start();
+		checkCollide();
 	}
 
 	public void draw(double x, double y) {};
@@ -101,14 +53,7 @@ public class Character extends SolidObject implements Movable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getAmmo() {
-		return ammo;
-	}
-
-	public void setAmmo(int ammo) {
-		this.ammo = ammo;
+		this.nameTag.setText(name);
 	}
 
 	public int getMaxHealth() {
@@ -135,38 +80,83 @@ public class Character extends SolidObject implements Movable {
 		this.isHeadLeft = isHeadLeft;
 	}
 
-	public KeyCode getLeftKey() {
-		return leftKey;
+	public Text getNameTag() {
+		return nameTag;
 	}
 
-	public void setLeftKey(KeyCode leftKey) {
-		this.leftKey = leftKey;
+	public void setNameTag(Text nameTag) {
+		this.nameTag = nameTag;
 	}
 
-	public KeyCode getRightKey() {
-		return rightKey;
+	public Weapon getWeapon() {
+		return weapon;
 	}
 
-	public void setRightKey(KeyCode rightKey) {
-		this.rightKey = rightKey;
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 
-	public KeyCode getJumpKey() {
-		return jumpKey;
+	public HashMap<String, KeyCode> getControlKeys() {
+		return controlKeys;
 	}
 
-	public void setJumpKey(KeyCode jumpKey) {
-		this.jumpKey = jumpKey;
+	public void setControlKeys(HashMap<String, KeyCode> controlKeys) {
+		this.controlKeys = controlKeys;
 	}
 
-	public KeyCode getShootKey() {
-		return shootKey;
+	public void checkControl() {
+		this.animationTimer = new AnimationTimer() {
+			
+			@Override
+			public void handle(long now) {
+				
+				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+				
+				if (now - lastTimeTriggered >= 10000000) {
+					
+					if (GameScene.keyPressed.containsKey(controlKeys.get("leftKey"))) {
+						if (GameScene.keyPressed.get(controlKeys.get("leftKey"))) {
+							setSpeed_x(-speed);
+							setHeadLeft(true);
+						}
+					}
+					
+					if (GameScene.keyPressed.containsKey(controlKeys.get("rightKey"))) {
+						if (GameScene.keyPressed.get(controlKeys.get("rightKey"))) {
+							setSpeed_x(speed);
+							setHeadLeft(false);
+			
+						}
+					}
+					
+					if (GameScene.keyPressed.containsKey(controlKeys.get("shootKey"))) {
+						if (GameScene.keyPressed.get(controlKeys.get("shootKey"))) {
+							if (getWeapon() != null) {
+								double bulletSpawnX = 0.0;
+								if (isHeadLeft()) {
+									bulletSpawnX = getX();
+								} else {
+									bulletSpawnX = getX() + getWidth();
+								}
+								getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
+							} else {
+								System.out.println("No weapon!");
+							}
+						}
+					}
+					
+					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
+					AnchorPane.setLeftAnchor(getNameTag(), getX() - 20);
+					AnchorPane.setTopAnchor(getBoundBox(), getY());
+					AnchorPane.setLeftAnchor(getBoundBox(), getX());
+					lastTimeTriggered = now;
+				}
+			}
+		};
+		
+		this.animationTimer.start();
 	}
-
-	public void setShootKey(KeyCode shootKey) {
-		this.shootKey = shootKey;
-	}
-
+	
 	@Override
 	public void onCollide(SolidObject target) {
 		
@@ -180,8 +170,8 @@ public class Character extends SolidObject implements Movable {
 					setY(target.getY() - getHeight());
 				}
 				
-				if (GameScene.keyPressed.containsKey(jumpKey)) {
-					if (GameScene.keyPressed.get(jumpKey)) {
+				if (GameScene.keyPressed.containsKey(controlKeys.get("jumpKey"))) {
+					if (GameScene.keyPressed.get(controlKeys.get("jumpKey"))) {
 						if (getSpeed_y() < 0.5) {
 							setSpeed_y(-this.jumpStrength);
 						}
@@ -208,12 +198,4 @@ public class Character extends SolidObject implements Movable {
 			}
 		}
 	}
-
-	public Weapon getWeapon() {
-		return weapon;
-	}
-
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
-	}	
 }

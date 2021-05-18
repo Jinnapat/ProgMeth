@@ -16,12 +16,10 @@ public class Ground extends SolidObject {
 		this.getBoundBox().setPrefWidth(width);
 		this.getBoundBox().setPrefHeight(height);
 		this.getBoundBox().setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-		setX(x);
-		setY(y);
 		AnchorPane.setTopAnchor(this.getBoundBox(), getY());
 		AnchorPane.setLeftAnchor(this.getBoundBox(), getX());
-		
-		GameScene.root.getChildren().add(this.getBoundBox());
+		GameScene.solidObjects.add(this);
+		GameScene.root.getChildren().add(getBoundBox());
 	}
 
 	@Override

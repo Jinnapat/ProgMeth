@@ -1,5 +1,6 @@
 package sceneObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -8,10 +9,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class GameScene {
-	public static HashMap<KeyCode, Boolean> keyPressed = new HashMap();
+	public static HashMap<KeyCode, Boolean> keyPressed = new HashMap<KeyCode, Boolean>();
 	public static AnchorPane root = new AnchorPane();
 	public static Scene scene = new Scene(root, 1200, 800);
 	public static double gravity_g = 0.3;
+	public static ArrayList<SolidObject> solidObjects = new ArrayList<SolidObject>();
 	
 	public GameScene() {};
 	
