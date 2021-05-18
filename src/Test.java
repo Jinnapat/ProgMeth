@@ -26,14 +26,6 @@ public class Test extends Application{
 		myChar.setWeapon(new Weapon());
 		myChar.getWeapon().setFireRate(20);
 		
-		Scout myChar2 = new Scout(50.0, 50.0, 10.0, 10);
-		myChar2.setX(500.0);
-		myChar2.setY(500.0);
-		myChar2.setLeftKey(KeyCode.LEFT);
-		myChar2.setRightKey(KeyCode.RIGHT);
-		myChar2.setJumpKey(KeyCode.UP);
-		myChar2.setShootKey(KeyCode.ENTER);
-		
 		Ground ground1 = new Ground(100, 20, 10, 670, Color.BLACK);
 		Ground ground2 = new Ground(400, 20, 200, 530, Color.BLACK);
 		Ground ground3 = new Ground(300, 20, 600, 430, Color.BLACK);
@@ -46,13 +38,10 @@ public class Test extends Application{
 		solidObjects.add(base);
 
 		myChar.addAllCollidableObject(solidObjects);
-		myChar2.addAllCollidableObject(solidObjects);
 		
 		myChar.checkCollide();
-		myChar2.checkCollide();
 		
 		GameScene.root.getChildren().add(myChar.getBoundBox());
-		GameScene.root.getChildren().add(myChar2.getBoundBox());
 		GameScene.root.getChildren().add(ground1.getGroundBox());
 		GameScene.root.getChildren().add(ground2.getGroundBox());
 		GameScene.root.getChildren().add(ground3.getGroundBox());

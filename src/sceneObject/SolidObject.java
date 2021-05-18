@@ -3,6 +3,7 @@ package sceneObject;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class SolidObject {
@@ -14,6 +15,7 @@ public abstract class SolidObject {
 	private double speed_x;
 	private double speed_y;
 	private double friction;
+	private Image sprite;
 	
 	private ArrayList<SolidObject> collideList;
 	private long lastTimeTriggered;
@@ -128,6 +130,16 @@ public abstract class SolidObject {
 
 	public void setFriction(double friction) {
 		this.friction = friction;
+	}
+	
+	
+
+	public Image getSprite() {
+		return sprite;
+	}
+
+	public void setSprite(Image sprite) {
+		this.sprite = sprite;
 	}
 
 	public void addCollidableObject(SolidObject target) {

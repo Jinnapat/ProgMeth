@@ -5,7 +5,6 @@ import sceneObject.SolidObject;
 public abstract class Item extends SolidObject{
 	
 	protected String name;
-	protected String sprite;
 	protected double xPos;
 	protected double yPos;
 	
@@ -18,8 +17,7 @@ public abstract class Item extends SolidObject{
 
 	public Item(String name, String sprite, double xPos, double yPos) {
 		super(yPos, yPos, yPos, yPos);
-		this.setName(name);;
-		this.setSprite(sprite);
+		this.setName(name);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
 	}
@@ -35,13 +33,6 @@ public abstract class Item extends SolidObject{
 		this.name = name.isBlank() ? "Unnamed": name;
 	}
 
-	public String getSprite() {
-		return sprite;
-	}
-
-	public void setSprite(String sprite) {
-		this.sprite = sprite;
-	}
 
 	public double getxPos() {
 		return xPos;
