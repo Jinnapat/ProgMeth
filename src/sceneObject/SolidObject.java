@@ -18,21 +18,6 @@ public abstract class SolidObject {
 	private ArrayList<SolidObject> collideList;
 	private long lastTimeTriggered;
 	
-	public SolidObject() {
-		super();
-		this.width = 50.0;
-		this.height = 50.0;
-		this.x = 0.0;
-		this.y = 0.0;
-		this.speed_x = 0.0;
-		this.speed_y = 0.0;
-		this.collideList = new ArrayList();
-		this.friction = 0.8;
-		
-		this.boundBox = new AnchorPane();
-		this.boundBox.setPrefSize(getWidth(), getHeight());
-	}
-	
 	public SolidObject(double width, double height) {
 		super();
 		this.width = width;
@@ -41,22 +26,7 @@ public abstract class SolidObject {
 		this.y = 0.0;
 		this.speed_x = 0.0;
 		this.speed_y = 0.0;
-		this.collideList = new ArrayList();
-		this.friction = 0.8;
-		
-		this.boundBox = new AnchorPane();
-		this.boundBox.setPrefSize(getWidth(), getHeight());
-	}
-	
-	public SolidObject(double width, double height, double x, double y) {
-		super();
-		this.width = width;
-		this.height = height;
-		this.x = x;
-		this.y = y;
-		this.speed_x = 0.0;
-		this.speed_y = 0.0;
-		this.collideList = new ArrayList();
+		this.collideList = new ArrayList<SolidObject>();
 		this.friction = 0.8;
 		
 		this.boundBox = new AnchorPane();

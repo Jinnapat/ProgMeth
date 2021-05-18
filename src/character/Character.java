@@ -7,7 +7,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextBoundsType;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
 import sceneObject.Ground;
@@ -37,9 +36,10 @@ public class Character extends SolidObject implements Movable {
 		this.rightKey = KeyCode.D;
 		this.jumpKey = KeyCode.W;
 		this.shootKey = KeyCode.SPACE;
-		this.nameTag = new Text("Tesa da");
+		this.nameTag = new Text("New Player");
 		this.nameTag.setTextAlignment(TextAlignment.CENTER);
 		
+		GameScene.root.getChildren().add(this.getBoundBox());
 		getBoundBox().getChildren().add(nameTag);
 		AnchorPane.setTopAnchor(nameTag, -20.0);
 		

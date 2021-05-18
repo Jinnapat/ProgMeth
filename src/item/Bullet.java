@@ -19,7 +19,7 @@ public class Bullet extends SolidObject{
 	private AnimationTimer animationTimer;
 	
 	public Bullet() {
-		super(5.0, 3.0, 0.0, 0.0);
+		super(5.0, 3.0);
 		this.maxRange = 500;
 		this.speed = 5;
 		this.isLeftSide = false;
@@ -27,7 +27,9 @@ public class Bullet extends SolidObject{
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
-		super(width, height, x, y);
+		super(width, height);
+		this.setX(x);
+		this.setY(y);
 		this.maxRange = 500;
 		this.speed = 5;
 		this.isLeftSide = false;

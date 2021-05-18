@@ -2,9 +2,8 @@ import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
-
+import GUI.Healthbar;
 import character.Scout;
 import item.Weapon;
 import sceneObject.GameScene;
@@ -15,7 +14,7 @@ public class Game extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
+	} 
 
 	@Override
 	public void start(Stage p) throws Exception {
@@ -51,12 +50,8 @@ public class Game extends Application{
 		myChar.checkCollide();
 		myChar2.checkCollide();
 		
-		GameScene.root.getChildren().add(myChar.getBoundBox());
-		GameScene.root.getChildren().add(myChar2.getBoundBox());
-		GameScene.root.getChildren().add(ground1.getGroundBox());
-		GameScene.root.getChildren().add(ground2.getGroundBox());
-		GameScene.root.getChildren().add(ground3.getGroundBox());
-		GameScene.root.getChildren().add(base.getGroundBox());
+		Healthbar player1Healthbar = new Healthbar(100, 100);
+		GameScene.root.getChildren().add(player1Healthbar.getHealthBox());
 		
 		GameScene.start();
 		p.setResizable(false);
