@@ -1,9 +1,10 @@
-package item;
+package item.base;
 
 import java.util.ArrayList;
 
 import character.Character;
 import javafx.animation.AnimationTimer;
+import sceneObject.SolidObject;
 
 public class Weapon extends Item{
 	
@@ -132,6 +133,12 @@ public class Weapon extends Item{
 
 	public void setCoolDown(double coolDown) {
 		this.coolDown = coolDown;
+	}
+
+	@Override
+	public void onCollide(SolidObject target) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

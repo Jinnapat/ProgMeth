@@ -1,4 +1,4 @@
-package item;
+package item.base;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;

@@ -1,6 +1,8 @@
-package item;
+package item.derived;
 
 import character.Character;
+import item.base.Utility;
+import sceneObject.SolidObject;
 
 public class AmmoStash extends Utility{
 
@@ -9,11 +11,10 @@ public class AmmoStash extends Utility{
 		System.out.println("Pick up AmmoStash");
 		character.getWeapon().refillAmmo();
 	}
-
+	
 	@Override
-	public void onCollide() {
+	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

@@ -1,6 +1,6 @@
 package character;
 
-import item.Weapon;
+import item.base.Weapon;
 import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;

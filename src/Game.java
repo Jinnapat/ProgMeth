@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 import character.Scout;
-import item.Weapon;
+import item.base.Weapon;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;

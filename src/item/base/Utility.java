@@ -1,4 +1,4 @@
-package item;
+package item.base;
 
 import character.Character;
 

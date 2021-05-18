@@ -1,6 +1,8 @@
-package item;
+package item.derived;
 
 import character.Character;
+import item.base.Utility;
+import sceneObject.SolidObject;
 
 public class Bandage extends Utility{
 
@@ -14,7 +16,7 @@ public class Bandage extends Utility{
 	}
 
 	@Override
-	public void onCollide() {
+	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
 		
 	}
