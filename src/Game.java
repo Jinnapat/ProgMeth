@@ -5,6 +5,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import character.Engineer;
+import character.Heavy;
 import character.Scout;
 import gui.Healthbar;
 import item.base.Weapon;
@@ -24,7 +26,7 @@ public class Game extends Application{
 		background.setPreserveRatio(true);
 		GameScene.root.getChildren().add(background);
 		
-		Scout myChar = new Scout();
+		Engineer myChar = new Engineer();
 		myChar.setX(20.0);
 		myChar.setY(500.0);
 		myChar.setWeapon(new Weapon());
