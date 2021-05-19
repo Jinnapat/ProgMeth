@@ -1,7 +1,6 @@
 package gui;
 
 import constants.GameConstant;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

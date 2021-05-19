@@ -5,6 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import constants.FontHolder;
 import constants.GameConstant;
 
 public class MainMenuGUI extends VBox {
@@ -19,6 +20,7 @@ public class MainMenuGUI extends VBox {
 		this.menuBox = new HBox();
 		
 		Text title = new Text();
+		title.setFont(FontHolder.getInstance().dream24);
 		title.setText("This is Name");
 		
 		Button play1PlayerBtn = new Button("1 Player");
