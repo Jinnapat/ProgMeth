@@ -1,7 +1,7 @@
 package character;
 
 import interfaces.Movable;
-import item.Weapon;
+import item.base.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;

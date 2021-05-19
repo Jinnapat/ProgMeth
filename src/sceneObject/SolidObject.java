@@ -1,6 +1,7 @@
 package sceneObject;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class SolidObject {
@@ -15,6 +16,7 @@ public abstract class SolidObject {
 	private long lastTimeTriggered;
 	private boolean fallable;
 	private AnimationTimer animationTimer;
+	private Image sprite;
 	
 	public SolidObject(double width, double height) {
 		super();
@@ -22,6 +24,20 @@ public abstract class SolidObject {
 		this.height = height;
 		this.x = 0.0;
 		this.y = 0.0;
+		this.speed_x = 0.0;
+		this.speed_y = 0.0;
+		this.friction = 0.8;
+		this.fallable = false;
+		this.boundBox = new AnchorPane();
+		this.boundBox.setPrefSize(getWidth(), getHeight());
+	}
+	
+	public SolidObject(double width, double height, double x, double y) {
+		super();
+		this.width = width;
+		this.height = height;
+		this.x = x;
+		this.y = y;
 		this.speed_x = 0.0;
 		this.speed_y = 0.0;
 		this.friction = 0.8;
@@ -104,6 +120,14 @@ public abstract class SolidObject {
 
 	public void setFallable(boolean fallable) {
 		this.fallable = fallable;
+	}
+
+	public Image getSprite() {
+		return sprite;
+	}
+
+	public void setSprite(Image sprite) {
+		this.sprite = sprite;
 	}
 
 	public void checkCollide() {

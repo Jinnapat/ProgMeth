@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import GUI.Healthbar;
 import character.Scout;
-import item.Weapon;
+import item.base.Weapon;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 
