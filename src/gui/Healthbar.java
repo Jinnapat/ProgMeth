@@ -11,7 +11,7 @@ public class Healthbar {
 	public Healthbar() {
 		super();
 		this.healthBox = new AnchorPane();
-		this.healthBox.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+		this.healthBox.setBackground(new Background(new BackgroundFill(Color.CRIMSON, null, null)));
 		this.healthBox.setPrefSize(200, 20);
 		
 		AnchorPane.setTopAnchor(healthBox, 10.0);
