@@ -2,6 +2,8 @@ package sceneObject;
 
 import character.Character;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,7 +18,18 @@ public class Ground extends SolidObject {
 		this.setY(y);
 		this.getBoundBox().setPrefWidth(width);
 		this.getBoundBox().setPrefHeight(height);
-		this.getBoundBox().setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+		
+		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());
+		int tileNumber = (int) (width / 50);
+		double blockWidth = width / tileNumber;
+		for (int i = 0; i < tileNumber; i++) {
+			ImageView imageView = new ImageView(image);
+			imageView.setFitHeight(height);
+			imageView.setFitWidth(blockWidth);
+			AnchorPane.setLeftAnchor(imageView, i * blockWidth);
+			this.getBoundBox().getChildren().add(imageView);
+		}
+		
 		AnchorPane.setTopAnchor(this.getBoundBox(), getY());
 		AnchorPane.setLeftAnchor(this.getBoundBox(), getX());
 		GameScene.solidObjects.add(this);

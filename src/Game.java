@@ -1,8 +1,8 @@
 import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import character.Scout;
@@ -19,9 +19,9 @@ public class Game extends Application{
 
 	@Override
 	public void start(Stage p) throws Exception {
-		AnchorPane background = new AnchorPane();
-		background.setPrefSize(1200, 800);
-		background.setBackground(new Background(new BackgroundFill(Color.AZURE, null, null)));
+		ImageView background = new ImageView(new Image(ClassLoader.getSystemResource("images/background.png").toString()));
+		background.setFitHeight(800);
+		background.setPreserveRatio(true);
 		GameScene.root.getChildren().add(background);
 		
 		Scout myChar = new Scout();
@@ -34,6 +34,7 @@ public class Game extends Application{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
+		myChar2.setHealth(1000);
 		myChar2.setX(500.0);
 		myChar2.setY(500.0);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);

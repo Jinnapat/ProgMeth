@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 public class ImageHolder {
 	public Image awp = this.loadImage("AWP", "png");
+	public Image shortgun = this.loadImage("shortgun", "png");
 	
 	
 	
