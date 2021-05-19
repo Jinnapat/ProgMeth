@@ -6,13 +6,13 @@ import item.base.Weapon;
 public class Awp extends Weapon{
 
 	public Awp() {
-		super(100, 2, 1000, 50);
+		super(10000, 100, 1000, 50);
 		this.setSprite(ImageHolder.getInstance().awp);
-		// TODO Auto-generated constructor stub
+		System.out.println("AWP have been create");
 	}
 	
-	public static void main(String[] args) {
-		Awp awp = new Awp();
-		System.out.println(awp.getSprite());
-	}
+//	public static void main(String[] args) {
+//		Awp awp = new Awp();
+//		System.out.println(awp.getSprite());
+//	}
 }

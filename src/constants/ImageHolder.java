@@ -3,7 +3,7 @@ package constants;
 import javafx.scene.image.Image;
 
 public class ImageHolder {
-	public Image awp = this.loadImage("cat8k", "jpg");
+	public Image awp = this.loadImage("AWP", "png");
 	
 	
 	
