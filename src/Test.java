@@ -26,7 +26,6 @@ public class Test extends Application{
 		myChar.setY(500.0);
 		myChar.setWeapon(new Awp());
 		myChar.getWeapon().setFireRate(20);
-		System.out.println(myChar.getWeapon().getCurrentAmmo());
 		
 		Ground ground1 = new Ground(100, 20, 10, 670, Color.BLACK);
 		Ground ground2 = new Ground(400, 20, 200, 530, Color.BLACK);

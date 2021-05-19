@@ -15,7 +15,7 @@ public abstract class Item extends SolidObject{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(String name, String sprite, double xPos, double yPos) {
+	public Item(String name, double xPos, double yPos) {
 		super(yPos, yPos, yPos, yPos);
 		this.setName(name);
 		this.setxPos(xPos);

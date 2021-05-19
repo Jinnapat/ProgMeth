@@ -27,7 +27,66 @@ public class Weapon extends Item{
 		this.coolDown = 0.0;
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
-		
+		this.update();
+	}
+	
+	public Weapon(int maxAmmo, double fireRate, int damage, double range, double runSpeed) {
+		super();
+		this.maxAmmo = maxAmmo;
+		this.setFireRate(fireRate);
+		this.setRunSpeed(runSpeed);
+		this.setDamage(damage);
+		this.coolDown = 0.0;
+		this.bullets = new ArrayList<Bullet>();
+		this.refillAmmo();
+		this.update();
+//		AnimationTimer animationTimer = new AnimationTimer() {
+//			
+//			@Override
+//			public void handle(long now) {
+//				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+//				
+//				if (now - lastTimeTriggered >= 10000000) {
+//					
+//					if (getCoolDown() > 0.0) {
+//						setCoolDown(getCoolDown() - (getFireRate()));
+//					}
+//					
+//					lastTimeTriggered = now;
+//				}
+//			}
+//			
+//		};
+//		
+//		animationTimer.start();
+	}
+	
+	public void refillAmmo() {
+		this.currentAmmo = this.maxAmmo;
+		this.bullets.clear();
+		for(int i=0; i<this.maxAmmo; i++) {
+			bullets.add(new Bullet(this.damage));
+		}
+	}
+	
+	public void shoot(double x, double y, boolean isLeftSide) {
+
+		if (coolDown <= 0.0) {
+			if(this.currentAmmo > 0) {
+				this.currentAmmo -= 1;
+				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
+				this.bullets.remove(currentAmmo);
+				
+				// try to create bullet ui
+				
+			} else {
+				System.out.println("Can't shoot");
+			}
+			coolDown = 100.0;
+		}
+	}
+	
+	private void update() {
 		AnimationTimer animationTimer = new AnimationTimer() {
 			
 			@Override
@@ -47,41 +106,6 @@ public class Weapon extends Item{
 		};
 		
 		animationTimer.start();
-	}
-	
-	public Weapon(int maxAmmo, double fireRate, double range, double runSpeed) {
-		super();
-		this.maxAmmo = maxAmmo;
-		this.setFireRate(fireRate);
-		this.setRunSpeed(runSpeed);
-		this.coolDown = 0.0;
-		this.bullets = new ArrayList<Bullet>();
-		this.refillAmmo();
-	}
-	
-	public void refillAmmo() {
-		this.currentAmmo = this.maxAmmo;
-		this.bullets.clear();
-		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet());
-		}
-	}
-	
-	public void shoot(double x, double y, boolean isLeftSide) {
-
-		if (coolDown <= 0.0) {
-			if(this.currentAmmo > 0) {
-				this.currentAmmo -= 1;
-				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
-				this.bullets.remove(currentAmmo);
-				
-				// try to create bullet ui
-				
-			} else {
-				System.out.println("Can't shoot");
-			}
-			coolDown = 100.0;
-		}
 	}
 
 	public void collectBy(Character character) {
@@ -134,6 +158,14 @@ public class Weapon extends Item{
 
 	public void setCoolDown(double coolDown) {
 		this.coolDown = coolDown;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 
 	@Override
