@@ -9,6 +9,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import sceneObject.GameScene;
+import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
 
@@ -139,11 +140,16 @@ public class Bullet extends SolidObject {
 	public void onCollide(SolidObject target) {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
-			DamageLogic.calculateDamage(this, targetCharacter);
+			if (targetCharacter.getHealth() > 0) {
+				DamageLogic.calculateDamage(this, targetCharacter);
+			}
 			GameScene.solidObjects.remove(this);
 			GameScene.root.getChildren().remove(this.getBoundBox());
 			this.setHit(true);
-			
+		} else if (target instanceof Ground) {
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
 		}
 	}
 }

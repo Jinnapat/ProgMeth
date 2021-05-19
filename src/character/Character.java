@@ -39,6 +39,7 @@ public class Character extends SolidObject implements Movable {
 	private ArrayList<Image> runImages;
 	private ArrayList<Image> idleImages;
 	private ArrayList<Image> dieImages;
+	private boolean checkControls;
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
@@ -46,6 +47,7 @@ public class Character extends SolidObject implements Movable {
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
+		this.checkControls = false;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
@@ -64,7 +66,7 @@ public class Character extends SolidObject implements Movable {
 		GameScene.root.getChildren().add(healthBar.getHealthBox());
 		
 		checkCollide();
-		
+		checkControl();
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
 		dieImages = new ArrayList<Image>();
@@ -136,8 +138,7 @@ public class Character extends SolidObject implements Movable {
 		this.health = health;
 		this.healthBar.displayHealth(health, this.maxHealth);
 		if (health <= 0) {
-			stopCheckCollide();
-			stopControl();
+			setCheckControls(false);
 			this.curImage = 0;
 			setState("dying");
 		}
@@ -216,6 +217,15 @@ public class Character extends SolidObject implements Movable {
 		this.state = state;
 	}
 
+	
+	public boolean isCheckControls() {
+		return checkControls;
+	}
+
+	public void setCheckControls(boolean checkControls) {
+		this.checkControls = checkControls;
+	}
+
 	public void checkControl() {
 		
 		this.animationTimer = new AnimationTimer() {
@@ -227,41 +237,42 @@ public class Character extends SolidObject implements Movable {
 				
 				if (now - lastTimeTriggered >= 10000000) {
 					
-					if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
-						setSpeed_x(-speed);
-						setHeadLeft(true);
-						getImageView().setScaleX(-1.0);
-						setState("running");
-
-					} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
-						setSpeed_x(speed);
-						setHeadLeft(false);
-						getImageView().setScaleX(1.0);
-						setState("running");
-					} else {
-						setState("idle");
-					}
-					
-					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
-						if (getWeapon() != null) {
-							double bulletSpawnX = 0.0;
-							if (isHeadLeft()) {
-								bulletSpawnX = getX() - 10.0;
-							} else {
-								bulletSpawnX = getX() + getWidth() + 10.0;
-							}
-							getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+					if (isCheckControls()) {
+						if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
+							setSpeed_x(-speed);
+							setHeadLeft(true);
+							getImageView().setScaleX(-1.0);
+							setState("running");
+	
+						} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
+							setSpeed_x(speed);
+							setHeadLeft(false);
+							getImageView().setScaleX(1.0);
+							setState("running");
 						} else {
-							System.out.println("No weapon!");
+							setState("idle");
+						}
+						
+						if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
+							if (getWeapon() != null) {
+								double bulletSpawnX = 0.0;
+								if (isHeadLeft()) {
+									bulletSpawnX = getX() - 10.0;
+								} else {
+									bulletSpawnX = getX() + getWidth() + 10.0;
+								}
+								getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+							} else {
+								System.out.println("No weapon!");
+							}
+						}
+						
+						if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
+							if (getSpeed_y() < 0.5 && isOnGround()) {
+								setSpeed_y(-getJumpStrength());
+							}
 						}
 					}
-					
-					if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
-						if (getSpeed_y() < 0.5 && isOnGround()) {
-							setSpeed_y(-getJumpStrength());
-						}
-					}
-					
 					setOnGround(false);
 					double nameTagX = (getX() + (getWidth() / 2.0)) - (getNameTag().getWrappingWidth() / 2.0);
 					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
@@ -274,10 +285,6 @@ public class Character extends SolidObject implements Movable {
 		};
 		
 		this.animationTimer.start();
-	}
-	
-	public void stopControl() {
-		this.animationTimer.stop();
 	}
 	
 	@Override

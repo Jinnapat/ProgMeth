@@ -33,7 +33,7 @@ public class Game extends Application{
 		myChar.setY(500.0);
 		myChar.setWeapon(new Weapon());
 		myChar.getWeapon().setFireRate(20);
-		myChar.checkControl();
+		myChar.setCheckControls(true);
 		myChar.setName("Player 1");
 		myChar.setFallable(true);
 		
@@ -47,7 +47,7 @@ public class Game extends Application{
 		myChar2.getControlKeys().put("rightKey", KeyCode.RIGHT);
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
-		myChar2.checkControl();
+		myChar2.setCheckControls(true);
 		myChar2.setName("Player 2");
 		myChar2.setFallable(true);
 		
