@@ -41,25 +41,6 @@ public class Weapon extends Item{
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
-//		AnimationTimer animationTimer = new AnimationTimer() {
-//			
-//			@Override
-//			public void handle(long now) {
-//				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-//				
-//				if (now - lastTimeTriggered >= 10000000) {
-//					
-//					if (getCoolDown() > 0.0) {
-//						setCoolDown(getCoolDown() - (getFireRate()));
-//					}
-//					
-//					lastTimeTriggered = now;
-//				}
-//			}
-//			
-//		};
-//		
-//		animationTimer.start();
 	}
 	
 	public void refillAmmo() {
