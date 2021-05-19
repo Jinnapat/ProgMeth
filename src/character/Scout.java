@@ -17,6 +17,7 @@ public class Scout extends Character{
 		String imageUrl = ClassLoader.getSystemResource("character/Black/run/black_run_1.png").toString();
 		imageView = new ImageView(new Image(imageUrl));
 		imageView.setFitHeight(50.0);
+		imageView.setPreserveRatio(true);
 		getBoundBox().getChildren().add(imageView);
 	}
 }

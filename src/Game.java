@@ -5,8 +5,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import GUI.Healthbar;
 import character.Scout;
+import gui.Healthbar;
 import item.base.Weapon;
 import sceneObject.GameScene;
 import sceneObject.Ground;
@@ -34,6 +34,7 @@ public class Game extends Application{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
+		myChar2.setHealth(1000);
 		myChar2.setX(500.0);
 		myChar2.setY(500.0);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);

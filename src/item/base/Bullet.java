@@ -17,6 +17,7 @@ public class Bullet extends SolidObject {
 	private int damage;
 	private double maxRange;
 	private boolean isLeftSide;
+	private boolean isHit;
 	private long lastTimeTriggered;
 	private AnimationTimer animationTimer;
 	
@@ -26,6 +27,7 @@ public class Bullet extends SolidObject {
 		this.damage = 1;
 		this.speed = 30;
 		this.isLeftSide = false;
+		this.isHit = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
@@ -123,14 +125,25 @@ public class Bullet extends SolidObject {
 	public void setDamage(int damage) {
 		this.damage = Math.max(damage, 0);
 	}
+	
+
+	public boolean isHit() {
+		return isHit;
+	}
+
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
+	}
 
 	@Override
 	public void onCollide(SolidObject target) {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
-			DamageLogic.calculateDamage(this.getDamage(), targetCharacter);
+			DamageLogic.calculateDamage(this, targetCharacter);
 			GameScene.solidObjects.remove(this);
 			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
+			
 		}
 	}
 }

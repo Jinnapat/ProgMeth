@@ -12,7 +12,7 @@ import sceneObject.SolidObject;
 import sceneObject.GameScene;
 import java.util.HashMap;
 
-import GUI.Healthbar;
+import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable {
 	protected String name;
@@ -30,7 +30,7 @@ public class Character extends SolidObject implements Movable {
 	private boolean onGround;
 	private String state;
 	protected ImageView imageView;
-	
+
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
 		super(width, height);
 		this.state = "idle";
@@ -41,18 +41,18 @@ public class Character extends SolidObject implements Movable {
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
 		healthBar = new Healthbar();
-				
+
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
 		controlKeys.put("jumpKey", KeyCode.W);
 		controlKeys.put("shootKey", KeyCode.SPACE);
-		
+
 		GameScene.solidObjects.add(this);
 		GameScene.root.getChildren().add(getBoundBox());
 		GameScene.root.getChildren().add(nameTag);
 		GameScene.root.getChildren().add(healthBar.getHealthBox());
-		
+
 		checkCollide();
 	}
 
@@ -115,7 +115,6 @@ public class Character extends SolidObject implements Movable {
 		this.controlKeys = controlKeys;
 	}
 
-	
 	public Healthbar getHealthBar() {
 		return healthBar;
 	}
@@ -140,27 +139,37 @@ public class Character extends SolidObject implements Movable {
 		this.onGround = onGround;
 	}
 
+	public ImageView getImageView() {
+		return imageView;
+	}
+
+	public void setImageView(ImageView imageView) {
+		this.imageView = imageView;
+	}
+
 	public void checkControl() {
-		
+
 		this.animationTimer = new AnimationTimer() {
-			
+
 			@Override
 			public void handle(long now) {
-				
+
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
+
 				if (now - lastTimeTriggered >= 10000000) {
-					
+
 					if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
 						setSpeed_x(-speed);
 						setHeadLeft(true);
+						getImageView().setScaleX(-1.0);
 					}
-					
+
 					if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
 						setSpeed_x(speed);
 						setHeadLeft(false);
+						getImageView().setScaleX(1.0);
 					}
-					
+
 					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
 						if (getWeapon() != null) {
 							double bulletSpawnX = 0.0;
@@ -174,13 +183,13 @@ public class Character extends SolidObject implements Movable {
 							System.out.println("No weapon!");
 						}
 					}
-					
+
 					if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
 						if (getSpeed_y() < 0.5 && isOnGround()) {
 							setSpeed_y(-getJumpStrength());
 						}
 					}
-					
+
 					setOnGround(false);
 					double nameTagX = (getX() + (getWidth() / 2.0)) - (getNameTag().getWrappingWidth() / 2.0);
 					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
@@ -191,10 +200,11 @@ public class Character extends SolidObject implements Movable {
 				}
 			}
 		};
-		
+
 		this.animationTimer.start();
 	}
-	
+
 	@Override
-	public void onCollide(SolidObject target) {}
+	public void onCollide(SolidObject target) {
+	}
 }

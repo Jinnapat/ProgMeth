@@ -23,6 +23,7 @@ public class Weapon extends Item{
 		this.maxAmmo = 10;
 		this.fireRate = 10;
 		this.range = 10;
+		this.setDamage(10);
 		this.runSpeed = 100.00;
 		this.coolDown = 0.0;
 		this.bullets = new ArrayList<Bullet>();
