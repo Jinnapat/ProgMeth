@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;

@@ -12,7 +12,7 @@ import sceneObject.SolidObject;
 import sceneObject.GameScene;
 import java.util.HashMap;
 
-import GUI.Healthbar;
+import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable {
 	protected String name;
@@ -140,6 +140,14 @@ public class Character extends SolidObject implements Movable {
 		this.onGround = onGround;
 	}
 
+	public ImageView getImageView() {
+		return imageView;
+	}
+
+	public void setImageView(ImageView imageView) {
+		this.imageView = imageView;
+	}
+
 	public void checkControl() {
 		
 		this.animationTimer = new AnimationTimer() {
@@ -154,11 +162,13 @@ public class Character extends SolidObject implements Movable {
 					if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
 						setSpeed_x(-speed);
 						setHeadLeft(true);
+						getImageView().setScaleX(-1.0);
 					}
 					
 					if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
 						setSpeed_x(speed);
 						setHeadLeft(false);
+						getImageView().setScaleX(1.0);
 					}
 					
 					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
