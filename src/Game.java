@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import GUI.Healthbar;
@@ -17,6 +19,10 @@ public class Game extends Application{
 
 	@Override
 	public void start(Stage p) throws Exception {
+		AnchorPane background = new AnchorPane();
+		background.setPrefSize(1200, 800);
+		background.setBackground(new Background(new BackgroundFill(Color.AZURE, null, null)));
+		GameScene.root.getChildren().add(background);
 		
 		Scout myChar = new Scout();
 		myChar.setX(20.0);
@@ -50,7 +56,6 @@ public class Game extends Application{
 		AnchorPane.setRightAnchor(player2Healthbar.getHealthBox(), 10.0);
 		
 		GameScene.start();
-		p.setTitle("Team Six");
 		p.setResizable(false);
 		p.setScene(GameScene.scene);
 		p.show();

@@ -27,14 +27,17 @@ public class Character extends SolidObject implements Movable {
 	private Text nameTag;
 	private Healthbar healthBar;
 	private boolean onGround;
+	private String state;
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
 		super(width, height);
+		this.state = "idle";
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
+		nameTag.setWrappingWidth(200);
 		healthBar = new Healthbar();
 				
 		controlKeys = new HashMap<String, KeyCode>();
@@ -177,8 +180,9 @@ public class Character extends SolidObject implements Movable {
 					}
 					
 					setOnGround(false);
+					double nameTagX = (getX() + (getWidth() / 2.0)) - (getNameTag().getWrappingWidth() / 2.0);
 					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
-					AnchorPane.setLeftAnchor(getNameTag(), getX() - 20);
+					AnchorPane.setLeftAnchor(getNameTag(), nameTagX);
 					AnchorPane.setTopAnchor(getBoundBox(), getY());
 					AnchorPane.setLeftAnchor(getBoundBox(), getX());
 					lastTimeTriggered = now;
@@ -190,7 +194,5 @@ public class Character extends SolidObject implements Movable {
 	}
 	
 	@Override
-	public void onCollide(SolidObject target) {
-
-	}
+	public void onCollide(SolidObject target) {}
 }

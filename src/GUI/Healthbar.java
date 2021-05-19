@@ -26,8 +26,6 @@ public class Healthbar {
 	}
 	
 	public void displayHealth(int health, int maxHealth) {
-		System.out.println(health);
-		System.out.println(maxHealth);
 		healthBox.setPrefWidth(((double)health) / ((double)maxHealth) * 200.0);
 	}
 }
