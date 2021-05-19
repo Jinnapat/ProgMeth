@@ -10,19 +10,24 @@ public class Scout extends Character{
 	private AnimationTimer animationLoop;
 	private double lastTriggerTime;
 	private int curImage = 0;
-	private ArrayList<Image> runImageViews;
-	
+	private ArrayList<Image> runImages;
+	private ArrayList<Image> idleImages;
 	public Scout() {
 		super(50.0, 50.0, 10.0, 10, 100);
 		lastTriggerTime = 0.0;
 		setHealth(100);
 		setMaxHealth(100);
-		runImageViews = new ArrayList<Image>();
+		runImages = new ArrayList<Image>();
+		idleImages = new ArrayList<Image>();
+		
 		for (int i = 0; i < 6; i++) {
-			runImageViews.add(new Image(ClassLoader.getSystemResource("character/Black/run/" + (i+1) + ".png").toString()));
+			runImages.add(new Image(ClassLoader.getSystemResource("character/Black/run/" + (i+1) + ".png").toString()));
+		}
+		for (int i = 0; i < 5; i++) {
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/Black/idle/" + (i+1) + ".png").toString()));
 		}
 		
-		imageView = new ImageView(runImageViews.get(curImage));
+		imageView = new ImageView(idleImages.get(curImage));
 		imageView.setFitHeight(50.0);
 		imageView.setPreserveRatio(true);
 		getBoundBox().getChildren().add(imageView);
@@ -35,8 +40,13 @@ public class Scout extends Character{
 				lastTriggerTime = (lastTriggerTime < 0 ? now : lastTriggerTime);
 				
 				if (now - lastTriggerTime >= 100000000) {
-					curImage = (curImage + 1) % 6;
-					imageView.setImage(runImageViews.get(curImage));
+					if (getState() == "idle") {
+						curImage = (curImage + 1) % idleImages.size();
+						imageView.setImage(idleImages.get(curImage));
+					} else if (getState() == "running") {
+						curImage = (curImage + 1) % runImages.size();
+						imageView.setImage(runImages.get(curImage));
+					}
 					lastTriggerTime = now;
 				}
 			}

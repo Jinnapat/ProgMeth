@@ -148,6 +148,14 @@ public class Character extends SolidObject implements Movable {
 		this.imageView = imageView;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public void checkControl() {
 		
 		this.animationTimer = new AnimationTimer() {
@@ -163,12 +171,15 @@ public class Character extends SolidObject implements Movable {
 						setSpeed_x(-speed);
 						setHeadLeft(true);
 						getImageView().setScaleX(-1.0);
-					}
-					
-					if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
+						setState("running");
+
+					} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
 						setSpeed_x(speed);
 						setHeadLeft(false);
 						getImageView().setScaleX(1.0);
+						setState("running");
+					} else {
+						setState("idle");
 					}
 					
 					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
