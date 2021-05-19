@@ -1,29 +1,22 @@
 package character;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Scout extends Character{
+	private AnimationTimer animationLoop;
+	private double lastTriggerTime;
 	
-	public Scout(double width, double height, double x, double y, double speed) {
-		super(width, height, x, y, speed);
-		this.draw();
-	}
-
-	public void draw() {
-		HBox faceBox = new HBox();
-		faceBox.setPrefSize(10.0, 10.0);
-		faceBox.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.characterBox = new AnchorPane();
-		this.characterBox.setPrefSize(width, height);
-		this.characterBox.setBackground(new Background(new BackgroundFill(Color.CHOCOLATE, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.characterBox.getChildren().add(faceBox);
-		AnchorPane.setTopAnchor(faceBox, 10.0);
-		AnchorPane.setLeftAnchor(faceBox, 10.);
+	public Scout() {
+		super(50.0, 50.0, 10.0, 10, 100);
+		lastTriggerTime = 0.0;
+		setHealth(100);
+		setMaxHealth(100);
+		
+		String imageUrl = ClassLoader.getSystemResource("character/Black/run/black_run_1.png").toString();
+		imageView = new ImageView(new Image(imageUrl));
+		imageView.setFitHeight(50.0);
+		getBoundBox().getChildren().add(imageView);
 	}
 }

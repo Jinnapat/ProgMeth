@@ -1,0 +1,39 @@
+================================
+Scout
+================================
+max health: 50
+speed: 10
+jumpStrength: 
+usable guns: 
+
+================================
+Heavy
+================================
+max health: 150
+speed: 3
+jumpStrength: 
+usable guns: 
+
+================================
+Sniper
+================================
+max health: 100
+speed: 5
+jumpStrength: 
+usable guns: 
+
+================================
+Shield
+================================
+max health: 100
+speed: 5
+jumpStrength: 
+usable guns: 
+
+================================
+Engineer
+================================
+max health: 100
+speed: 5
+jumpStrength: 
+usable guns: 
