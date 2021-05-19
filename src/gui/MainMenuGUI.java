@@ -6,9 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
+
 import constants.FontHolder;
 import constants.GameConstant;
+import constants.SoundHolder;
 
 public class MainMenuGUI extends VBox {
 	private HBox titileBox;
@@ -20,6 +24,10 @@ public class MainMenuGUI extends VBox {
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER);
 		
+		Media media = SoundHolder.getInstance().bgm;
+//		Media media = new Media("sound/give_me_smile.mp3");
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.play();
 		
 		this.titileBox = new HBox();
 		this.menuBox = new HBox();
@@ -66,13 +74,16 @@ public class MainMenuGUI extends VBox {
 	
 	private void play1PlayerHandler() {
 		//TODO
+		System.out.println("Play1Player");
 	}
 	
 	private void play2PlayerHandler() {
 		//TODO
+		System.out.println("Play2Player");
 	}
 	
 	private void optionHandler() {
 		//TODO
+		System.out.println("Option");
 	}
 }
