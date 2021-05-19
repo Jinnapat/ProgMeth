@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -15,17 +17,30 @@ public class MainMenuGUI extends VBox {
 	public MainMenuGUI() {
 //		this.setPrefSize(GameConstant.WINDOW_HEIGHT, GameConstant.WINDOW_WIDTH);
 //		this.setPrefSize(100, 200);
+		this.setPadding(new Insets(20));
+		this.setAlignment(Pos.CENTER);
+		
 		
 		this.titileBox = new HBox();
 		this.menuBox = new HBox();
 		
-		Text title = new Text();
-		title.setFont(FontHolder.getInstance().dream24);
-		title.setText("This is Name");
+		this.titileBox.setAlignment(Pos.CENTER);
 		
-		Button play1PlayerBtn = new Button("1 Player");
-		Button play2PlayerBtn = new Button("2 Player");
-		Button optionBtn = new Button("Option");
+		this.menuBox.setAlignment(Pos.CENTER);
+		this.menuBox.setPadding(new Insets(20));
+		this.menuBox.setSpacing(20);
+		
+		Text title = new Text();
+		title.setFont(FontHolder.getInstance().dream64);
+		title.setText("this is new");
+		
+		Button play1PlayerBtn = new Button("1 player");
+		Button play2PlayerBtn = new Button("2 player");
+		Button optionBtn = new Button("option");
+		
+		play1PlayerBtn.setFont(FontHolder.getInstance().dream24);
+		play2PlayerBtn.setFont(FontHolder.getInstance().dream24);
+		optionBtn.setFont(FontHolder.getInstance().dream24);
 		
 		play1PlayerBtn.setOnMouseClicked((e) -> {
 			play1PlayerHandler();
