@@ -3,6 +3,7 @@ package character;
 import interfaces.Movable;
 import item.Weapon;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -28,6 +29,7 @@ public class Character extends SolidObject implements Movable {
 	private Healthbar healthBar;
 	private boolean onGround;
 	private String state;
+	protected ImageView imageView;
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
 		super(width, height);
