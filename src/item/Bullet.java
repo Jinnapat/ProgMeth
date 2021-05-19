@@ -2,7 +2,6 @@ package item;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -10,6 +9,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
+import character.Character;
 
 public class Bullet extends SolidObject{
 	private double speed;
@@ -17,11 +17,13 @@ public class Bullet extends SolidObject{
 	private boolean isLeftSide;
 	private long lastTimeTriggered;
 	private AnimationTimer animationTimer;
+	private int damage;
 	
 	public Bullet() {
 		super(5.0, 3.0);
 		this.maxRange = 500;
-		this.speed = 5;
+		this.damage = 1;
+		this.speed = 30;
 		this.isLeftSide = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
@@ -30,8 +32,9 @@ public class Bullet extends SolidObject{
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
+		this.damage = 1;
 		this.maxRange = 500;
-		this.speed = 5;
+		this.speed = 30;
 		this.isLeftSide = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
@@ -42,9 +45,12 @@ public class Bullet extends SolidObject{
 		setLeftSide(isLeftSide);
 		setX(x);
 		setY(y);
+		GameScene.solidObjects.add(this);
 		GameScene.root.getChildren().add(getBoundBox());
 		AnchorPane.setLeftAnchor(getBoundBox(), x);
 		AnchorPane.setTopAnchor(getBoundBox(), y);
+		checkCollide();
+		Bullet self = this;
 		
 		this.animationTimer = new AnimationTimer() {
 			
@@ -57,6 +63,8 @@ public class Bullet extends SolidObject{
 					
 					if (maxRange <= 0.0) {
 						GameScene.root.getChildren().remove(getBoundBox());
+						GameScene.solidObjects.remove(self);
+						stopCheckCollide();
 						animationTimer.stop();
 					}
 					
@@ -95,8 +103,21 @@ public class Bullet extends SolidObject{
 
 	@Override
 	public void onCollide(SolidObject target) {
-		// TODO Auto-generated method stub
-		
+		if (target instanceof Character) {
+			Character targetCharacter = (Character)target;
+			targetCharacter.setHealth(targetCharacter.getHealth() - this.getDamage());
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+		}
 	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
 	
 }

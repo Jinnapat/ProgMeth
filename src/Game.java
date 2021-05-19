@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import GUI.Healthbar;
@@ -24,6 +25,7 @@ public class Game extends Application{
 		myChar.getWeapon().setFireRate(20);
 		myChar.checkControl();
 		myChar.setName("Player 1");
+		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
 		myChar2.setX(500.0);
@@ -34,14 +36,18 @@ public class Game extends Application{
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
 		myChar2.checkControl();
 		myChar2.setName("Player 2");
+		myChar2.setFallable(true);
 		
 		new Ground(100, 20, 10, 670, Color.BLACK);
 		new Ground(400, 20, 200, 530, Color.BLACK);
 		new Ground(300, 20, 600, 430, Color.BLACK);
 		new Ground(1200, 50, 0, 700, Color.BLACK);
 		
-		Healthbar player1Healthbar = new Healthbar(100, 100);
-		GameScene.root.getChildren().add(player1Healthbar.getHealthBox());
+		Healthbar player1Healthbar = myChar.getHealthBar();
+		AnchorPane.setLeftAnchor(player1Healthbar.getHealthBox(), 10.0);
+		
+		Healthbar player2Healthbar = myChar2.getHealthBar();
+		AnchorPane.setRightAnchor(player2Healthbar.getHealthBox(), 10.0);
 		
 		GameScene.start();
 		p.setTitle("Team Six");

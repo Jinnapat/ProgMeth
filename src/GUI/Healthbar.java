@@ -7,42 +7,27 @@ import javafx.scene.paint.Color;
 
 public class Healthbar {
 	private AnchorPane healthBox;
-	private int health;
-	private int maxHealth;
 	
-	public Healthbar(int health, int max_health) {
+	public Healthbar() {
 		super();
 		this.healthBox = new AnchorPane();
-		this.health = health;
-		this.maxHealth = max_health;
 		this.healthBox.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-		this.healthBox.setPrefSize(200, 50);
-		AnchorPane.setTopAnchor(healthBox, 20.0);
-	}
-	
-	public int getHealth() {
-		return health;
-	}
-	
-	public void setHealth(int health) {
-		this.health = health;
-	}
-	
-	public int getMaxHealth() {
-		return maxHealth;
-	}
-	
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
+		this.healthBox.setPrefSize(200, 20);
+		
+		AnchorPane.setTopAnchor(healthBox, 10.0);
 	}
 
 	public AnchorPane getHealthBox() {
 		return healthBox;
 	}
 
-	public void setHealth_box(AnchorPane healthBox) {
+	public void setHealthBox(AnchorPane healthBox) {
 		this.healthBox = healthBox;
 	}
 	
-	
+	public void displayHealth(int health, int maxHealth) {
+		System.out.println(health);
+		System.out.println(maxHealth);
+		healthBox.setPrefWidth(((double)health) / ((double)maxHealth) * 200.0);
+	}
 }

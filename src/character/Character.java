@@ -9,8 +9,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
-import sceneObject.Ground;
 import java.util.HashMap;
+
+import GUI.Healthbar;
 
 public class Character extends SolidObject implements Movable {
 	protected String name;
@@ -22,16 +23,20 @@ public class Character extends SolidObject implements Movable {
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
 	protected Weapon weapon;
-	private HashMap<String, KeyCode> controlKeys = new HashMap<String, KeyCode>();
+	private HashMap<String, KeyCode> controlKeys;
 	private Text nameTag;
+	private Healthbar healthBar;
+	private boolean onGround;
 	
-	public Character(double width, double height, double speed, double jumpStrength) {
+	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
 		super(width, height);
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
+		this.onGround = false;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
-		
+		healthBar = new Healthbar();
+				
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
@@ -41,11 +46,10 @@ public class Character extends SolidObject implements Movable {
 		GameScene.solidObjects.add(this);
 		GameScene.root.getChildren().add(getBoundBox());
 		GameScene.root.getChildren().add(nameTag);
+		GameScene.root.getChildren().add(healthBar.getHealthBox());
 		
 		checkCollide();
 	}
-
-	public void draw(double x, double y) {};
 
 	public String getName() {
 		return name;
@@ -62,6 +66,7 @@ public class Character extends SolidObject implements Movable {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
+		this.healthBar.displayHealth(getHealth(), maxHealth);
 	}
 
 	public int getHealth() {
@@ -70,6 +75,7 @@ public class Character extends SolidObject implements Movable {
 
 	public void setHealth(int health) {
 		this.health = health;
+		this.healthBar.displayHealth(health, this.maxHealth);
 	}
 
 	public boolean isHeadLeft() {
@@ -104,7 +110,33 @@ public class Character extends SolidObject implements Movable {
 		this.controlKeys = controlKeys;
 	}
 
+	
+	public Healthbar getHealthBar() {
+		return healthBar;
+	}
+
+	public void setHealthBar(Healthbar healthBar) {
+		this.healthBar = healthBar;
+	}
+
+	public double getJumpStrength() {
+		return jumpStrength;
+	}
+
+	public void setJumpStrength(double jumpStrength) {
+		this.jumpStrength = jumpStrength;
+	}
+
+	public boolean isOnGround() {
+		return onGround;
+	}
+
+	public void setOnGround(boolean onGround) {
+		this.onGround = onGround;
+	}
+
 	public void checkControl() {
+		
 		this.animationTimer = new AnimationTimer() {
 			
 			@Override
@@ -114,37 +146,37 @@ public class Character extends SolidObject implements Movable {
 				
 				if (now - lastTimeTriggered >= 10000000) {
 					
-					if (GameScene.keyPressed.containsKey(controlKeys.get("leftKey"))) {
-						if (GameScene.keyPressed.get(controlKeys.get("leftKey"))) {
-							setSpeed_x(-speed);
-							setHeadLeft(true);
-						}
+					if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
+						setSpeed_x(-speed);
+						setHeadLeft(true);
 					}
 					
-					if (GameScene.keyPressed.containsKey(controlKeys.get("rightKey"))) {
-						if (GameScene.keyPressed.get(controlKeys.get("rightKey"))) {
-							setSpeed_x(speed);
-							setHeadLeft(false);
-			
-						}
+					if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
+						setSpeed_x(speed);
+						setHeadLeft(false);
 					}
 					
-					if (GameScene.keyPressed.containsKey(controlKeys.get("shootKey"))) {
-						if (GameScene.keyPressed.get(controlKeys.get("shootKey"))) {
-							if (getWeapon() != null) {
-								double bulletSpawnX = 0.0;
-								if (isHeadLeft()) {
-									bulletSpawnX = getX();
-								} else {
-									bulletSpawnX = getX() + getWidth();
-								}
-								getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
+					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
+						if (getWeapon() != null) {
+							double bulletSpawnX = 0.0;
+							if (isHeadLeft()) {
+								bulletSpawnX = getX() - 10.0;
 							} else {
-								System.out.println("No weapon!");
+								bulletSpawnX = getX() + getWidth() + 10.0;
 							}
+							getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
+						} else {
+							System.out.println("No weapon!");
 						}
 					}
 					
+					if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
+						if (getSpeed_y() < 0.5 && isOnGround()) {
+							setSpeed_y(-getJumpStrength());
+						}
+					}
+					
+					setOnGround(false);
 					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
 					AnchorPane.setLeftAnchor(getNameTag(), getX() - 20);
 					AnchorPane.setTopAnchor(getBoundBox(), getY());
@@ -159,43 +191,6 @@ public class Character extends SolidObject implements Movable {
 	
 	@Override
 	public void onCollide(SolidObject target) {
-		
-		if (target instanceof Ground) {
-			
-			double bottom_y = getY() + getHeight();
-			if (bottom_y >= target.getY() && bottom_y <= target.getY() + target.getHeight()) {
-				
-				if (getSpeed_y() > 0) {
-					setSpeed_y(0.0);
-					setY(target.getY() - getHeight());
-				}
-				
-				if (GameScene.keyPressed.containsKey(controlKeys.get("jumpKey"))) {
-					if (GameScene.keyPressed.get(controlKeys.get("jumpKey"))) {
-						if (getSpeed_y() < 0.5) {
-							setSpeed_y(-this.jumpStrength);
-						}
-					}
-				}
-			} else if (getSpeed_y() > 0.0) {
-			
-				double left_x = getX();
-				if (left_x >= target.getX() && left_x <= target.getX() + target.getWidth()) {
-					if (getSpeed_x() < 0.0) {
-						setX(target.getX() + target.getWidth());
-						setSpeed_x(0.0);
-					}
-				}
-				
-				double right_x = getX() + getWidth();
-				if (right_x >= target.getX() && right_x <= target.getX() + target.getWidth()) {
-					if (getSpeed_x() > 0.0) {
-						setX(target.getX() - getWidth());
-						setSpeed_x(0.0);
-					}
-				}
-				
-			}
-		}
+
 	}
 }

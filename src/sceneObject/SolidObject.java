@@ -13,6 +13,8 @@ public abstract class SolidObject {
 	private double speed_y;
 	private double friction;
 	private long lastTimeTriggered;
+	private boolean fallable;
+	private AnimationTimer animationTimer;
 	
 	public SolidObject(double width, double height) {
 		super();
@@ -23,7 +25,7 @@ public abstract class SolidObject {
 		this.speed_x = 0.0;
 		this.speed_y = 0.0;
 		this.friction = 0.8;
-		
+		this.fallable = false;
 		this.boundBox = new AnchorPane();
 		this.boundBox.setPrefSize(getWidth(), getHeight());
 	}
@@ -95,8 +97,17 @@ public abstract class SolidObject {
 		this.friction = friction;
 	}
 	
+	
+	public boolean isFallable() {
+		return fallable;
+	}
+
+	public void setFallable(boolean fallable) {
+		this.fallable = fallable;
+	}
+
 	public void checkCollide() {
-		AnimationTimer animationTimer = new AnimationTimer() {
+		animationTimer = new AnimationTimer() {
 				
 			@Override
 			public void handle(long now) {
@@ -159,7 +170,9 @@ public abstract class SolidObject {
 					}
 					
 					setX(getX() + getSpeed_x());
-					setY(getY() + getSpeed_y());
+					if (isFallable()) {
+						setY(getY() + getSpeed_y());
+					}
 					AnchorPane.setLeftAnchor(boundBox, getX());
 					AnchorPane.setTopAnchor(boundBox, getY());
 				}
@@ -168,5 +181,8 @@ public abstract class SolidObject {
 		animationTimer.start();
 	}
 	
+	public void stopCheckCollide() {
+		this.animationTimer.stop();
+	}
 	public abstract void onCollide(SolidObject target);
 }
