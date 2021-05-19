@@ -39,8 +39,7 @@ public class Character extends SolidObject implements Movable {
 	private ArrayList<Image> runImages;
 	private ArrayList<Image> idleImages;
 	
-	
-	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
+	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
 		this.state = "idle";
 		this.speed = speed;
@@ -69,10 +68,10 @@ public class Character extends SolidObject implements Movable {
 		idleImages = new ArrayList<Image>();
 		
 		for (int i = 0; i < 6; i++) {
-			runImages.add(new Image(ClassLoader.getSystemResource("character/Black/run/" + (i+1) + ".png").toString()));
+			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + (i+1) + ".png").toString()));
 		}
 		for (int i = 0; i < 5; i++) {
-			idleImages.add(new Image(ClassLoader.getSystemResource("character/Black/idle/" + (i+1) + ".png").toString()));
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + (i+1) + ".png").toString()));
 		}
 		
 		imageView = new ImageView(idleImages.get(curImage));
@@ -237,7 +236,7 @@ public class Character extends SolidObject implements Movable {
 							} else {
 								bulletSpawnX = getX() + getWidth() + 10.0;
 							}
-							getWeapon().shoot(bulletSpawnX, getY() + 20.0, isHeadLeft());
+							getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
 						} else {
 							System.out.println("No weapon!");
 						}
