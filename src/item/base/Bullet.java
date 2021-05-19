@@ -8,32 +8,37 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import logic.DamageLogic;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
+import character.Character;
 
-public class Bullet extends SolidObject{
+public class Bullet extends SolidObject {
 	private double speed;
+	private int damage;
 	private double maxRange;
 	private boolean isLeftSide;
 	private long lastTimeTriggered;
 	private AnimationTimer animationTimer;
-	
+
 	public Bullet() {
 		super(5.0, 3.0, 0.0, 0.0);
+		this.setDamage(10);
 		this.maxRange = 500;
 		this.speed = 5;
 		this.isLeftSide = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
-	
-	public Bullet(double width, double height, double x, double y) {
+
+	public Bullet(double width, double height, double x, double y, int damage) {
 		super(width, height, x, y);
+		this.setDamage(damage);
 		this.maxRange = 500;
 		this.speed = 5;
 		this.isLeftSide = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
-	
+
 	public void shoot(double x, double y, boolean isLeftSide) {
 		System.out.println("Bang!");
 		// TODO
@@ -43,34 +48,34 @@ public class Bullet extends SolidObject{
 		GameScene.root.getChildren().add(getBoundBox());
 		AnchorPane.setLeftAnchor(getBoundBox(), x);
 		AnchorPane.setTopAnchor(getBoundBox(), y);
-		
+
 		this.animationTimer = new AnimationTimer() {
-			
+
 			@Override
 			public void handle(long now) {
-				
+
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
+
 				if (now - lastTimeTriggered >= 10000000) {
-					
+
 					if (maxRange <= 0.0) {
 						GameScene.root.getChildren().remove(getBoundBox());
 						animationTimer.stop();
 					}
-					
+
 					if (isLeftSide()) {
 						setX(getX() - getSpeed());
 					} else {
 						setX(getX() + getSpeed());
 					}
-					
+
 					maxRange -= getSpeed();
 					AnchorPane.setLeftAnchor(getBoundBox(), getX());
 					lastTimeTriggered = now;
 				}
 			}
 		};
-		
+
 		this.animationTimer.start();
 	}
 
@@ -82,7 +87,6 @@ public class Bullet extends SolidObject{
 		this.speed = speed;
 	}
 
-	
 	public boolean isLeftSide() {
 		return isLeftSide;
 	}
@@ -91,10 +95,21 @@ public class Bullet extends SolidObject{
 		this.isLeftSide = isLeftSide;
 	}
 
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = Math.max(damage, 0);
+	}
+
 	@Override
 	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
-		
+		if (target instanceof Character) {
+			System.out.println("Hit target");
+			DamageLogic.calculateDamage(damage, (Character) target);
+		}
 	}
-	
+
 }

@@ -12,6 +12,7 @@ public class Weapon extends Item{
 	private int currentAmmo;
 	private double coolDown;
 	private double fireRate;
+	private int damage;
 	private double range;
 	private double runSpeed; //percent
 	private ArrayList<Bullet> bullets;

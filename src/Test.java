@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import character.Scout;
 import item.base.Weapon;
+import item.derived.Awp;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
@@ -23,8 +24,9 @@ public class Test extends Application{
 		Scout myChar = new Scout(50.0, 50.0, 10.0, 10);
 		myChar.setX(20.0);
 		myChar.setY(500.0);
-		myChar.setWeapon(new Weapon());
+		myChar.setWeapon(new Awp());
 		myChar.getWeapon().setFireRate(20);
+		System.out.println(myChar.getWeapon().getCurrentAmmo());
 		
 		Ground ground1 = new Ground(100, 20, 10, 670, Color.BLACK);
 		Ground ground2 = new Ground(400, 20, 200, 530, Color.BLACK);
