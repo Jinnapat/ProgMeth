@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import character.Engineer;
 import character.Heavy;
 import character.Scout;
+import character.Sniper;
+import constants.GameConstant;
 import gui.Healthbar;
 import item.base.Weapon;
 import sceneObject.GameScene;
@@ -22,11 +24,11 @@ public class Game extends Application{
 	@Override
 	public void start(Stage p) throws Exception {
 		ImageView background = new ImageView(new Image(ClassLoader.getSystemResource("images/background.png").toString()));
-		background.setFitHeight(800);
+		background.setFitHeight(GameConstant.WINDOW_HEIGHT);
 		background.setPreserveRatio(true);
 		GameScene.root.getChildren().add(background);
 		
-		Engineer myChar = new Engineer();
+		Heavy myChar = new Heavy();
 		myChar.setX(20.0);
 		myChar.setY(500.0);
 		myChar.setWeapon(new Weapon());
@@ -36,9 +38,11 @@ public class Game extends Application{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
-		myChar2.setHealth(1000);
+		myChar2.setHealth(100);
 		myChar2.setX(500.0);
 		myChar2.setY(500.0);
+		myChar2.setWeapon(new Weapon());
+		myChar2.getWeapon().setFireRate(20);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);
 		myChar2.getControlKeys().put("rightKey", KeyCode.RIGHT);
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);

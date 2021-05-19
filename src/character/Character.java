@@ -38,6 +38,7 @@ public class Character extends SolidObject implements Movable {
 	private int curImage = 0;
 	private ArrayList<Image> runImages;
 	private ArrayList<Image> idleImages;
+	private ArrayList<Image> dieImages;
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
@@ -66,12 +67,16 @@ public class Character extends SolidObject implements Movable {
 		
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
+		dieImages = new ArrayList<Image>();
 		
-		for (int i = 0; i < 6; i++) {
-			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + (i+1) + ".png").toString()));
+		for (int i = 1; i <= 6; i++) {
+			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString()));
 		}
-		for (int i = 0; i < 5; i++) {
-			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + (i+1) + ".png").toString()));
+		for (int i = 1; i <= 5; i++) {
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString()));
+		}
+		for (int i = 1; i <= 8; i++) {
+			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString()));
 		}
 		
 		imageView = new ImageView(idleImages.get(curImage));
@@ -93,6 +98,9 @@ public class Character extends SolidObject implements Movable {
 					} else if (getState() == "running") {
 						curImage = (curImage + 1) % runImages.size();
 						imageView.setImage(runImages.get(curImage));
+					} else if (getState() == "dying") {
+						curImage = Math.min(curImage + 1, dieImages.size() - 1);
+						imageView.setImage(dieImages.get(curImage));
 					}
 					lastTriggerTime = now;
 				}
@@ -127,6 +135,12 @@ public class Character extends SolidObject implements Movable {
 	public void setHealth(int health) {
 		this.health = health;
 		this.healthBar.displayHealth(health, this.maxHealth);
+		if (health <= 0) {
+			stopCheckCollide();
+			stopControl();
+			this.curImage = 0;
+			setState("dying");
+		}
 	}
 
 	public boolean isHeadLeft() {
@@ -260,6 +274,10 @@ public class Character extends SolidObject implements Movable {
 		};
 		
 		this.animationTimer.start();
+	}
+	
+	public void stopControl() {
+		this.animationTimer.stop();
 	}
 	
 	@Override
