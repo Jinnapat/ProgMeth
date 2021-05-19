@@ -3,6 +3,7 @@ package character;
 import interfaces.Movable;
 import item.base.Weapon;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -10,6 +11,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
 import sceneObject.GameScene;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import gui.Healthbar;
@@ -30,6 +33,12 @@ public class Character extends SolidObject implements Movable {
 	private boolean onGround;
 	private String state;
 	protected ImageView imageView;
+	private AnimationTimer animationLoop;
+	private double lastTriggerTime;
+	private int curImage = 0;
+	private ArrayList<Image> runImages;
+	private ArrayList<Image> idleImages;
+	
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
 		super(width, height);
@@ -41,7 +50,8 @@ public class Character extends SolidObject implements Movable {
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
 		healthBar = new Healthbar();
-				
+		lastTriggerTime = 0.0;
+		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
@@ -54,6 +64,43 @@ public class Character extends SolidObject implements Movable {
 		GameScene.root.getChildren().add(healthBar.getHealthBox());
 		
 		checkCollide();
+		
+		runImages = new ArrayList<Image>();
+		idleImages = new ArrayList<Image>();
+		
+		for (int i = 0; i < 6; i++) {
+			runImages.add(new Image(ClassLoader.getSystemResource("character/Black/run/" + (i+1) + ".png").toString()));
+		}
+		for (int i = 0; i < 5; i++) {
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/Black/idle/" + (i+1) + ".png").toString()));
+		}
+		
+		imageView = new ImageView(idleImages.get(curImage));
+		imageView.setFitHeight(50.0);
+		imageView.setPreserveRatio(true);
+		getBoundBox().getChildren().add(imageView);
+		
+		this.animationLoop = new AnimationTimer() {
+			
+			@Override
+			public void handle(long now) {
+				
+				lastTriggerTime = (lastTriggerTime < 0 ? now : lastTriggerTime);
+				
+				if (now - lastTriggerTime >= 100000000) {
+					if (getState() == "idle") {
+						curImage = (curImage + 1) % idleImages.size();
+						imageView.setImage(idleImages.get(curImage));
+					} else if (getState() == "running") {
+						curImage = (curImage + 1) % runImages.size();
+						imageView.setImage(runImages.get(curImage));
+					}
+					lastTriggerTime = now;
+				}
+			}
+		};
+		
+		this.animationLoop.start();
 	}
 
 	public String getName() {
@@ -190,7 +237,7 @@ public class Character extends SolidObject implements Movable {
 							} else {
 								bulletSpawnX = getX() + getWidth() + 10.0;
 							}
-							getWeapon().shoot(bulletSpawnX, getY(), isHeadLeft());
+							getWeapon().shoot(bulletSpawnX, getY() + 20.0, isHeadLeft());
 						} else {
 							System.out.println("No weapon!");
 						}
