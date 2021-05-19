@@ -6,7 +6,7 @@ import item.base.Weapon;
 public class Awp extends Weapon{
 
 	public Awp() {
-		super(10000, 100, 1000, 50);
+		super(10000, 100,100, 1000, 10);
 		this.setSprite(ImageHolder.getInstance().awp);
 		System.out.println("AWP have been create");
 	}

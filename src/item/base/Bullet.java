@@ -29,6 +29,16 @@ public class Bullet extends SolidObject {
 		this.isLeftSide = false;
 		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
+	
+	public Bullet(int damage) {
+		super(5.0, 3.0, 0.0, 0.0);
+		this.setDamage(damage);
+		this.maxRange = 500;
+		this.speed = 5;
+		this.isLeftSide = false;
+		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
+
+	}
 
 	public Bullet(double width, double height, double x, double y, int damage) {
 		super(width, height, x, y);
