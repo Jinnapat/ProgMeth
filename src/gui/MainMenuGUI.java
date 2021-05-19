@@ -19,14 +19,12 @@ public class MainMenuGUI extends VBox {
 	private HBox menuBox;
 	
 	public MainMenuGUI() {
-//		this.setPrefSize(GameConstant.WINDOW_HEIGHT, GameConstant.WINDOW_WIDTH);
-//		this.setPrefSize(100, 200);
+		
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER);
 		
-		Media media = SoundHolder.getInstance().bgm;
-//		Media media = new Media("sound/give_me_smile.mp3");
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
+		mediaPlayer.setVolume(0.1);
 		mediaPlayer.play();
 		
 		this.titileBox = new HBox();
@@ -35,7 +33,7 @@ public class MainMenuGUI extends VBox {
 		this.titileBox.setAlignment(Pos.CENTER);
 		
 		this.menuBox.setAlignment(Pos.CENTER);
-		this.menuBox.setPadding(new Insets(20));
+		this.menuBox.setPadding(new Insets(50));
 		this.menuBox.setSpacing(20);
 		
 		Text title = new Text();

@@ -5,7 +5,7 @@ import item.base.Item;
 import sceneObject.SolidObject;
 import character.Character;
 
-public class dropBox extends Item{
+public class DropBox extends Item{
 
 	@Override
 	public void collectBy(Character character) {
