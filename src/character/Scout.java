@@ -1,3 +1,4 @@
+
 package character;
 
 public class Scout extends Character{

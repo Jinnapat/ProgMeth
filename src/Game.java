@@ -36,6 +36,7 @@ public class Game extends Application{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
+		myChar2.setHealth(1000);
 		myChar2.setX(500.0);
 		myChar2.setY(500.0);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);
