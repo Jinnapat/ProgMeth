@@ -11,6 +11,7 @@ public class ImageHolder {
 	public Image ak47 = this.loadImage("guns/Ak47", "png");
 	public Image box = this.loadImage("box", "png");
 	public Image heartPlus = this.loadImage("heart+", "png");
+	public Image flatNightBackgound = this.loadImage("flatNightBackground", "png");
 
 	public ImageHolder() {
 		super();

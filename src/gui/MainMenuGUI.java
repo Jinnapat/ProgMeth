@@ -3,6 +3,7 @@ package gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -12,16 +13,22 @@ import javafx.scene.text.Text;
 
 import constants.FontHolder;
 import constants.GameConstant;
+import constants.ImageHolder;
 import constants.SoundHolder;
 
-public class MainMenuGUI extends VBox {
+public class MainMenuGUI extends StackPane {
 	private HBox titileBox;
 	private HBox menuBox;
+	private VBox allBox;
 	
 	public MainMenuGUI() {
 		
-		this.setPadding(new Insets(20));
-		this.setAlignment(Pos.CENTER);
+		System.out.println(ImageHolder.getInstance().flatNightBackgound);
+		ImageView background = new ImageView(ImageHolder.getInstance().flatNightBackgound);
+		background.setFitHeight(GameConstant.WINDOW_HEIGHT);
+		background.setPreserveRatio(true);
+		this.getChildren().add(background);
+		
 		
 		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
 		mediaPlayer.setVolume(0.1);
@@ -73,8 +80,14 @@ public class MainMenuGUI extends VBox {
 		this.menuBox.getChildren().add(optionBtn);
 		this.menuBox.getChildren().add(exitBtn);
 		
-		this.getChildren().add(this.titileBox);
-		this.getChildren().add(this.menuBox);
+		this.allBox = new VBox();
+		
+		allBox.setPadding(new Insets(20));
+		allBox.setAlignment(Pos.CENTER);
+		allBox.getChildren().add(this.titileBox);
+		allBox.getChildren().add(this.menuBox);
+		
+		this.getChildren().add(allBox);
 	}
 	
 	private void play1PlayerHandler() {
