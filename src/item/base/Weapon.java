@@ -29,7 +29,7 @@ public class Weapon extends Item{
 		this.setDamage(10);
 		this.runSpeed = 100.00;
 		this.coolDown = 0.0;
-		this.setBulletSpeed(1);
+		this.setBulletSpeed(0);
 		this.setPlayer(null);
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
@@ -188,7 +188,9 @@ public class Weapon extends Item{
 		if(this.player == null) {
 			if(target instanceof Character) {
 				Character targetCharacter = (Character) target;
-				targetCharacter.setWeapon(this);
+				if(targetCharacter.getWeapon() == null) {
+					targetCharacter.setWeapon(this);
+				}
 			}
 		}
 	}

@@ -29,4 +29,6 @@ public class Awp extends Weapon{
 		
 		System.out.println("AWP have been create");
 	}
+	
+	
 }

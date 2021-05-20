@@ -2,6 +2,7 @@ package item.derived;
 
 import constants.ImageHolder;
 import item.base.Weapon;
+import logic.ImageLogic;
 
 public class Ak47 extends Weapon{
 	
@@ -15,7 +16,16 @@ public class Ak47 extends Weapon{
 		this.setRange(10);
 		this.setRunSpeed(50);
 		this.refillAmmo();
+		
+		this.setX(200);
+		this.setY(400);
+		
 		this.setSprite(ImageHolder.getInstance().ak47);
+		this.setImageView(ImageLogic.resizeImageToImageView(this, getSprite(),60, 20));
+		this.setWidth(50);
+		this.setHeight(30);
+		this.getBoundBox().getChildren().add(imageView);
+		
 		System.out.println("AK47 have been create");
 	}
 }
