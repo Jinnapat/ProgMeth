@@ -42,7 +42,7 @@ public class test3 extends Application{
 		DropBox db = new DropBox();
 		db.setFallable(true);
 		
-		new Ground(1000, 50, 0, 500);
+		new Ground(1000, 50, 0, 500, false);
 		
 		Healthbar player1Healthbar = myChar.getHealthBar();
 		AnchorPane.setLeftAnchor(player1Healthbar.getHealthBox(), 10.0);
