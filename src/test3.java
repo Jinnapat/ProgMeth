@@ -34,7 +34,7 @@ public class test3 extends Application{
 		myChar.setName("Player 1");
 		myChar.setFallable(true);
 		
-		DropBox db = new DropBox();
+		DropBox db = new DropBox(10, 10, 10, 10, Color.RED);
 		db.setX(20.0);
 		db.setY(100.0);
 		db.setFallable(true);

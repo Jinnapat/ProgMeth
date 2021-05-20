@@ -9,17 +9,25 @@ public abstract class Item extends SolidObject{
 	protected double yPos;
 	
 	
-	
 	public Item() {
 		super(10, 10, 10, 10);
+		this.setName(null);
+		super.checkCollide();
+	}
+	
+	public Item(String name) {
+		super(10, 10, 10, 10);
+		this.setName(name);
+		super.checkCollide();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Item(String name, double xPos, double yPos) {
-		super(yPos, yPos, yPos, yPos);
+		super(10, 10, xPos, yPos);
 		this.setName(name);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
+		super.checkCollide();
 	}
 
 	// TODO
@@ -30,7 +38,11 @@ public abstract class Item extends SolidObject{
 	}
 
 	public void setName(String name) {
-		this.name = name.isBlank() ? "Unnamed": name;
+		if(name == null || name.isBlank()) {
+			this.name = "Unnamed";
+		} else {
+			this.name = name;
+		}
 	}
 
 

@@ -6,13 +6,16 @@ import item.base.Weapon;
 public class Awp extends Weapon{
 
 	public Awp() {
-		super(10000, 100,100, 1000, 10);
+		super();
+		this.setName("AWP");
+		this.setMaxAmmo(100);
+		this.setFireRate(10);
+		this.setDamage(100);
+		this.setBulletSpeed(10);
+		this.setRange(10);
+		this.setRunSpeed(50);
+		this.refillAmmo();
 		this.setSprite(ImageHolder.getInstance().awp);
 		System.out.println("AWP have been create");
 	}
-	
-//	public static void main(String[] args) {
-//		Awp awp = new Awp();
-//		System.out.println(awp.getSprite());
-//	}
 }

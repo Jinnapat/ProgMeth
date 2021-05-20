@@ -83,6 +83,7 @@ public class Ground extends SolidObject {
 //				targetDropBox.setOnGround(true);
 				
 			}
+			System.out.println(targetDropBox.getY());
 		}
 	}
 	

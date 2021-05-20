@@ -10,6 +10,7 @@ import character.Heavy;
 import character.Scout;
 import gui.Healthbar;
 import item.base.Weapon;
+import item.derived.Awp;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 
@@ -29,8 +30,7 @@ public class Game extends Application{
 		Engineer myChar = new Engineer();
 		myChar.setX(20.0);
 		myChar.setY(500.0);
-		myChar.setWeapon(new Weapon());
-		myChar.getWeapon().setFireRate(20);
+		myChar.setWeapon(new Awp());
 		myChar.checkControl();
 		myChar.setName("Player 1");
 		myChar.setFallable(true);

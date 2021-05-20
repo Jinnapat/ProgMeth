@@ -13,6 +13,7 @@ public class Weapon extends Item{
 	private double coolDown;
 	private double fireRate;
 	private int damage;
+	private double bulletSpeed;
 	private double range;
 	private double runSpeed; //percent
 	private ArrayList<Bullet> bullets;
@@ -20,6 +21,7 @@ public class Weapon extends Item{
 	
 	public Weapon() {
 		super();
+		this.setName(null);
 		this.maxAmmo = 10;
 		this.fireRate = 10;
 		this.range = 10;
@@ -47,7 +49,7 @@ public class Weapon extends Item{
 		this.currentAmmo = this.maxAmmo;
 		this.bullets.clear();
 		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet(this.damage));
+			bullets.add(new Bullet(this.damage, this.bulletSpeed));
 		}
 	}
 	
@@ -58,8 +60,6 @@ public class Weapon extends Item{
 				this.currentAmmo -= 1;
 				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
 				this.bullets.remove(currentAmmo);
-				
-				// try to create bullet ui
 				
 			} else {
 				System.out.println("Can't shoot");
@@ -148,6 +148,14 @@ public class Weapon extends Item{
 
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+
+	public double getBulletSpeed() {
+		return bulletSpeed;
+	}
+
+	public void setBulletSpeed(double bulletSpeed) {
+		this.bulletSpeed = bulletSpeed;
 	}
 
 	@Override
