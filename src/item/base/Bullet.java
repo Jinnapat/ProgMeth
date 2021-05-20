@@ -2,6 +2,7 @@ package item.base;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -145,5 +146,23 @@ public class Bullet extends SolidObject {
 			GameScene.root.getChildren().remove(this.getBoundBox());
 			this.setHit(true);
 		}
+	}
+
+	@Override
+	public int getZ() {
+		// TODO Auto-generated method stub
+		return 9;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		//////////////////////TODO//////////////
+	}
+
+	@Override
+	public boolean isDestroy() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

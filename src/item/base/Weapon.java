@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.Character;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
 import sceneObject.SolidObject;
 
 public class Weapon extends Item{
@@ -193,6 +194,24 @@ public class Weapon extends Item{
 				}
 			}
 		}
+	}
+
+	@Override
+	public int getZ() {
+		// TODO Auto-generated method stub
+		return 9;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		//////////////TODO///////////////
+	}
+
+	@Override
+	public boolean isDestroy() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

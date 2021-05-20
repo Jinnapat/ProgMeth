@@ -1,11 +1,14 @@
 package sceneObject;
 
 import constants.GameConstant;
+import gui.GameCanvas;
+import interfaces.IRenderable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import logic.RenderableHolder;
 
-public abstract class SolidObject {
+public abstract class SolidObject implements IRenderable{
 	private AnchorPane boundBox;
 	private double width;
 	private double height;
@@ -31,6 +34,7 @@ public abstract class SolidObject {
 		this.fallable = false;
 		this.boundBox = new AnchorPane();
 		this.boundBox.setPrefSize(getWidth(), getHeight());
+		RenderableHolder.getInstance().addObject(this);
 	}
 	
 	public SolidObject(double width, double height, double x, double y) {
