@@ -1,5 +1,6 @@
 package item.base;
 import character.Character;
+import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
 public abstract class Item extends SolidObject{
@@ -13,21 +14,22 @@ public abstract class Item extends SolidObject{
 		super(10, 10, 10, 10);
 		this.setName(null);
 		super.checkCollide();
+		
+		GameScene.solidObjects.add(this);
+		GameScene.root.getChildren().add(this.getBoundBox());
 	}
 	
 	public Item(String name) {
-		super(10, 10, 10, 10);
+		this();
 		this.setName(name);
-		super.checkCollide();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Item(String name, double xPos, double yPos) {
-		super(10, 10, xPos, yPos);
+		this();
 		this.setName(name);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
-		super.checkCollide();
 	}
 
 	// TODO

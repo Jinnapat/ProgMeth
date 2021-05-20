@@ -1,6 +1,7 @@
 package item.derived;
 
 import character.Character;
+import constants.ImageHolder;
 import item.base.Item;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -16,15 +17,24 @@ import character.Character;
 
 public class DropBox extends Item{
 	
-	public DropBox(double width, double height, double x, double y, Color color) {
+	public DropBox() {
 		super();
+		this.setX(50);
+		this.setY(50);
+		this.getBoundBox().setPrefWidth(50);
+		this.getBoundBox().setPrefHeight(50);
+		this.setSprite(ImageHolder.getInstance().box);
+		this.getBoundBox().setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
+		
+		checkCollide();
+	}
+	
+	public DropBox(double width, double height, double x, double y, Color color) {
+		this();
 		this.setX(x);
 		this.setY(y);
 		this.getBoundBox().setPrefWidth(width);
 		this.getBoundBox().setPrefHeight(height);
-		this.getBoundBox().setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		checkCollide();
 	}
 
 	@Override

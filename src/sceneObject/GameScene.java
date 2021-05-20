@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 public class GameScene {
 	public static ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
 	public static AnchorPane root = new AnchorPane();
-	public static Scene scene = new Scene(root, 1200, 800);
+	public static Scene scene = new Scene(root, 800, 600);
 	public static double gravity_g = 0.3;
 	public static ArrayList<SolidObject> solidObjects = new ArrayList<SolidObject>();
 	

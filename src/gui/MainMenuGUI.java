@@ -43,10 +43,12 @@ public class MainMenuGUI extends VBox {
 		Button play1PlayerBtn = new Button("1 player");
 		Button play2PlayerBtn = new Button("2 player");
 		Button optionBtn = new Button("option");
+		Button exitBtn = new Button("exit");
 		
 		play1PlayerBtn.setFont(FontHolder.getInstance().dream24);
 		play2PlayerBtn.setFont(FontHolder.getInstance().dream24);
 		optionBtn.setFont(FontHolder.getInstance().dream24);
+		exitBtn.setFont(FontHolder.getInstance().dream24);
 		
 		play1PlayerBtn.setOnMouseClicked((e) -> {
 			play1PlayerHandler();
@@ -60,11 +62,16 @@ public class MainMenuGUI extends VBox {
 			optionHandler();
 		});
 		
+		exitBtn.setOnMouseClicked((e) -> {
+			exitHandler();
+		});
+		
 		this.titileBox.getChildren().add(title);
 		
 		this.menuBox.getChildren().add(play1PlayerBtn);
 		this.menuBox.getChildren().add(play2PlayerBtn);
 		this.menuBox.getChildren().add(optionBtn);
+		this.menuBox.getChildren().add(exitBtn);
 		
 		this.getChildren().add(this.titileBox);
 		this.getChildren().add(this.menuBox);
@@ -83,5 +90,10 @@ public class MainMenuGUI extends VBox {
 	private void optionHandler() {
 		//TODO
 		System.out.println("Option");
+	}
+	
+	private void exitHandler() {
+		System.out.println("Exit");
+		System.exit(0);
 	}
 }

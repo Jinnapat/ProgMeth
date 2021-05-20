@@ -28,6 +28,7 @@ public class Weapon extends Item{
 		this.setDamage(10);
 		this.runSpeed = 100.00;
 		this.coolDown = 0.0;
+		this.setBulletSpeed(1);
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
@@ -100,6 +101,7 @@ public class Weapon extends Item{
 
 	public void setMaxAmmo(int maxAmmo) {
 		this.maxAmmo = maxAmmo;
+		this.refillAmmo();
 	}
 
 	public int getCurrentAmmo() {
