@@ -1,18 +1,13 @@
 package sceneObject;
 
 import character.Character;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 
 public class Ground extends SolidObject {
 	
-	public Ground(double width, double height, double x, double y, Color color) {
+	public Ground(double width, double height, double x, double y) {
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
