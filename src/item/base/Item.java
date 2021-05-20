@@ -1,5 +1,6 @@
 package item.base;
 import character.Character;
+import javafx.scene.image.ImageView;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
@@ -8,6 +9,7 @@ public abstract class Item extends SolidObject{
 	protected String name;
 	protected double xPos;
 	protected double yPos;
+	protected ImageView imageView;
 	
 	
 	public Item() {
@@ -63,5 +65,14 @@ public abstract class Item extends SolidObject{
 	public void setyPos(double yPos) {
 		this.yPos = yPos;
 	}
+
+	public ImageView getImageView() {
+		return imageView;
+	}
+
+	public void setImageView(ImageView imageView) {
+		this.imageView = imageView;
+	}
+	
 	
 }

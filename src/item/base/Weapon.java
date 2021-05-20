@@ -18,6 +18,7 @@ public class Weapon extends Item{
 	private double runSpeed; //percent
 	private ArrayList<Bullet> bullets;
 	private long lastTimeTriggered;
+	private Character player;
 	
 	public Weapon() {
 		super();
@@ -29,13 +30,14 @@ public class Weapon extends Item{
 		this.runSpeed = 100.00;
 		this.coolDown = 0.0;
 		this.setBulletSpeed(1);
+		this.setPlayer(null);
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
 	}
 	
 	public Weapon(int maxAmmo, double fireRate, int damage, double range, double runSpeed) {
-		super();
+		this();
 		this.maxAmmo = maxAmmo;
 		this.setFireRate(fireRate);
 		this.setRunSpeed(runSpeed);
@@ -48,6 +50,9 @@ public class Weapon extends Item{
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
+		if(this.bullets == null) {
+			this.bullets = new ArrayList<Bullet>();
+		}
 		this.bullets.clear();
 		for(int i=0; i<this.maxAmmo; i++) {
 			bullets.add(new Bullet(this.damage, this.bulletSpeed));
@@ -81,18 +86,27 @@ public class Weapon extends Item{
 					if (getCoolDown() > 0.0) {
 						setCoolDown(getCoolDown() - (getFireRate()));
 					}
-					
+					if(player != null) {
+						setX(player.getX() - getWidth()/2);
+						setY(player.getY() + getHeight()/2);
+						if(getImageView() != null) {
+							if(player.isHeadLeft()) {
+								getImageView().setScaleX(-1.0);
+							}else {
+								getImageView().setScaleX(1.0);
+							}
+						}
+					}
 					lastTimeTriggered = now;
 				}
 			}
 			
 		};
-		
 		animationTimer.start();
 	}
 
 	public void collectBy(Character character) {
-		((Character) character).setWeapon(this);
+//		((Character) character).setWeapon(this);
 	}
 
 	public int getMaxAmmo() {
@@ -159,13 +173,23 @@ public class Weapon extends Item{
 	public void setBulletSpeed(double bulletSpeed) {
 		this.bulletSpeed = bulletSpeed;
 	}
+	
+	public Character getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Character player) {
+		this.player = player;
+	}
 
 	@Override
 	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
-		if(target instanceof Character) {
-			Character targetCharacter = (Character) target;
-			targetCharacter.setWeapon(this);
+		if(this.player == null) {
+			if(target instanceof Character) {
+				Character targetCharacter = (Character) target;
+				targetCharacter.setWeapon(this);
+			}
 		}
 	}
 	

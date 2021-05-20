@@ -166,6 +166,7 @@ public class Character extends SolidObject implements Movable {
 
 	public void setWeapon(Weapon weapon) {
 		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
+		weapon.setPlayer(this);
 		this.weapon = weapon;
 	}
 
