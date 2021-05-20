@@ -7,6 +7,12 @@ import sceneObject.SolidObject;
 
 public class Bandage extends Utility{
 
+	public Bandage() {
+		super();
+		
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void collectBy(Character character) {
 		// TODO Auto-generated method stub
@@ -16,7 +22,6 @@ public class Bandage extends Utility{
 	@Override
 	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

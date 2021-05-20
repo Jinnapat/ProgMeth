@@ -1,6 +1,7 @@
 package sceneObject;
 
 import character.Character;
+import item.base.Utility;
 import item.derived.DropBox;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -66,20 +67,20 @@ public class Ground extends SolidObject {
 					}
 				}	
 			}
-		} else if(target instanceof DropBox) {
-			DropBox targetDropBox = (DropBox) target;
-			double bottom_y = targetDropBox.getY() + targetDropBox.getHeight();
+		} else if(target instanceof Utility) {
+			Utility targetUtility = (Utility) target;
+			double bottom_y = targetUtility.getY() + targetUtility.getHeight();
 			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
 				
-				if (targetDropBox.getSpeed_y() > 0) {
-					targetDropBox.setSpeed_y(0.0);
-					targetDropBox.setY(this.getY() - targetDropBox.getHeight());
+				if (targetUtility.getSpeed_y() > 0) {
+					targetUtility.setSpeed_y(0.0);
+					targetUtility.setY(this.getY() - targetUtility.getHeight());
 				}
 				
 //				targetDropBox.setOnGround(true);
 				
 			}
-			System.out.println(targetDropBox.getY());
+//			System.out.println("yPos: "+targetUtility.getY());
 		}
 	}
 	

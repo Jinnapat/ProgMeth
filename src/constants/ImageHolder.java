@@ -10,6 +10,7 @@ public class ImageHolder {
 	public Image shortgun = this.loadImage("guns/shortgun", "png");
 	public Image ak47 = this.loadImage("guns/Ak47", "png");
 	public Image box = this.loadImage("box", "png");
+	public Image heartPlus = this.loadImage("heart+", "png");
 
 	public ImageHolder() {
 		super();

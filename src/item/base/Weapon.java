@@ -163,7 +163,10 @@ public class Weapon extends Item{
 	@Override
 	public void onCollide(SolidObject target) {
 		// TODO Auto-generated method stub
-		
+		if(target instanceof Character) {
+			Character targetCharacter = (Character) target;
+			targetCharacter.setWeapon(this);
+		}
 	}
 	
 	

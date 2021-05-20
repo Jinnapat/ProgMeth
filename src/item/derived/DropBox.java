@@ -3,6 +3,7 @@ package item.derived;
 import character.Character;
 import constants.ImageHolder;
 import item.base.Item;
+import item.base.Utility;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +16,7 @@ import sceneObject.GameScene;
 import sceneObject.SolidObject;
 import character.Character;
 
-public class DropBox extends Item{
+public class DropBox extends Utility{
 	
 	public DropBox() {
 		super();
@@ -26,8 +27,6 @@ public class DropBox extends Item{
 		imageView.setFitHeight(30);
 		imageView.setFitWidth(30);
 		this.getBoundBox().getChildren().add(imageView);
-		
-		checkCollide();
 	}
 	
 	public DropBox(double width, double height, double x, double y, Color color) {

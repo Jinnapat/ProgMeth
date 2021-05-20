@@ -2,6 +2,8 @@ package item.derived;
 
 import constants.ImageHolder;
 import item.base.Weapon;
+import javafx.scene.image.ImageView;
+import logic.ImageLogic;
 
 public class Awp extends Weapon{
 
@@ -15,7 +17,14 @@ public class Awp extends Weapon{
 		this.setRange(10);
 		this.setRunSpeed(50);
 		this.refillAmmo();
+		
+		this.setX(300);
+		this.setY(400);
+		
 		this.setSprite(ImageHolder.getInstance().awp);
+		ImageView imageView = ImageLogic.resizeImageToImageView(this, getSprite(),100, 30);
+		this.getBoundBox().getChildren().add(imageView);
+		
 		System.out.println("AWP have been create");
 	}
 }

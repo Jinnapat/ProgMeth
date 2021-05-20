@@ -28,12 +28,13 @@ public class test3 extends Application{
 		GameScene.root.getChildren().add(background);
 		
 		Heavy myChar = new Heavy();
-		myChar.setWeapon(new Awp());
 		myChar.setX(100.0);
 		myChar.setY(400.0);
 		myChar.setCheckControls(true);
 		myChar.setName("Player 1");
 		myChar.setFallable(true);
+		
+		Awp awp = new Awp();
 		
 		DropBox db = new DropBox();
 		db.setFallable(true);
