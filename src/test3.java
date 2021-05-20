@@ -30,18 +30,15 @@ public class test3 extends Application{
 		Heavy myChar = new Heavy();
 		myChar.setWeapon(new Awp());
 		myChar.setX(100.0);
-		myChar.setY(500.0);
+		myChar.setY(400.0);
 		myChar.setCheckControls(true);
 		myChar.setName("Player 1");
 		myChar.setFallable(true);
 		
-		DropBox db = new DropBox(10, 10, 10, 10, Color.RED);
-		db.setX(200.0);
-		db.setY(0);
+		DropBox db = new DropBox();
 		db.setFallable(true);
 		
-		new Ground(100, 20, 10, 670);
-		new Ground(5000, 200, 0, 500);
+		new Ground(1000, 50, 0, 500);
 		
 		Healthbar player1Healthbar = myChar.getHealthBar();
 		AnchorPane.setLeftAnchor(player1Healthbar.getHealthBox(), 10.0);

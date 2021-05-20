@@ -13,8 +13,8 @@ public abstract class Item extends SolidObject{
 	public Item() {
 		super(10, 10, 10, 10);
 		this.setName(null);
-		super.checkCollide();
 		
+		super.checkCollide();
 		GameScene.solidObjects.add(this);
 		GameScene.root.getChildren().add(this.getBoundBox());
 	}

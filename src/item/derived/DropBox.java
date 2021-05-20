@@ -21,10 +21,11 @@ public class DropBox extends Item{
 		super();
 		this.setX(50);
 		this.setY(50);
-		this.getBoundBox().setPrefWidth(50);
-		this.getBoundBox().setPrefHeight(50);
 		this.setSprite(ImageHolder.getInstance().box);
-		this.getBoundBox().setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
+		ImageView imageView = new ImageView(this.getSprite());
+		imageView.setFitHeight(30);
+		imageView.setFitWidth(30);
+		this.getBoundBox().getChildren().add(imageView);
 		
 		checkCollide();
 	}
