@@ -9,12 +9,15 @@ import javafx.scene.layout.AnchorPane;
 
 public class Ground extends SolidObject {
 	
-	public Ground(double width, double height, double x, double y) {
+	private boolean passable;
+
+	public Ground(double width, double height, double x, double y, boolean passsable) {
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
 		this.getBoundBox().setPrefWidth(width);
 		this.getBoundBox().setPrefHeight(height);
+		this.passable = passsable;
 		
 		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());
 		int tileNumber = (int) (width / 50);
@@ -33,7 +36,7 @@ public class Ground extends SolidObject {
 		GameScene.root.getChildren().add(getBoundBox());
 		checkCollide();
 	}
-
+	
 	public double calculateDelta(double x1, double x2, double tx1, double tx2) {
 		if (x1 >= tx1 && x1 <= tx2) {
 			if (x2 >= tx1 && x2 <= tx2) {
@@ -49,7 +52,7 @@ public class Ground extends SolidObject {
 			}
 		}
 	}
-	
+
 	@Override
 	public void onCollide(SolidObject target) {
 		if (target instanceof Character) {
@@ -79,6 +82,17 @@ public class Ground extends SolidObject {
 				}
 			}
 			
+			if (!passable) {
+				if (targetCharacter.getSpeed_y() < 0.0) {
+					if (deltaX > 10.0) {
+						double top_y = targetCharacter.getY() + targetCharacter.getSpeed_y();
+						if (top_y >= this.getY() && top_y <= this.getY() + this.getHeight()) {
+							targetCharacter.setSpeed_y(0);
+							targetCharacter.setY(getY() + getHeight());
+						}
+					}
+				}
+			}
 			if (deltaY > 3.0) {
 				double left_x = targetCharacter.getX() + targetCharacter.getSpeed_x();
 				if (left_x >= this.getX() && left_x <= this.getX() + this.getWidth()) {
