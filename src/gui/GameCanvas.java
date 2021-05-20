@@ -1,17 +1,14 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import character.Scout;
+import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
+import item.derived.Bandage;
 import item.derived.DropBox;
 
 public class GameCanvas extends Canvas{
@@ -44,6 +41,10 @@ public class GameCanvas extends Canvas{
 		
 		DropBox db = new DropBox();
 		db.setFallable(true);
+		
+		Bandage bd = new Bandage();
+		bd.setX(100);
+		bd.setFallable(true);
 	}
 	
 	private void loop() {
@@ -65,7 +66,13 @@ public class GameCanvas extends Canvas{
     }
 	
 	private void update() {
-		
+		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+				if(obj instanceof Movable) {
+					((Movable) obj).update();
+				}
+			}
+		}
 	}
 	
 	private void draw() {

@@ -1,8 +1,12 @@
 package item.derived;
 
 import character.Character;
+import constants.ImageHolder;
 import item.base.Utility;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import logic.DamageLogic;
+import logic.ImageLogic;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
@@ -10,8 +14,18 @@ public class Bandage extends Utility{
 
 	public Bandage() {
 		super();
-		
+		this.setX(50);
+		this.setY(50);
+		this.setSprite(ImageHolder.getInstance().heartPlus);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Bandage(double width, double height, double x, double y, Color color) {
+		this();
+		this.setX(x);
+		this.setY(y);
+		this.getBoundBox().setPrefWidth(width);
+		this.getBoundBox().setPrefHeight(height);
 	}
 
 	@Override

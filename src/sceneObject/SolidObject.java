@@ -2,13 +2,14 @@ package sceneObject;
 
 import constants.GameConstant;
 import gui.GameCanvas;
+import interfaces.Collidable;
 import interfaces.IRenderable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import logic.RenderableHolder;
 
-public abstract class SolidObject implements IRenderable{
+public abstract class SolidObject implements IRenderable, Collidable{
 	private AnchorPane boundBox;
 	private double width;
 	private double height;
@@ -167,45 +168,46 @@ public abstract class SolidObject implements IRenderable{
 	}
 	
 	public void checkCollide() {
-		animationTimer = new AnimationTimer() {
-				
-			@Override
-			public void handle(long now) {
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
-				if (now - lastTimeTriggered >= 10000000) {
-					
-
-					setSpeed_x(getSpeed_x() * getFriction());
-					
-					
-					for (int i = 0; i < GameScene.solidObjects.size(); i++) {
-						SolidObject target = GameScene.solidObjects.get(i);
-						
-						double targetX1 = target.getX();
-						double targetX2 = targetX1 + target.getWidth();
-						double targetY1 = target.getY();
-						double targetY2 = targetY1 + target.getHeight();
-						
-						if (willCollide(targetX1, targetX2, targetY1, targetY2)) {
-							onCollide(target);
-						}
-					}
-					
-					setX(getX() + getSpeed_x());
-					if (isFallable()) {
-						double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-						if (newSpeed <= GameConstant.MAX_SPEED_Y) {
-							setSpeed_y(newSpeed);
-						}
-						setY(getY() + getSpeed_y());
-					}
-					AnchorPane.setLeftAnchor(boundBox, getX());
-					AnchorPane.setTopAnchor(boundBox, getY());
-				}
-			};
-		};
-		animationTimer.start();
+		
+//		animationTimer = new AnimationTimer() {
+//				
+//			@Override
+//			public void handle(long now) {
+//				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+//				
+//				if (now - lastTimeTriggered >= 10000000) {
+//					
+//
+//					setSpeed_x(getSpeed_x() * getFriction());
+//					
+//					
+//					for (int i = 0; i < GameScene.solidObjects.size(); i++) {
+//						SolidObject target = GameScene.solidObjects.get(i);
+//						
+//						double targetX1 = target.getX();
+//						double targetX2 = targetX1 + target.getWidth();
+//						double targetY1 = target.getY();
+//						double targetY2 = targetY1 + target.getHeight();
+//						
+//						if (willCollide(targetX1, targetX2, targetY1, targetY2)) {
+//							onCollide(target);
+//						}
+//					}
+//					
+//					setX(getX() + getSpeed_x());
+//					if (isFallable()) {
+//						double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+//						if (newSpeed <= GameConstant.MAX_SPEED_Y) {
+//							setSpeed_y(newSpeed);
+//						}
+//						setY(getY() + getSpeed_y());
+//					}
+//					AnchorPane.setLeftAnchor(boundBox, getX());
+//					AnchorPane.setTopAnchor(boundBox, getY());
+//				}
+//			};
+//		};
+//		animationTimer.start();
 	}
 	
 	public void stopCheckCollide() {

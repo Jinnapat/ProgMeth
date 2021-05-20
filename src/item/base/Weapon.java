@@ -3,6 +3,7 @@ package item.base;
 import java.util.ArrayList;
 
 import character.Character;
+import interfaces.Collidable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import sceneObject.SolidObject;
@@ -212,6 +213,19 @@ public class Weapon extends Item{
 	public boolean isDestroy() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		if(this.player == null) {
+			if(target instanceof Character) {
+				Character targetCharacter = (Character) target;
+				if(targetCharacter.getWeapon() == null) {
+					targetCharacter.setWeapon(this);
+				}
+			}
+		}
 	}
 	
 	

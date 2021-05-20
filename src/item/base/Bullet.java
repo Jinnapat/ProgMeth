@@ -13,8 +13,10 @@ import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
+import interfaces.Collidable;
+import interfaces.Movable;
 
-public class Bullet extends SolidObject {
+public class Bullet extends SolidObject implements Movable{
 	private double speed;
 	private int damage;
 	private double maxRange;
@@ -164,5 +166,29 @@ public class Bullet extends SolidObject {
 	public boolean isDestroy() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		if (target instanceof Character) {
+			Character targetCharacter = (Character)target;
+			if (targetCharacter.getHealth() > 0) {
+				DamageLogic.calculateDamage(this, targetCharacter);
+			}
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
+		} else if (target instanceof Ground) {
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
+		}
 	}
 }

@@ -25,7 +25,7 @@ public class DropBox extends Utility{
 		this.setY(50);
 		this.setSprite(ImageHolder.getInstance().box);
 		ImageView imageView = ImageLogic.resizeImageToImageView(this,  this.getSprite(),32, 32);
-		this.getBoundBox().getChildren().add(imageView);
+//		this.getBoundBox().getChildren().add(imageView);
 	}
 	
 	public DropBox(double width, double height, double x, double y, Color color) {

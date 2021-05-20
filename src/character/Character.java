@@ -1,5 +1,6 @@
 package character;
 
+import interfaces.Collidable;
 import interfaces.IRenderable;
 import interfaces.Movable;
 import item.base.Weapon;
@@ -309,5 +310,17 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	public boolean isDestroy() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		
 	}
 }

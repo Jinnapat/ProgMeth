@@ -1,10 +1,12 @@
 package item.base;
 
 import character.Character;
+import interfaces.Collidable;
+import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
 import sceneObject.SolidObject;
 
-public class Utility extends Item{
+public class Utility extends Item implements Movable{
 
 	@Override
 	public int getZ() {
@@ -33,6 +35,17 @@ public class Utility extends Item{
 
 	@Override
 	public void collectBy(Character character) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
 		// TODO Auto-generated method stub
 		
 	}
