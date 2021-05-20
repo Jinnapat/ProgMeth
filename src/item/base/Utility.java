@@ -16,6 +16,7 @@ public class Utility extends Item{
 	public void draw(GraphicsContext gc) {
 		// TODO Auto-generated method stub
 		/////////TODO////////////
+		gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 
 	@Override

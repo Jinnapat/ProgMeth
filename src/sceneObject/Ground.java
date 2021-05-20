@@ -26,6 +26,7 @@ public class Ground extends SolidObject {
 		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());
 		image = ImageLogic.resizeImage(image, width, height);
 		this.setSprite(image);
+		
 		int tileNumber = (int) (width / 50);
 		double blockWidth = width / tileNumber;
 		for (int i = 0; i < tileNumber; i++) {
@@ -140,7 +141,8 @@ public class Ground extends SolidObject {
 		int tileNumber = (int) (this.getWidth() / 50);
 		double blockWidth = this.getWidth() / tileNumber;
 		for (int i = 0; i < tileNumber; i++) {
-			gc.drawImage(this.getSprite(), this.getX() + i*blockWidth, this.getY());
+//			System.out.println(blockWidth);	
+			gc.drawImage(this.getSprite(), this.getX() + i*blockWidth, this.getY(), blockWidth, this.getHeight());
 		}
 	}
 
