@@ -16,4 +16,11 @@ public class DamageLogic {
 		System.out.println(newHealth);
 		e.setHealth(newHealth);
 	}
+	
+	public static void calulateHeal(double percent, Character character) {
+		int currentHealth = character.getHealth();
+		int maxHealth = character.getMaxHealth();
+		int newHealth = Math.min(currentHealth += maxHealth*(percent), maxHealth);
+		character.setHealth(newHealth);
+	}
 }

@@ -1,5 +1,7 @@
 package item.base;
 import character.Character;
+import javafx.scene.image.ImageView;
+import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
 public abstract class Item extends SolidObject{
@@ -7,16 +9,26 @@ public abstract class Item extends SolidObject{
 	protected String name;
 	protected double xPos;
 	protected double yPos;
-	
+	protected ImageView imageView;
 	
 	
 	public Item() {
 		super(10, 10, 10, 10);
+		this.setName(null);
+		
+		super.checkCollide();
+		GameScene.solidObjects.add(this);
+		GameScene.root.getChildren().add(this.getBoundBox());
+	}
+	
+	public Item(String name) {
+		this();
+		this.setName(name);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Item(String name, double xPos, double yPos) {
-		super(yPos, yPos, yPos, yPos);
+		this();
 		this.setName(name);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
@@ -30,7 +42,11 @@ public abstract class Item extends SolidObject{
 	}
 
 	public void setName(String name) {
-		this.name = name.isBlank() ? "Unnamed": name;
+		if(name == null || name.isBlank()) {
+			this.name = "Unnamed";
+		} else {
+			this.name = name;
+		}
 	}
 
 
@@ -49,5 +65,14 @@ public abstract class Item extends SolidObject{
 	public void setyPos(double yPos) {
 		this.yPos = yPos;
 	}
+
+	public ImageView getImageView() {
+		return imageView;
+	}
+
+	public void setImageView(ImageView imageView) {
+		this.imageView = imageView;
+	}
+	
 	
 }

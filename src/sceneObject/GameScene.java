@@ -1,6 +1,8 @@
 package sceneObject;
 
 import java.util.ArrayList;
+
+import constants.GameConstant;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -10,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 public class GameScene {
 	public static ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
 	public static AnchorPane root = new AnchorPane();
-	public static Scene scene = new Scene(root, 1200, 800);
+	public static Scene scene = new Scene(root, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
 	public static ArrayList<SolidObject> solidObjects = new ArrayList<SolidObject>();
 	
 	public GameScene() {};

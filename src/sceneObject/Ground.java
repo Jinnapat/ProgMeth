@@ -3,6 +3,9 @@ package sceneObject;
 import java.util.ArrayList;
 
 import character.Character;
+import item.base.Utility;
+import item.derived.DropBox;
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -104,7 +107,21 @@ public class Ground extends SolidObject {
 					targetCharacter.setSpeed_x(0.0);
 				}
 			}
+
+		} else if(target instanceof Utility) {
+			Utility targetUtility = (Utility) target;
+			double bottom_y = targetUtility.getY() + targetUtility.getHeight();
+			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
 				
+				if (targetUtility.getSpeed_y() > 0) {
+					targetUtility.setSpeed_y(0.0);
+					targetUtility.setY(this.getY() - targetUtility.getHeight());
+				}
+				
+//				targetDropBox.setOnGround(true);
+				
+			}
+//			System.out.println("yPos: "+targetUtility.getY());
 
 		}
 	}
