@@ -36,12 +36,6 @@ public abstract class SolidObject {
 		this(width, height);
 		this.x = x;
 		this.y = y;
-//		this.speed_x = 0.0;
-//		this.speed_y = 0.0;
-//		this.friction = 0.8;
-//		this.fallable = false;
-//		this.boundBox = new AnchorPane();
-//		this.boundBox.setPrefSize(getWidth(), getHeight());
 	}
 	
 	public double getWidth() {
