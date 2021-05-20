@@ -42,6 +42,7 @@ public class Utility extends Item implements Movable{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

@@ -127,45 +127,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	public void setSprite(Image sprite) {
 		this.sprite = sprite;
 	}
-
-	public boolean willCollide(double targetX1, double targetX2, double targetY1, double targetY2) {
-			
-		boolean x_collide = false;
-		boolean y_collide = false;
-		boolean collided = false;
-
-		double x1 = getX();
-		double x2 = x1 + getWidth();
-		double y1 = getY();
-		double y2 = y1 + getHeight();
-		
-		if (x1 <= targetX2 &&  x1 >= targetX1) {
-			x_collide = true;
-		} else if (x2 <= targetX2 &&  x2 >= targetX1) {
-			x_collide = true;
-		}
-			
-		if ((y1 <= targetY2 &&  y1 >= targetY1)) {
-			y_collide = true;
-		} else if ((y2 <= targetY2 &&  y2 >= targetY1)) {
-			y_collide = true;
-		}
-		
-		if (targetX1 < x2 &&  targetX1 >= x1) {
-			x_collide = true;
-		} else if (targetX2 <= x2 &&  targetX2 >= x1) {
-			x_collide = true;
-		}
-		
-		if ((targetY1 <= y2 &&  targetY1 >= y1)) {
-			y_collide = true;
-		} else if ((targetY2 <= y2 &&  targetY2 >= y1)) {
-			y_collide = true;
-		}
-		
-		collided = x_collide && y_collide;
-		return collided;
-	}
 	
 	public void checkCollide() {
 		
