@@ -18,6 +18,7 @@ import sceneObject.GameScene;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import constants.GameConstant;
 import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable, IRenderable {
@@ -35,14 +36,13 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	private Healthbar healthBar;
 	private boolean onGround;
 	private String state;
-	protected ImageView imageView;
-	private AnimationTimer animationLoop;
-	private double lastTriggerTime;
 	private int curImage = 0;
 	private ArrayList<Image> runImages;
 	private ArrayList<Image> idleImages;
 	private ArrayList<Image> dieImages;
 	private boolean checkControls;
+	private int animationDelay;
+	private int currentAnimationDelay;
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
@@ -51,11 +51,12 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
 		this.checkControls = false;
+		this.animationDelay = 10;
+		this.currentAnimationDelay = this.animationDelay;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
 		healthBar = new Healthbar();
-		lastTriggerTime = 0.0;
 		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
@@ -69,50 +70,19 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		GameScene.root.getChildren().add(healthBar.getHealthBox());
 		
 		checkCollide();
-		checkControl();
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
 		dieImages = new ArrayList<Image>();
 		
 		for (int i = 1; i <= 6; i++) {
-			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString()));
+			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
 		for (int i = 1; i <= 5; i++) {
-			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString()));
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
 		for (int i = 1; i <= 8; i++) {
-			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString()));
+			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
-		
-		imageView = new ImageView(idleImages.get(curImage));
-		imageView.setFitHeight(50.0);
-		imageView.setPreserveRatio(true);
-		getBoundBox().getChildren().add(imageView);
-		
-		this.animationLoop = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				
-				lastTriggerTime = (lastTriggerTime < 0 ? now : lastTriggerTime);
-				
-				if (now - lastTriggerTime >= 100000000) {
-					if (getState() == "idle") {
-						curImage = (curImage + 1) % idleImages.size();
-						imageView.setImage(idleImages.get(curImage));
-					} else if (getState() == "running") {
-						curImage = (curImage + 1) % runImages.size();
-						imageView.setImage(runImages.get(curImage));
-					} else if (getState() == "dying") {
-						curImage = Math.min(curImage + 1, dieImages.size() - 1);
-						imageView.setImage(dieImages.get(curImage));
-					}
-					lastTriggerTime = now;
-				}
-			}
-		};
-		
-		this.animationLoop.start();
 	}
 
 	public String getName() {
@@ -206,14 +176,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.onGround = onGround;
 	}
 
-	public ImageView getImageView() {
-		return imageView;
-	}
-
-	public void setImageView(ImageView imageView) {
-		this.imageView = imageView;
-	}
-
 	public String getState() {
 		return state;
 	}
@@ -231,70 +193,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.checkControls = checkControls;
 	}
 
-	public void checkControl() {
-		
-		this.animationTimer = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
-				if (now - lastTimeTriggered >= 10000000) {
-					
-					if (isCheckControls()) {
-						if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
-							setSpeed_x(-speed);
-							setHeadLeft(true);
-							getImageView().setScaleX(-1.0);
-							setState("running");
-	
-						} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
-							setSpeed_x(speed);
-							setHeadLeft(false);
-							getImageView().setScaleX(1.0);
-							setState("running");
-						} else {
-							setState("idle");
-						}
-						
-						if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
-							if (getWeapon() != null) {
-								double bulletSpawnX = 0.0;
-								if (isHeadLeft()) {
-									bulletSpawnX = getX() - 10.0;
-								} else {
-									bulletSpawnX = getX() + getWidth() + 10.0;
-								}
-								getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
-							} else {
-								System.out.println("No weapon!");
-							}
-						}
-						
-						if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
-							if (getSpeed_y() < 0.5 && isOnGround()) {
-								setSpeed_y(-getJumpStrength());
-							}
-						}
-					}
-					setOnGround(false);
-					double nameTagX = (getX() + (getWidth() / 2.0)) - (getNameTag().getWrappingWidth() / 2.0);
-					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);
-					AnchorPane.setLeftAnchor(getNameTag(), nameTagX);
-					AnchorPane.setTopAnchor(getBoundBox(), getY());
-					AnchorPane.setLeftAnchor(getBoundBox(), getX());
-					lastTimeTriggered = now;
-				}
-			}
-		};
-		
-		this.animationTimer.start();
-	}
-	
-	@Override
-	public void onCollide(SolidObject target) {}
-
 	@Override
 	public int getZ() {
 		return 100;
@@ -302,25 +200,89 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
+		currentAnimationDelay -= 1;
+		if (currentAnimationDelay <= 0) {
+			curImage += 1;
+			currentAnimationDelay = animationDelay;
+		}
+		
+		int side = 1;
+		if (isHeadLeft) {
+			side = -1;
+		}
+		if (getState() == "idle") {
+			curImage = (curImage) % idleImages.size();
+			Image image = idleImages.get(curImage);
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+		} else if (getState() == "running") {
+			curImage = (curImage) % runImages.size();
+			Image image = runImages.get(curImage);
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+		} else if (getState() == "dying") {
+			curImage = Math.min(curImage, dieImages.size() - 1);
+			Image image = dieImages.get(curImage);
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+		}
 		
 	}
 
 	@Override
 	public boolean isDestroy() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		
+		setSpeed_x(getSpeed_x() * getFriction());
+		
+		if (isFallable()) {
+			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
+				setSpeed_y(newSpeed);
+			}
+			setY(getY() + getSpeed_y());
+		}
+			
+		if (isCheckControls()) {
+			if (GameConstant.keyPressed.contains(controlKeys.get("leftKey"))) {
+				setSpeed_x(-speed);
+				setHeadLeft(true);
+				setState("running");
+
+			} else if (GameConstant.keyPressed.contains(controlKeys.get("rightKey"))) {
+				setSpeed_x(speed);
+				setHeadLeft(false);
+				setState("running");
+			} else {
+				setState("idle");
+			}
+			
+			if (GameConstant.keyPressed.contains(controlKeys.get("shootKey"))) {
+				if (getWeapon() != null) {
+					double bulletSpawnX = 0.0;
+					if (isHeadLeft()) {
+						bulletSpawnX = getX() - 10.0;
+					} else {
+						bulletSpawnX = getX() + getWidth() + 10.0;
+					}
+					getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+				} else {
+					System.out.println("No weapon!");
+				}
+			}
+			
+			if (GameConstant.keyPressed.contains(controlKeys.get("jumpKey"))) {
+				if (getSpeed_y() < 0.5 && isOnGround()) {
+					setSpeed_y(-getJumpStrength());
+				}
+			}
+		}
+		setOnGround(false);
+		setX(getX() + getSpeed_x());
 		
 	}
 
 	@Override
-	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onCollide(Collidable target) {}
 }

@@ -3,7 +3,9 @@ package logic;
 import sceneObject.SolidObject;
 
 public class GameLogic {
-	public boolean willCollide(SolidObject o1, SolidObject o2) {
+	
+	
+	public static boolean willCollide(SolidObject o1, SolidObject o2) {
 		
 		/////TODO/////
 		double targetX1 = o2.getX();
