@@ -197,7 +197,12 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		}
 		
 		gc.setFill(Color.BLACK);
-		gc.fillText(getName(), getX() - 10, getY() - 13);
+		if (getWeapon() == null) {
+			gc.fillText("No gun", getX() - 10, getY() - 13);
+		} else {
+			gc.fillText(getWeapon().getName() + " : " + getWeapon().getCurrentAmmo(), getX() - 10, getY() - 13);
+		}
+		gc.fillText(getName(), getX() - 10, getY() - 23);
 		gc.setFill(Color.CRIMSON);
 		gc.fillRect(getX() - 10, getY() - 10, 50.0 * getHealth() / getMaxHealth(), 5);
 	}
