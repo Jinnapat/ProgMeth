@@ -133,7 +133,6 @@ public class Ground extends SolidObject{
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 10;
 	}
 
