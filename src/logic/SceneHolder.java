@@ -2,7 +2,7 @@ package logic;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sceneObject.MainMenuScene;
+import scene.MainMenuScene;
 
 public class SceneHolder {
 	

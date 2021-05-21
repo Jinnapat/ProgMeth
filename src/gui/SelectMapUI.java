@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,7 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import logic.SystemLogic;
+import logic.SceneHolder;
 
 public class SelectMapUI extends VBox {
 	private Button startBtn;
@@ -25,7 +26,7 @@ public class SelectMapUI extends VBox {
 		
 		this.startBtn = new Button("Start Game");
 		this.startBtn.setOnMouseClicked((e) -> {
-			SystemLogic.startGame();
+			SceneHolder.switchScene(getScene());
 		});
 		
 		this.getChildren().add(this.startBtn);

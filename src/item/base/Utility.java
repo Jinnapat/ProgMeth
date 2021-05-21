@@ -2,19 +2,22 @@ package item.base;
 
 import character.Character;
 import constants.GameConstant;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
-import logic.RenderableHolder;
+import logic.DamageLogic;
 import sceneObject.SolidObject;
 
-public class Utility extends Item implements Movable, IRenderable{
+public class Utility extends Item implements Movable{
 	
+	protected boolean isDestroy = false;
+
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return 8;
+		return PriorityConstant.UTILITY;
 	}
 
 	@Override
@@ -24,7 +27,7 @@ public class Utility extends Item implements Movable, IRenderable{
 
 	@Override
 	public boolean isDestroy() {
-		return false;
+		return this.isDestroy;
 	}
 
 	@Override
@@ -43,8 +46,6 @@ public class Utility extends Item implements Movable, IRenderable{
 
 	@Override
 	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

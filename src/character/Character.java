@@ -37,7 +37,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	private boolean checkControls;
 	private int animationDelay;
 	private int currentAnimationDelay;
-	
+
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
 		this.state = "idle";
@@ -47,7 +47,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.checkControls = false;
 		this.animationDelay = 7;
 		this.currentAnimationDelay = this.animationDelay;
-		
+
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
@@ -57,18 +57,22 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
 		dieImages = new ArrayList<Image>();
-		
+
 		for (int i = 1; i <= 6; i++) {
-			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString(), 0.0, 50.0, true, false));
+			runImages.add(
+					new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString(),
+							0.0, 50.0, true, false));
 		}
 		for (int i = 1; i <= 5; i++) {
-			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString(), 0.0, 50.0, true, false));
+			idleImages.add(
+					new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString(),
+							0.0, 50.0, true, false));
 		}
 		for (int i = 1; i <= 8; i++) {
-			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(), 0.0, 50.0, true, false));
+			dieImages.add(
+					new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(),
+							0.0, 50.0, true, false));
 		}
-		
-		this.setSprite(this.runImages.get(0));
 	}
 
 	public String getName() {
@@ -155,7 +159,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.state = state;
 	}
 
-	
 	public boolean isCheckControls() {
 		return checkControls;
 	}
@@ -176,7 +179,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			curImage += 1;
 			currentAnimationDelay = animationDelay;
 		}
-		
+
 		int side = 1;
 		if (isHeadLeft) {
 			side = -1;
@@ -184,17 +187,20 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		if (getState() == "idle") {
 			curImage = (curImage) % idleImages.size();
 			Image image = idleImages.get(curImage);
-			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(),
+					image.getWidth() * side, image.getHeight());
 		} else if (getState() == "running") {
 			curImage = (curImage) % runImages.size();
 			Image image = runImages.get(curImage);
-			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(),
+					image.getWidth() * side, image.getHeight());
 		} else if (getState() == "dying") {
 			curImage = Math.min(curImage, dieImages.size() - 1);
 			Image image = dieImages.get(curImage);
-			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
+			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(),
+					image.getWidth() * side, image.getHeight());
 		}
-		
+
 		gc.setFill(Color.BLACK);
 		if (getWeapon() == null) {
 			gc.fillText("No gun", getX() - 10, getY() - 13);
@@ -213,14 +219,14 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public void update() {
-		
+
 		setSpeed_x(getSpeed_x() * getFriction());
-		
+
 		if (isFallable()) {
 			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
 			setSpeed_y(newSpeed);
 		}
-			
+
 		if (isCheckControls()) {
 			if (GameConstant.keyPressed.contains(controlKeys.get("leftKey"))) {
 				setSpeed_x(-speed);
@@ -234,7 +240,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			} else {
 				setState("idle");
 			}
-			
+
 			if (GameConstant.keyPressed.contains(controlKeys.get("shootKey"))) {
 				if (getWeapon() != null) {
 					double bulletSpawnX = 0.0;
@@ -248,7 +254,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 					System.out.println("No weapon!");
 				}
 			}
-			
+
 			if (GameConstant.keyPressed.contains(controlKeys.get("jumpKey"))) {
 				if (getSpeed_y() < 0.5 && isOnGround()) {
 					setSpeed_y(-getJumpStrength());
@@ -256,9 +262,10 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			}
 		}
 		setOnGround(false);
-		
+
 	}
 
 	@Override
-	public void onCollide(Collidable target) {}
+	public void onCollide(Collidable target) {
+	}
 }

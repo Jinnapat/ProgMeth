@@ -1,7 +1,7 @@
 package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sceneObject.SelectionScene;
+import scene.SelectionScene;
 
 public class testSelectionGUI extends Application{
 	

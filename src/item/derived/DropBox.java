@@ -25,16 +25,14 @@ public class DropBox extends Utility{
 		super();
 		this.setX(50);
 		this.setY(50);
-		this.setSprite(ImageHolder.getInstance().box);
-		RenderableHolder.getInstance().addObject(this);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box,32, 32);
 	}
 	
 	public DropBox(double width, double height, double x, double y) {
 		this();
 		this.setX(x);
 		this.setY(y);
-		this.setWidth(width);
-		this.setHeight(height);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box, width, height);
 	}
 
 	@Override
@@ -44,11 +42,13 @@ public class DropBox extends Utility{
 
 	@Override
 	public void onCollide(Collidable target) {
-		if(target instanceof Character) {
-			Character targetCharacter = (Character) target;
-			collectBy(targetCharacter);
-			RenderableHolder.getInstance().addGarbage(this);
-			System.out.println("Get DropBox");
+		if(target != null) {
+			if(target instanceof Character) {
+				Character targetCharacter = (Character) target;
+				this.collectBy(targetCharacter);
+				System.out.println("Get DropBox");
+				RenderableHolder.getInstance().addGarbage(this);
+			}
 		}
 	}
 

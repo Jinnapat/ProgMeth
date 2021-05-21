@@ -20,8 +20,7 @@ public class Ak47 extends Weapon{
 		this.setX(200);
 		this.setY(400);
 		
-		this.setSprite(ImageHolder.getInstance().ak47);
-		this.setImageView(ImageLogic.resizeImageToImageView(this, getSprite(),60, 20));
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().awp,60,020);
 		this.setWidth(50);
 		this.setHeight(30);
 		this.getBoundBox().getChildren().add(imageView);

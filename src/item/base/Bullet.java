@@ -9,6 +9,7 @@ import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
 import constants.GameConstant;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -98,7 +99,7 @@ public class Bullet extends SolidObject implements Movable{
 
 	@Override
 	public int getZ() {
-		return 9;
+		return PriorityConstant.BULLET;
 	}
 
 	@Override

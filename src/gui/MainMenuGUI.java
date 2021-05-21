@@ -16,7 +16,7 @@ import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
 import main.testSelectionGUI;
-import sceneObject.SelectionScene;
+import scene.SelectionScene;
 
 public class MainMenuGUI extends StackPane {
 	private HBox titileBox;

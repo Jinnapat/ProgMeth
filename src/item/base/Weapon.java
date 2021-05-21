@@ -3,6 +3,7 @@ package item.base;
 import java.util.ArrayList;
 
 import character.Character;
+import character.Scout;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
