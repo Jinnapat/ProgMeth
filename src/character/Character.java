@@ -9,17 +9,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
-import sceneObject.GameScene;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import constants.GameConstant;
 import constants.PriorityConstant;
-import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable, IRenderable {
 	protected String name;
@@ -89,7 +85,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
-		//this.healthBar.displayHealth(getHealth(), maxHealth);
 	}
 
 	public int getHealth() {
@@ -98,11 +93,14 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setHealth(int health) {
 		this.health = health;
-		//this.healthBar.displayHealth(health, this.maxHealth);
 		if (health <= 0) {
 			setCheckControls(false);
 			this.curImage = 0;
 			setState("dying");
+		}
+		
+		if (health > getMaxHealth()) {
+			this.health = getMaxHealth();
 		}
 	}
 

@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import character.Heavy;
 import character.Scout;
-import gui.Healthbar;
 import item.base.Weapon;
 import item.derived.Ak47;
 import item.derived.Awp;
@@ -44,9 +43,6 @@ public class test3 extends Application{
 		db.setFallable(true);
 		
 		new Ground(1000, 50, 0, 500, false);
-		
-		//Healthbar player1Healthbar = myChar.getHealthBar();
-		//AnchorPane.setLeftAnchor(player1Healthbar.getHealthBox(), 10.0);
 		
 		GameScene.start();
 		p.setResizable(false);
