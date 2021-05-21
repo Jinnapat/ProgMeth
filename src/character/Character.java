@@ -53,6 +53,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.checkControls = false;
 		this.animationDelay = 10;
 		this.currentAnimationDelay = this.animationDelay;
+		
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
@@ -83,6 +84,8 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		for (int i = 1; i <= 8; i++) {
 			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
+		
+		this.setSprite(this.runImages.get(0));
 	}
 
 	public String getName() {
