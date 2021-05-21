@@ -2,6 +2,7 @@ package item.base;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -12,8 +13,10 @@ import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
+import interfaces.Collidable;
+import interfaces.Movable;
 
-public class Bullet extends SolidObject {
+public class Bullet extends SolidObject implements Movable{
 	private double speed;
 	private int damage;
 	private double maxRange;
@@ -132,6 +135,48 @@ public class Bullet extends SolidObject {
 
 	@Override
 	public void onCollide(SolidObject target) {
+		if (target instanceof Character) {
+			Character targetCharacter = (Character)target;
+			if (targetCharacter.getHealth() > 0) {
+				DamageLogic.calculateDamage(this, targetCharacter);
+			}
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
+		} else if (target instanceof Ground) {
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
+		}
+	}
+
+	@Override
+	public int getZ() {
+		// TODO Auto-generated method stub
+		return 9;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		//////////////////////TODO//////////////
+	}
+
+	@Override
+	public boolean isDestroy() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
 			if (targetCharacter.getHealth() > 0) {

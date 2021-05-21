@@ -13,6 +13,7 @@ public class GameScene {
 	public static ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
 	public static AnchorPane root = new AnchorPane();
 	public static Scene scene = new Scene(root, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
+	// change width and height
 	public static ArrayList<SolidObject> solidObjects = new ArrayList<SolidObject>();
 	
 	public GameScene() {};
@@ -41,5 +42,4 @@ public class GameScene {
 			
 		});
 	}
-
 }

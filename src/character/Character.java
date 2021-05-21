@@ -1,8 +1,11 @@
 package character;
 
+import interfaces.Collidable;
+import interfaces.IRenderable;
 import interfaces.Movable;
 import item.base.Weapon;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,7 +20,7 @@ import java.util.HashMap;
 
 import gui.Healthbar;
 
-public class Character extends SolidObject implements Movable {
+public class Character extends SolidObject implements Movable, IRenderable {
 	protected String name;
 	protected int maxHealth;
 	protected int health;
@@ -291,4 +294,33 @@ public class Character extends SolidObject implements Movable {
 	
 	@Override
 	public void onCollide(SolidObject target) {}
+
+	@Override
+	public int getZ() {
+		return 100;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isDestroy() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		
+	}
 }

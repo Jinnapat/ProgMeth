@@ -9,10 +9,12 @@ import character.Heavy;
 import character.Scout;
 import gui.Healthbar;
 import item.base.Weapon;
+import item.derived.Ak47;
 import item.derived.Awp;
 import item.derived.DropBox;
 import sceneObject.GameScene;
 import sceneObject.Ground;
+import character.Character;
 
 public class test3 extends Application{
 	
@@ -27,7 +29,7 @@ public class test3 extends Application{
 		background.setPreserveRatio(true);
 		GameScene.root.getChildren().add(background);
 		
-		Heavy myChar = new Heavy();
+		Scout myChar = new Scout();
 		myChar.setX(100.0);
 		myChar.setY(400.0);
 		myChar.setCheckControls(true);
@@ -35,6 +37,7 @@ public class test3 extends Application{
 		myChar.setFallable(true);
 		
 		Awp awp = new Awp();
+		Ak47 ak = new Ak47();
 		
 		DropBox db = new DropBox();
 		db.setFallable(true);

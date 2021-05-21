@@ -13,4 +13,8 @@ public class ImageLogic {
 		obj.setWidth(width);
 		return imageView;
 	}
+	
+	public static Image resizeImage(Image image, double width, double height){
+		return new Image(image.getUrl(), width, height, false, false);
+	}
 }

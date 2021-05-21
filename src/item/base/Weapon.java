@@ -3,7 +3,9 @@ package item.base;
 import java.util.ArrayList;
 
 import character.Character;
+import interfaces.Collidable;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
 import sceneObject.SolidObject;
 
 public class Weapon extends Item{
@@ -188,7 +190,40 @@ public class Weapon extends Item{
 		if(this.player == null) {
 			if(target instanceof Character) {
 				Character targetCharacter = (Character) target;
-				targetCharacter.setWeapon(this);
+				if(targetCharacter.getWeapon() == null) {
+					targetCharacter.setWeapon(this);
+				}
+			}
+		}
+	}
+
+	@Override
+	public int getZ() {
+		// TODO Auto-generated method stub
+		return 9;
+	}
+
+	@Override
+	public void draw(GraphicsContext gc) {
+		// TODO Auto-generated method stub
+		//////////////TODO///////////////
+	}
+
+	@Override
+	public boolean isDestroy() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onCollide(Collidable target) {
+		// TODO Auto-generated method stub
+		if(this.player == null) {
+			if(target instanceof Character) {
+				Character targetCharacter = (Character) target;
+				if(targetCharacter.getWeapon() == null) {
+					targetCharacter.setWeapon(this);
+				}
 			}
 		}
 	}
