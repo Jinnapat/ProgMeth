@@ -21,8 +21,7 @@ public class Awp extends Weapon{
 		this.setX(300);
 		this.setY(400);
 		
-		this.setSprite(ImageHolder.getInstance().awp);
-		this.setImageView(ImageLogic.resizeImageToImageView(this, getSprite(),100, 30));
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().awp,100, 30);
 		this.setWidth(50);
 		this.setHeight(30);
 		this.getBoundBox().getChildren().add(imageView);

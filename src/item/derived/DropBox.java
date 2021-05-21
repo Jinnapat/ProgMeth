@@ -28,12 +28,11 @@ public class DropBox extends Utility{
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box,32, 32);
 	}
 	
-	public DropBox(double width, double height, double x, double y, Color color) {
+	public DropBox(double width, double height, double x, double y) {
 		this();
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box, width, height);
 	}
 
 	@Override
@@ -48,8 +47,7 @@ public class DropBox extends Utility{
 		if(target != null) {
 			if(target instanceof Character) {
 				Character targetCharacter = (Character) target;
-				GameScene.solidObjects.remove(this);
-				GameScene.root.getChildren().remove(this.getBoundBox());
+				this.collectBy(targetCharacter);
 				System.out.println("Get DropBox");
 				RenderableHolder.getInstance().addGarbage(this);
 			}

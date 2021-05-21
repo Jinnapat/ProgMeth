@@ -123,9 +123,11 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	}
 
 	public void setWeapon(Weapon weapon) {
-		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
-		weapon.setPlayer(this);
+//		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
 		this.weapon = weapon;
+		if(weapon != null ) {
+			weapon.setPlayer(this);
+		}
 	}
 
 	public HashMap<String, KeyCode> getControlKeys() {

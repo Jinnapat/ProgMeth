@@ -12,22 +12,21 @@ import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
-public class Bandage extends Utility{
+public class Bandage extends Utility {
 
 	public Bandage() {
 		super();
 		this.setX(50);
 		this.setY(50);
-		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().heartPlus,32, 32);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().heartPlus, 32, 32);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Bandage(double width, double height, double x, double y, Color color) {
+
+	public Bandage(double width, double height, double x, double y) {
 		this();
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().heartPlus, width, height);
 	}
 
 	@Override
@@ -39,10 +38,10 @@ public class Bandage extends Utility{
 	@Override
 	public void onCollide(Collidable target) {
 		// TODO Auto-generated method stub
-		if(target != null) {
-			if(target instanceof Character) {
+		if (target != null) {
+			if (target instanceof Character) {
 				Character targetCharacter = (Character) target;
-				DamageLogic.calulateHeal(0.3, targetCharacter);
+				this.collectBy(targetCharacter);
 //				GameScene.solidObjects.remove(this);
 //				GameScene.root.getChildren().remove(this.getBoundBox());
 				System.out.println("Get Bandage");

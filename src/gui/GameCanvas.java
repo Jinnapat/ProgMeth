@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
+import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
 
@@ -112,6 +113,10 @@ public class GameCanvas extends Canvas{
 		Bandage bd = new Bandage();
 		bd.setX(100);
 		bd.setFallable(true);
+		
+		AmmoStash as = new AmmoStash();
+		as.setX(300);
+		as.setFallable(true);
 	}
 	
 	private void loop() {
