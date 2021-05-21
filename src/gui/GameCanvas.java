@@ -8,7 +8,6 @@ import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
-import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -19,6 +18,7 @@ import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import item.derived.AmmoStash;
+import item.derived.Awp;
 import item.derived.Bandage;
 import item.derived.DropBox;
 
@@ -104,6 +104,8 @@ public class GameCanvas extends Canvas{
 		
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
+		
+		new Awp();
 		
 		DropBox db = new DropBox(50.0, 50.0, 650.0, 400.0);
 		db.setFallable(true);

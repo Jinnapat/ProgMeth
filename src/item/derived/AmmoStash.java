@@ -13,6 +13,7 @@ public class AmmoStash extends Utility {
 		super();
 		this.setX(50);
 		this.setY(50);
+		this.isDestroy = false;
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().ammoStash, 32, 32);
 	}
 
@@ -26,7 +27,7 @@ public class AmmoStash extends Utility {
 	@Override
 	public void collectBy(Character character) {
 		if(character.getWeapon() != null) {
-			// character.getWeapon().refillAmmo();
+			character.getWeapon().refillAmmo();
 			System.out.println(character.getWeapon().getName());
 		}
 	}
@@ -35,10 +36,14 @@ public class AmmoStash extends Utility {
 	public void onCollide(Collidable target) {
 		if (target != null) {
 			if (target instanceof Character) {
-				Character targetCharacter = (Character) target;
-				System.out.println("Pick up AmmoStash");
-				collectBy(targetCharacter);
-				RenderableHolder.getInstance().addGarbage(this);
+				if (!this.isDestroy) {
+					this.isDestroy = true;
+					Character targetCharacter = (Character) target;
+					System.out.println("Pick up AmmoStash");
+					collectBy(targetCharacter);
+					RenderableHolder.getInstance().addGarbage(this);
+				}
+				
 			}
 		}
 	}

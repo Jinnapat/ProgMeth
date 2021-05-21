@@ -88,13 +88,6 @@ public class Weapon extends Item implements Movable{
 		if(player != null) {
 			setX(player.getX() - getWidth()/2);
 			setY(player.getY() + getHeight()/2);
-			if(getImageView() != null) {
-				if(player.isHeadLeft()) {
-					getImageView().setScaleX(-1.0);
-				}else {
-					getImageView().setScaleX(1.0);
-				}
-			}
 		}
 		
 	}
@@ -183,8 +176,17 @@ public class Weapon extends Item implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-		//////////////TODO///////////////
+		if (getSprite() != null) {
+			if (player != null) {
+				int side = 1;
+				if (player.isHeadLeft()) {
+					side = -1;
+				}
+				gc.drawImage(getSprite(), getX() - Math.min(0.0, getSprite().getWidth() * side), getY(), getSprite().getWidth() * side, getSprite().getHeight());
+			} else {
+				gc.drawImage(getSprite(), getX(), getY(), getSprite().getWidth(), getSprite().getHeight());
+			}
+		}
 	}
 
 	@Override
