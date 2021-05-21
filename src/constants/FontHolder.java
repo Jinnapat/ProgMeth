@@ -12,7 +12,10 @@ public class FontHolder {
 		return instance;
 	}
 	
-	public FontHolder() {}
+	public FontHolder() {
+		super();
+		System.out.println("FonntHolder");
+	}
 	
 	public Font loadFont(String name, int size) {
 		return Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/" + name + ".ttf"), size);

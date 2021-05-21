@@ -3,7 +3,10 @@ package gui;
 import java.util.List;
 
 import character.Scout;
+import constants.FontHolder;
 import constants.GameConstant;
+import constants.ImageHolder;
+import constants.SoundHolder;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
@@ -36,6 +39,7 @@ public class GameCanvas extends Canvas{
 //		this.gameObjects = new ArrayList<SolidObject>();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
+		this.loadResource();
 		
 //		Ground g1 = new Ground(50, 50, 50, 50, false);
 		Ground g2 = new Ground(50, 50, 50, 100, false);
@@ -102,5 +106,12 @@ public class GameCanvas extends Canvas{
 				obj.draw(gc);
 			}
 		}
+	}
+	
+	private void loadResource() {
+		new RenderableHolder();
+		new ImageHolder();
+		new SoundHolder();
+		new FontHolder();
 	}
 }

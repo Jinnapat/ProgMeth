@@ -23,6 +23,7 @@ public class RenderableHolder {
 			}
 			return -1;
 		};
+		System.out.println("RenderableHolder");
 	}
 
 

@@ -9,6 +9,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import logic.ImageLogic;
 import character.Character;
@@ -18,7 +19,7 @@ import constants.ImageHolder;
 public class SelectCharacterUI extends VBox{
 	private Character character;
 	private Image characterImage;
-	private 
+	private Text nameLable;
 	private Button selectBtn;
 
 	public SelectCharacterUI() {

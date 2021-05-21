@@ -18,6 +18,7 @@ public class ImageHolder {
 
 	public ImageHolder() {
 		super();
+		System.out.println("ImageHolder");
 	}
 
 	public static ImageHolder getInstance() {
@@ -28,16 +29,15 @@ public class ImageHolder {
 		String path = "images/" + name + "." + fileType;
 		return new Image(ClassLoader.getSystemResourceAsStream(path));
 	}
-	
+
 	private ArrayList<Image> loadImage(String name, String action, String fileType, int number) {
 		ArrayList<Image> imgList = new ArrayList<Image>();
-		
-		for(int i=1; i<=number;i++) {
-			String path = "character/" + name+'/'+action + "." + fileType;
+
+		for (int i = 1; i <= number; i++) {
+			String path = "character/" + name + '/' + action + "/" + i + "." + fileType;
 			imgList.add(new Image(ClassLoader.getSystemResourceAsStream(path)));
 		}
-		
-		
+
 		return imgList;
 	}
 }
