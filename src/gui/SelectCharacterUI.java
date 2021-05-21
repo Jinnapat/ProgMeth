@@ -2,25 +2,24 @@ package gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import logic.ImageLogic;
 import character.Character;
 import character.Scout;
-import constants.ImageHolder;
 
 public class SelectCharacterUI extends VBox{
 	private Character character;
 	private Image characterImage;
-	private Text nameLable;
-	private Button selectBtn;
+	private TextField nameInput;
+	private GridPane selectCharacter;
 
 	public SelectCharacterUI() {
 		super();
@@ -34,20 +33,22 @@ public class SelectCharacterUI extends VBox{
 		
 		this.setCharacter(new Scout());
 		
+		this.nameInput = new TextField();
+		this.nameInput.setText(this.character.getName());
+		this.checkChange();
 	}
 
 	public void setCharacter(Character character) {
 		this.character = character;
-		System.out.println(this.character.getSprite());
 		this.setCharacterImage(this.character.getSprite());
 	}
 
 	public void setCharacterImage(Image characterImage) {
 		this.characterImage = characterImage;
-		this.checkChange();
 	}
 	
 	public void checkChange() {
 		this.getChildren().add(new ImageView(ImageLogic.resizeImage(characterImage, 200, 200)));
+		this.getChildren().add(this.nameInput);
 	}
 }
