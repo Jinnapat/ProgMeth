@@ -5,13 +5,21 @@ import javafx.scene.image.ImageView;
 import sceneObject.SolidObject;
 
 public class ImageLogic {
-	public static ImageView resizeImageToImageView(SolidObject obj, Image image, double width, double height) {
+	
+	public static void resizeAndsetSprite(SolidObject obj, Image image, double width, double height) {
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(height);
 		imageView.setFitWidth(width);
 		obj.setHeight(height);
 		obj.setWidth(width);
-		return imageView;
+		obj.setSprite(image);
+	}
+	
+	public static Image resizeImage(SolidObject obj, Image image, double width, double height){
+		Image newImage = new Image(image.getUrl(), width, height, false, false);
+		obj.setHeight(height);
+		obj.setWidth(width);
+		return newImage;
 	}
 	
 	public static Image resizeImage(Image image, double width, double height){

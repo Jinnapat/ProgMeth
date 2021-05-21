@@ -1,4 +1,4 @@
-package sceneObject;
+package scene;
 
 import constants.GameConstant;
 import gui.OptionGUI;

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
@@ -17,7 +18,7 @@ public class Bandage extends Utility{
 		super();
 		this.setX(50);
 		this.setY(50);
-		this.setSprite(ImageHolder.getInstance().heartPlus);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().heartPlus,32, 32);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -42,9 +43,11 @@ public class Bandage extends Utility{
 			if(target instanceof Character) {
 				Character targetCharacter = (Character) target;
 				DamageLogic.calulateHeal(0.3, targetCharacter);
-				GameScene.solidObjects.remove(this);
-				GameScene.root.getChildren().remove(this.getBoundBox());
+//				GameScene.solidObjects.remove(this);
+//				GameScene.root.getChildren().remove(this.getBoundBox());
 				System.out.println("Get Bandage");
+				this.isDestroy = true;
+				RenderableHolder.getInstance().addGarbage(this);
 			}
 		}
 	}

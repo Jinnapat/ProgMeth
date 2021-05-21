@@ -1,8 +1,8 @@
 package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sceneObject.MainMenuScene;
-import sceneObject.OptionScene;
+import scene.MainMenuScene;
+import scene.OptionScene;
 
 public class test2 extends Application{
 	@Override

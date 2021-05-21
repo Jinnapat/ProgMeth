@@ -8,6 +8,7 @@ import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
+import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -122,22 +123,9 @@ public class GameCanvas extends Canvas{
 				if (now - lastTimeTriggered >= 10000000) {
 					GameCanvas.this.clearScreen();
 					GameCanvas.this.update();
-					
-					List<SolidObject> gameOjects = RenderableHolder.getInstance().getGameObjects();
-					List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
-					
-					for (int i = 0; i < gameOjects.size(); i++) {
-						SolidObject target = gameOjects.get(i);
-						target.checkCollide();
-						target.setX(target.getX() + target.getSpeed_x());
-						target.setY(target.getY() + target.getSpeed_y());
-					}
-					
-					for (int i = 0; i < garbage.size(); i++) {
-						gameOjects.remove(garbage.get(i));
-					}
-					RenderableHolder.getInstance().clearGarbage();
+					GameCanvas.this.reRange();
 					GameCanvas.this.draw();
+					
 					lastTimeTriggered = now;
 				}
 			}
@@ -150,6 +138,23 @@ public class GameCanvas extends Canvas{
         this.gc.clearRect(0.0D, 0.0D, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
     }
+	
+	private void reRange() {
+		List<SolidObject> gameOjects = RenderableHolder.getInstance().getGameObjects();
+		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
+		
+		for (int i = 0; i < gameOjects.size(); i++) {
+			SolidObject target = gameOjects.get(i);
+			target.checkCollide();
+			target.setX(target.getX() + target.getSpeed_x());
+			target.setY(target.getY() + target.getSpeed_y());
+		}
+		
+		for (int i = 0; i < garbage.size(); i++) {
+			gameOjects.remove(garbage.get(i));
+		}
+		RenderableHolder.getInstance().clearGarbage();
+	}
 	
 	private void update() {
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {

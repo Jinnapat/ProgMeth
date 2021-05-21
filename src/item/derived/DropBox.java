@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 import character.Character;
@@ -24,9 +25,7 @@ public class DropBox extends Utility{
 		super();
 		this.setX(50);
 		this.setY(50);
-		this.setSprite(ImageHolder.getInstance().box);
-		ImageView imageView = ImageLogic.resizeImageToImageView(this,  this.getSprite(),32, 32);
-//		this.getBoundBox().getChildren().add(imageView);
+		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box,32, 32);
 	}
 	
 	public DropBox(double width, double height, double x, double y, Color color) {
@@ -52,6 +51,7 @@ public class DropBox extends Utility{
 				GameScene.solidObjects.remove(this);
 				GameScene.root.getChildren().remove(this.getBoundBox());
 				System.out.println("Get DropBox");
+				RenderableHolder.getInstance().addGarbage(this);
 			}
 		}
 	}
