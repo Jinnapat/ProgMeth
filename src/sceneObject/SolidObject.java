@@ -2,7 +2,6 @@ package sceneObject;
 
 import interfaces.Collidable;
 import interfaces.IRenderable;
-import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import logic.GameLogic;
@@ -19,7 +18,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	private double speed_y;
 	private double friction;
 	private boolean fallable;
-	private AnimationTimer animationTimer;
 	private Image sprite;
 	
 	public SolidObject(double width, double height) {
@@ -138,9 +136,5 @@ public abstract class SolidObject implements IRenderable, Collidable{
 			}
 		}
 
-	}
-	
-	public void stopCheckCollide() {
-		this.animationTimer.stop();
 	}
 }

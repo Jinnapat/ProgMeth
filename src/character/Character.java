@@ -7,9 +7,8 @@ import item.base.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import constants.GameConstant;
-import constants.PriorityConstant;
 import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable, IRenderable {
@@ -33,8 +31,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	protected double jumpStrength;
 	protected Weapon weapon;
 	private HashMap<String, KeyCode> controlKeys;
-	private Text nameTag;
-	private Healthbar healthBar;
 	private boolean onGround;
 	private String state;
 	private int curImage = 0;
@@ -52,26 +48,15 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
 		this.checkControls = false;
-		this.animationDelay = 10;
+		this.animationDelay = 7;
 		this.currentAnimationDelay = this.animationDelay;
-		
-		nameTag = new Text("New Player");
-		nameTag.setTextAlignment(TextAlignment.CENTER);
-		nameTag.setWrappingWidth(200);
-		healthBar = new Healthbar();
 		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
 		controlKeys.put("jumpKey", KeyCode.W);
 		controlKeys.put("shootKey", KeyCode.SPACE);
-		
-		GameScene.solidObjects.add(this);
-		GameScene.root.getChildren().add(getBoundBox());
-		GameScene.root.getChildren().add(nameTag);
-		GameScene.root.getChildren().add(healthBar.getHealthBox());
-		
-		checkCollide();
+
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
 		dieImages = new ArrayList<Image>();
@@ -85,8 +70,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		for (int i = 1; i <= 8; i++) {
 			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
-		
-		this.setSprite(this.runImages.get(0));
 	}
 
 	public String getName() {
@@ -95,7 +78,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setName(String name) {
 		this.name = name;
-		this.nameTag.setText(name);
 	}
 
 	public int getMaxHealth() {
@@ -104,7 +86,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
-		this.healthBar.displayHealth(getHealth(), maxHealth);
+		//this.healthBar.displayHealth(getHealth(), maxHealth);
 	}
 
 	public int getHealth() {
@@ -113,7 +95,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setHealth(int health) {
 		this.health = health;
-		this.healthBar.displayHealth(health, this.maxHealth);
+		//this.healthBar.displayHealth(health, this.maxHealth);
 		if (health <= 0) {
 			setCheckControls(false);
 			this.curImage = 0;
@@ -127,14 +109,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setHeadLeft(boolean isHeadLeft) {
 		this.isHeadLeft = isHeadLeft;
-	}
-
-	public Text getNameTag() {
-		return nameTag;
-	}
-
-	public void setNameTag(Text nameTag) {
-		this.nameTag = nameTag;
 	}
 
 	public Weapon getWeapon() {
@@ -153,15 +127,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setControlKeys(HashMap<String, KeyCode> controlKeys) {
 		this.controlKeys = controlKeys;
-	}
-
-	
-	public Healthbar getHealthBar() {
-		return healthBar;
-	}
-
-	public void setHealthBar(Healthbar healthBar) {
-		this.healthBar = healthBar;
 	}
 
 	public double getJumpStrength() {
@@ -199,7 +164,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public int getZ() {
-		return PriorityConstant.CHARACTER;
+		return 100;
 	}
 
 	@Override
@@ -228,6 +193,10 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			gc.drawImage(image, this.getX() - Math.min(0.0, image.getWidth() * side), this.getY(), image.getWidth() * side, image.getHeight());
 		}
 		
+		gc.setFill(Color.BLACK);
+		gc.fillText(getName(), getX() - 10, getY() - 13);
+		gc.setFill(Color.CRIMSON);
+		gc.fillRect(getX() - 10, getY() - 10, 50.0 * getHealth() / getMaxHealth(), 5);
 	}
 
 	@Override
@@ -245,7 +214,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
 				setSpeed_y(newSpeed);
 			}
-			setY(getY() + getSpeed_y());
 		}
 			
 		if (isCheckControls()) {
@@ -283,7 +251,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			}
 		}
 		setOnGround(false);
-		setX(getX() + getSpeed_x());
 		
 	}
 

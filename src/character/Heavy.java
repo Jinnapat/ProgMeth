@@ -8,11 +8,17 @@ import javafx.scene.layout.AnchorPane;
 public class Heavy extends Character {
 
 	public Heavy() {
-		super(50.0, 50.0, 10.0, 10, 100, "Red");
+		super(50.0, 50.0, 5.0, 10, 100, "Red");
 		setHealth(100);
 		setMaxHealth(100);
 		Weapon assaultRifle = new Weapon();
+		assaultRifle.setMaxAmmo(100);
+		assaultRifle.setBulletSpeed(5);
+		assaultRifle.setDamage(10);
+		assaultRifle.setFireRate(1);
+		assaultRifle.refillAmmo();
 		setWeapon(assaultRifle);
+		System.out.println(assaultRifle.getFireRate());
 	}
 
 }
