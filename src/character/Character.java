@@ -7,9 +7,7 @@ import item.base.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
@@ -51,7 +49,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
 		this.checkControls = false;
-		this.animationDelay = 10;
+		this.animationDelay = 7;
 		this.currentAnimationDelay = this.animationDelay;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
@@ -241,7 +239,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
 				setSpeed_y(newSpeed);
 			}
-			setY(getY() + getSpeed_y());
 		}
 			
 		if (isCheckControls()) {
@@ -279,7 +276,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 			}
 		}
 		setOnGround(false);
-		setX(getX() + getSpeed_x());
 		
 	}
 

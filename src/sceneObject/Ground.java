@@ -26,8 +26,6 @@ public class Ground extends SolidObject{
 		this.setSprite(image);
 		
 		RenderableHolder.getInstance().addObject(this);
-		GameScene.solidObjects.add(this);
-		GameScene.root.getChildren().add(getBoundBox());
 		checkCollide();
 	}
 	
@@ -106,6 +104,7 @@ public class Ground extends SolidObject{
 					}
 				}
 			}
+			
 			if (deltaY > GameConstant.CHARACTER_PHYSIC_Y_OFFSET) {
 				double left_x = targetCharacter.getX() + targetCharacter.getSpeed_x();
 				if (left_x >= this.getX() && left_x <= this.getX() + this.getWidth()) {

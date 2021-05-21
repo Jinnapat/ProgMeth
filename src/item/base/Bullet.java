@@ -1,18 +1,14 @@
 package item.base;
 
-import javafx.animation.AnimationTimer;
-import javafx.geometry.Insets;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
+import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
+import constants.GameConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -22,8 +18,7 @@ public class Bullet extends SolidObject implements Movable{
 	private double maxRange;
 	private boolean isLeftSide;
 	private boolean isHit;
-	private long lastTimeTriggered;
-	private AnimationTimer animationTimer;
+	private boolean isShot;
 	
 	public Bullet() {
 		super(5.0, 3.0);
@@ -32,7 +27,8 @@ public class Bullet extends SolidObject implements Movable{
 		this.speed = 30;
 		this.isLeftSide = false;
 		this.isHit = false;
-		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.isShot = false;
+		RenderableHolder.getInstance().addObject(this);
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
@@ -57,47 +53,14 @@ public class Bullet extends SolidObject implements Movable{
 
 	public void shoot(double x, double y, boolean isLeftSide) {
 		System.out.println("Bang!");
-		// TODO
-		setLeftSide(isLeftSide);
+		if (isLeftSide) {
+			setSpeed_x(getSpeed() * -1);
+		} else {
+			setSpeed_x(getSpeed());
+		}
 		setX(x);
 		setY(y);
-		GameScene.solidObjects.add(this);
-		GameScene.root.getChildren().add(getBoundBox());
-		AnchorPane.setLeftAnchor(getBoundBox(), x);
-		AnchorPane.setTopAnchor(getBoundBox(), y);
-		checkCollide();
-		Bullet self = this;
-
-		this.animationTimer = new AnimationTimer() {
-
-			@Override
-			public void handle(long now) {
-
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-
-				if (now - lastTimeTriggered >= 10000000) {
-
-					if (maxRange <= 0.0) {
-						GameScene.root.getChildren().remove(getBoundBox());
-						GameScene.solidObjects.remove(self);
-						stopCheckCollide();
-						animationTimer.stop();
-					}
-
-					if (isLeftSide()) {
-						setX(getX() - getSpeed());
-					} else {
-						setX(getX() + getSpeed());
-					}
-
-					maxRange -= getSpeed();
-					AnchorPane.setLeftAnchor(getBoundBox(), getX());
-					lastTimeTriggered = now;
-				}
-			}
-		};
-
-		this.animationTimer.start();
+		this.isShot = true;
 	}
 
 	public double getSpeed() {
@@ -135,42 +98,44 @@ public class Bullet extends SolidObject implements Movable{
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 9;
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-		//////////////////////TODO//////////////
+		if (this.isShot) {
+			gc.setFill(Color.GOLD);
+			gc.fillRect(getX(), getY(), 5, 2);
+		}
 	}
 
 	@Override
 	public boolean isDestroy() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		if (this.isShot) {
+			if (maxRange <= 0.0) {
+				this.isShot = false;
+				RenderableHolder.getInstance().addGarbage(this);
+			}
+			maxRange -= Math.abs(getSpeed());
+		}
 	}
 
 	@Override
 	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
 			if (targetCharacter.getHealth() > 0) {
 				DamageLogic.calculateDamage(this, targetCharacter);
 			}
-			GameScene.solidObjects.remove(this);
-			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.isShot = false;
 			this.setHit(true);
 		} else if (target instanceof Ground) {
-			GameScene.solidObjects.remove(this);
-			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.isShot = false;
 			this.setHit(true);
 		}
 	}

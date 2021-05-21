@@ -5,18 +5,19 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import gui.GameCanvas;
 import sceneObject.SolidObject;
 
 public class RenderableHolder {
 	private List<SolidObject> gameObjects;
 	private Comparator<SolidObject> comparator;
 	private static final RenderableHolder instance = new RenderableHolder();
+	private List<SolidObject> garbage;
 	
 	
 	
 	public RenderableHolder() {
 		this.gameObjects = new ArrayList<SolidObject>();
+		this.garbage = new ArrayList<SolidObject>();
 		comparator = (SolidObject o1, SolidObject o2) -> {
 			if(o1.getZ() > o2.getZ()) {
 				return 1;
@@ -25,7 +26,17 @@ public class RenderableHolder {
 		};
 	}
 
+	public void addGarbage(SolidObject obj) {
+		this.garbage.add(obj);
+	}
 
+	public void clearGarbage() {
+		this.garbage.clear();
+	}
+	
+	public List<SolidObject> getGarbage() {
+		return garbage;
+	}
 
 	public void addObject(SolidObject obj) {
 		gameObjects.add(obj);

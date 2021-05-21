@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import character.Character;
 import interfaces.Collidable;
+import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
+import logic.RenderableHolder;
 import sceneObject.SolidObject;
 
-public class Weapon extends Item{
+public class Weapon extends Item implements Movable{
 	
 	private int maxAmmo;
 	private int currentAmmo;
@@ -19,7 +21,6 @@ public class Weapon extends Item{
 	private double range;
 	private double runSpeed; //percent
 	private ArrayList<Bullet> bullets;
-	private long lastTimeTriggered;
 	private Character player;
 	
 	public Weapon() {
@@ -36,6 +37,7 @@ public class Weapon extends Item{
 		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
+		RenderableHolder.getInstance().addObject(this);
 	}
 	
 	public Weapon(int maxAmmo, double fireRate, int damage, double range, double runSpeed) {
@@ -68,7 +70,7 @@ public class Weapon extends Item{
 				this.currentAmmo -= 1;
 				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
 				this.bullets.remove(currentAmmo);
-				
+				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
 			}
@@ -76,35 +78,24 @@ public class Weapon extends Item{
 		}
 	}
 	
-	private void update() {
-		AnimationTimer animationTimer = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
-				
-				if (now - lastTimeTriggered >= 10000000) {
-					
-					if (getCoolDown() > 0.0) {
-						setCoolDown(getCoolDown() - (getFireRate()));
-					}
-					if(player != null) {
-						setX(player.getX() - getWidth()/2);
-						setY(player.getY() + getHeight()/2);
-						if(getImageView() != null) {
-							if(player.isHeadLeft()) {
-								getImageView().setScaleX(-1.0);
-							}else {
-								getImageView().setScaleX(1.0);
-							}
-						}
-					}
-					lastTimeTriggered = now;
+	public void update() {
+		
+		if (getCoolDown() > 0.0) {
+			setCoolDown(getCoolDown() - (getFireRate()));
+		}
+
+		if(player != null) {
+			setX(player.getX() - getWidth()/2);
+			setY(player.getY() + getHeight()/2);
+			if(getImageView() != null) {
+				if(player.isHeadLeft()) {
+					getImageView().setScaleX(-1.0);
+				}else {
+					getImageView().setScaleX(1.0);
 				}
 			}
-			
-		};
-		animationTimer.start();
+		}
+		
 	}
 
 	public void collectBy(Character character) {
@@ -186,7 +177,6 @@ public class Weapon extends Item{
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 9;
 	}
 
@@ -198,13 +188,11 @@ public class Weapon extends Item{
 
 	@Override
 	public boolean isDestroy() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
 		if(this.player == null) {
 			if(target instanceof Character) {
 				Character targetCharacter = (Character) target;

@@ -12,7 +12,7 @@ public class test4 extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
+
 		StackPane root = new StackPane();
 		Scene scene = new Scene(root);
 		
