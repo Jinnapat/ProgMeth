@@ -9,6 +9,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import sceneObject.GameScene;
+import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
 
@@ -32,29 +33,23 @@ public class Bullet extends SolidObject {
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
-		super(width, height);
+		this();
+		this.setWidth(width);
+		this.setHeight(height);
 		this.setX(x);
 		this.setY(y);
-		this.damage = 1;
 	}
 	
-	public Bullet(int damage) {
-		super(5.0, 3.0, 0.0, 0.0);
+	public Bullet(int damage, double speed) {
+		this();
 		this.setDamage(damage);
-		this.maxRange = 500;
-		this.speed = 5;
-		this.isLeftSide = false;
-		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
-
+		this.setSpeed(speed);
 	}
 
-	public Bullet(double width, double height, double x, double y, int damage) {
-		super(width, height, x, y);
+	public Bullet(double width, double height, double x, double y, int damage, double speed) {
+		this(width, height, x, y);
 		this.setDamage(damage);
-		this.maxRange = 500;
-		this.speed = 30;
-		this.isLeftSide = false;
-		getBoundBox().setBackground(new Background(new BackgroundFill(Color.GOLD, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setSpeed(speed);
 	}
 
 	public void shoot(double x, double y, boolean isLeftSide) {
@@ -139,11 +134,16 @@ public class Bullet extends SolidObject {
 	public void onCollide(SolidObject target) {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
-			DamageLogic.calculateDamage(this, targetCharacter);
+			if (targetCharacter.getHealth() > 0) {
+				DamageLogic.calculateDamage(this, targetCharacter);
+			}
 			GameScene.solidObjects.remove(this);
 			GameScene.root.getChildren().remove(this.getBoundBox());
 			this.setHit(true);
-			
+		} else if (target instanceof Ground) {
+			GameScene.solidObjects.remove(this);
+			GameScene.root.getChildren().remove(this.getBoundBox());
+			this.setHit(true);
 		}
 	}
 }

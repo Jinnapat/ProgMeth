@@ -38,14 +38,16 @@ public class Character extends SolidObject implements Movable {
 	private int curImage = 0;
 	private ArrayList<Image> runImages;
 	private ArrayList<Image> idleImages;
+	private ArrayList<Image> dieImages;
+	private boolean checkControls;
 	
-	
-	public Character(double width, double height, double speed, double jumpStrength, int maxHealth) {
+	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
 		this.state = "idle";
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;
 		this.onGround = false;
+		this.checkControls = false;
 		nameTag = new Text("New Player");
 		nameTag.setTextAlignment(TextAlignment.CENTER);
 		nameTag.setWrappingWidth(200);
@@ -64,15 +66,19 @@ public class Character extends SolidObject implements Movable {
 		GameScene.root.getChildren().add(healthBar.getHealthBox());
 		
 		checkCollide();
-		
+		checkControl();
 		runImages = new ArrayList<Image>();
 		idleImages = new ArrayList<Image>();
+		dieImages = new ArrayList<Image>();
 		
-		for (int i = 0; i < 6; i++) {
-			runImages.add(new Image(ClassLoader.getSystemResource("character/Black/run/" + (i+1) + ".png").toString()));
+		for (int i = 1; i <= 6; i++) {
+			runImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString()));
 		}
-		for (int i = 0; i < 5; i++) {
-			idleImages.add(new Image(ClassLoader.getSystemResource("character/Black/idle/" + (i+1) + ".png").toString()));
+		for (int i = 1; i <= 5; i++) {
+			idleImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/idle/" + i + ".png").toString()));
+		}
+		for (int i = 1; i <= 8; i++) {
+			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString()));
 		}
 		
 		imageView = new ImageView(idleImages.get(curImage));
@@ -94,6 +100,9 @@ public class Character extends SolidObject implements Movable {
 					} else if (getState() == "running") {
 						curImage = (curImage + 1) % runImages.size();
 						imageView.setImage(runImages.get(curImage));
+					} else if (getState() == "dying") {
+						curImage = Math.min(curImage + 1, dieImages.size() - 1);
+						imageView.setImage(dieImages.get(curImage));
 					}
 					lastTriggerTime = now;
 				}
@@ -128,6 +137,11 @@ public class Character extends SolidObject implements Movable {
 	public void setHealth(int health) {
 		this.health = health;
 		this.healthBar.displayHealth(health, this.maxHealth);
+		if (health <= 0) {
+			setCheckControls(false);
+			this.curImage = 0;
+			setState("dying");
+		}
 	}
 
 	public boolean isHeadLeft() {
@@ -151,6 +165,8 @@ public class Character extends SolidObject implements Movable {
 	}
 
 	public void setWeapon(Weapon weapon) {
+		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
+		weapon.setPlayer(this);
 		this.weapon = weapon;
 	}
 
@@ -203,6 +219,15 @@ public class Character extends SolidObject implements Movable {
 		this.state = state;
 	}
 
+	
+	public boolean isCheckControls() {
+		return checkControls;
+	}
+
+	public void setCheckControls(boolean checkControls) {
+		this.checkControls = checkControls;
+	}
+
 	public void checkControl() {
 		
 		this.animationTimer = new AnimationTimer() {
@@ -214,41 +239,42 @@ public class Character extends SolidObject implements Movable {
 				
 				if (now - lastTimeTriggered >= 10000000) {
 					
-					if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
-						setSpeed_x(-speed);
-						setHeadLeft(true);
-						getImageView().setScaleX(-1.0);
-						setState("running");
-
-					} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
-						setSpeed_x(speed);
-						setHeadLeft(false);
-						getImageView().setScaleX(1.0);
-						setState("running");
-					} else {
-						setState("idle");
-					}
-					
-					if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
-						if (getWeapon() != null) {
-							double bulletSpawnX = 0.0;
-							if (isHeadLeft()) {
-								bulletSpawnX = getX() - 10.0;
-							} else {
-								bulletSpawnX = getX() + getWidth() + 10.0;
-							}
-							getWeapon().shoot(bulletSpawnX, getY() + 20.0, isHeadLeft());
+					if (isCheckControls()) {
+						if (GameScene.keyPressed.contains(controlKeys.get("leftKey"))) {
+							setSpeed_x(-speed);
+							setHeadLeft(true);
+							getImageView().setScaleX(-1.0);
+							setState("running");
+	
+						} else if (GameScene.keyPressed.contains(controlKeys.get("rightKey"))) {
+							setSpeed_x(speed);
+							setHeadLeft(false);
+							getImageView().setScaleX(1.0);
+							setState("running");
 						} else {
-							System.out.println("No weapon!");
+							setState("idle");
+						}
+						
+						if (GameScene.keyPressed.contains(controlKeys.get("shootKey"))) {
+							if (getWeapon() != null) {
+								double bulletSpawnX = 0.0;
+								if (isHeadLeft()) {
+									bulletSpawnX = getX() - 10.0;
+								} else {
+									bulletSpawnX = getX() + getWidth() + 10.0;
+								}
+								getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+							} else {
+								System.out.println("No weapon!");
+							}
+						}
+						
+						if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
+							if (getSpeed_y() < 0.5 && isOnGround()) {
+								setSpeed_y(-getJumpStrength());
+							}
 						}
 					}
-					
-					if (GameScene.keyPressed.contains(controlKeys.get("jumpKey"))) {
-						if (getSpeed_y() < 0.5 && isOnGround()) {
-							setSpeed_y(-getJumpStrength());
-						}
-					}
-					
 					setOnGround(false);
 					double nameTagX = (getX() + (getWidth() / 2.0)) - (getNameTag().getWrappingWidth() / 2.0);
 					AnchorPane.setTopAnchor(getNameTag(), getY() - 20);

@@ -3,23 +3,25 @@ package constants;
 import javafx.scene.image.Image;
 
 public class ImageHolder {
-	public Image awp = this.loadImage("AWP", "png");
-	public Image shortgun = this.loadImage("shortgun", "png");
-	
-	
-	
+	private static final ImageHolder instance = new ImageHolder();
+
+	public Image nothing = this.loadImage("nothing", "png");
+	public Image awp = this.loadImage("guns/AWP", "png");
+	public Image shortgun = this.loadImage("guns/shortgun", "png");
+	public Image ak47 = this.loadImage("guns/Ak47", "png");
+	public Image box = this.loadImage("box", "png");
+	public Image heartPlus = this.loadImage("heart+", "png");
+
 	public ImageHolder() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	public static ImageHolder getInstance() {
-		return new ImageHolder();
+		return instance;
 	}
 
 	private Image loadImage(String name, String fileType) {
-		String path = "images/"+name+"."+fileType;
-		System.out.println(path);
+		String path = "images/" + name + "." + fileType;
 		return new Image(ClassLoader.getSystemResourceAsStream(path));
 	}
 }
