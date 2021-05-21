@@ -4,11 +4,8 @@ import character.Character;
 import constants.GameConstant;
 import constants.PriorityConstant;
 import interfaces.Collidable;
-import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
-import logic.DamageLogic;
-import sceneObject.SolidObject;
 
 public class Utility extends Item implements Movable{
 	
@@ -16,7 +13,6 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return PriorityConstant.UTILITY;
 	}
 

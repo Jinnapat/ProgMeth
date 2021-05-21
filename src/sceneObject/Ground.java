@@ -18,8 +18,6 @@ public class Ground extends SolidObject {
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
 		this.passable = passsable;
 
 		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());

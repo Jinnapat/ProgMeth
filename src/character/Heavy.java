@@ -18,7 +18,6 @@ public class Heavy extends Character {
 		assaultRifle.setFireRate(1);
 		assaultRifle.refillAmmo();
 		setWeapon(assaultRifle);
-		System.out.println(assaultRifle.getFireRate());
 	}
 
 }

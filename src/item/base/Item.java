@@ -15,16 +15,11 @@ public abstract class Item extends SolidObject{
 	public Item() {
 		super(10, 10, 10, 10);
 		this.setName(null);
-		
-		super.checkCollide();
-		GameScene.solidObjects.add(this);
-		GameScene.root.getChildren().add(this.getBoundBox());
 	}
 	
 	public Item(String name) {
 		this();
 		this.setName(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Item(String name, double xPos, double yPos) {

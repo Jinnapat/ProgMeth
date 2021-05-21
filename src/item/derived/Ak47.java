@@ -23,7 +23,6 @@ public class Ak47 extends Weapon{
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().awp,60,020);
 		this.setWidth(50);
 		this.setHeight(30);
-		this.getBoundBox().getChildren().add(imageView);
 		
 		System.out.println("AK47 have been create");
 	}

@@ -39,7 +39,6 @@ public class GameCanvas extends Canvas{
 	
 	private void setup() {
 		this.gc = this.getGraphicsContext2D();
-//		this.gameObjects = new ArrayList<SolidObject>();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
 		this.loadResource();

@@ -26,7 +26,8 @@ public class AmmoStash extends Utility {
 	@Override
 	public void collectBy(Character character) {
 		if(character.getWeapon() != null) {
-			character.getWeapon().refillAmmo();
+			// character.getWeapon().refillAmmo();
+			System.out.println(character.getWeapon().getName());
 		}
 	}
 

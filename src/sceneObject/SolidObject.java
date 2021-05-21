@@ -11,7 +11,6 @@ import java.util.List;
 import constants.GameConstant;
 
 public abstract class SolidObject implements IRenderable, Collidable{
-	private AnchorPane boundBox;
 	private double width;
 	private double height;
 	private double x;
@@ -32,8 +31,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 		this.speed_y = 0.0;
 		this.friction = 0.8;
 		this.fallable = false;
-		this.boundBox = new AnchorPane();
-		this.boundBox.setPrefSize(getWidth(), getHeight());
 		RenderableHolder.getInstance().addObject(this);
 	}
 	
@@ -73,15 +70,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	
 	public void setY(double y) {
 		this.y = y;
-	}
-
-	
-	public AnchorPane getBoundBox() {
-		return boundBox;
-	}
-
-	public void setBoundBox(AnchorPane boundBox) {
-		this.boundBox = boundBox;
 	}
 
 	
