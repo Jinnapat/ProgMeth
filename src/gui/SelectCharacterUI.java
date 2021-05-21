@@ -44,7 +44,9 @@ public class SelectCharacterUI extends VBox{
 		this.setNameInput();
 		this.setSelectCharacter();
 		
-		this.checkChange();
+		this.getChildren().add(new ImageView(ImageLogic.resizeImage(characterImage, 200, 200)));
+		this.getChildren().add(this.nameInput);
+		this.getChildren().add(this.selectCharacter);
 	}
 
 	public void setCharacter(Character character) {
@@ -105,16 +107,10 @@ public class SelectCharacterUI extends VBox{
 			characterBtn.setFont(new Font(20));
 			
 			characterBtn.setOnMouseClicked((event) -> {
-				System.out.println("Select: " + name);
 				this.setCharacter(name);
+//				System.out.println("Select: " + this.character.getClass());
 			});
 			this.selectCharacter.getChildren().add(characterBtn);
 		}
-	}
-
-	public void checkChange() {
-		this.getChildren().add(new ImageView(ImageLogic.resizeImage(characterImage, 200, 200)));
-		this.getChildren().add(this.nameInput);
-		this.getChildren().add(this.selectCharacter);
 	}
 }

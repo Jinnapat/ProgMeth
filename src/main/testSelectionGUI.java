@@ -1,6 +1,6 @@
+package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sceneObject.MainMenuScene;
 import sceneObject.SelectionScene;
 
 public class testSelectionGUI extends Application{
