@@ -2,6 +2,7 @@ package item.derived;
 
 import character.Character;
 import constants.ImageHolder;
+import interfaces.Collidable;
 import item.base.Item;
 import item.base.Utility;
 import javafx.geometry.Insets;
@@ -43,7 +44,7 @@ public class DropBox extends Utility{
 	}
 
 	@Override
-	public void onCollide(SolidObject target) {
+	public void onCollide(Collidable target) {
 		// TODO Auto-generated method stub
 		if(target != null) {
 			if(target instanceof Character) {

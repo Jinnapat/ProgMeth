@@ -28,12 +28,6 @@ public class Utility extends Item implements Movable{
 	}
 
 	@Override
-	public void onCollide(SolidObject target) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void collectBy(Character character) {
 		// TODO Auto-generated method stub
 		

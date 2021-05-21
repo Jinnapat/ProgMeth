@@ -23,7 +23,7 @@ public class RenderableHolder {
 			}
 			return -1;
 		};
-		// TODO Auto-generated constructor stub
+		System.out.println("RenderableHolder");
 	}
 
 
@@ -31,13 +31,11 @@ public class RenderableHolder {
 	public void addObject(SolidObject obj) {
 		gameObjects.add(obj);
 		Collections.sort(this.gameObjects, comparator);
-		
 	}
 	
 	public static RenderableHolder getInstance() {
 		return instance;
 	}
-
 
 
 	public List<SolidObject> getGameObjects() {

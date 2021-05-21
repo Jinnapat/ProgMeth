@@ -1,5 +1,7 @@
 package constants;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 
 public class ImageHolder {
@@ -12,9 +14,11 @@ public class ImageHolder {
 	public Image box = this.loadImage("box", "png");
 	public Image heartPlus = this.loadImage("heart+", "png");
 	public Image flatNightBackgound = this.loadImage("flatNightBackground", "png");
+	public ArrayList<Image> charecterBlack = this.loadImage("Black", "run", "png", 6);
 
 	public ImageHolder() {
 		super();
+		System.out.println("ImageHolder");
 	}
 
 	public static ImageHolder getInstance() {
@@ -24,5 +28,16 @@ public class ImageHolder {
 	private Image loadImage(String name, String fileType) {
 		String path = "images/" + name + "." + fileType;
 		return new Image(ClassLoader.getSystemResourceAsStream(path));
+	}
+
+	private ArrayList<Image> loadImage(String name, String action, String fileType, int number) {
+		ArrayList<Image> imgList = new ArrayList<Image>();
+
+		for (int i = 1; i <= number; i++) {
+			String path = "character/" + name + '/' + action + "/" + i + "." + fileType;
+			imgList.add(new Image(ClassLoader.getSystemResourceAsStream(path)));
+		}
+
+		return imgList;
 	}
 }

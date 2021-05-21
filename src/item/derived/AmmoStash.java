@@ -1,8 +1,8 @@
 package item.derived;
 
 import character.Character;
+import interfaces.Collidable;
 import item.base.Utility;
-import sceneObject.SolidObject;
 
 public class AmmoStash extends Utility{
 
@@ -14,7 +14,7 @@ public class AmmoStash extends Utility{
 	}
 	
 	@Override
-	public void onCollide(SolidObject target) {
+	public void onCollide(Collidable target) {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character)target;
 			collectBy(targetCharacter);

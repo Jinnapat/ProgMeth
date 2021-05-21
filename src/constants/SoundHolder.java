@@ -6,10 +6,17 @@ import javafx.scene.media.Media;
 
 public class SoundHolder {
 	private static final SoundHolder instance = new SoundHolder();
-	public Media bgm = new Media(ClassLoader.getSystemResource("sound/give_me_smile.wav").toString());
-
+//	public Media bgm = new Media(ClassLoader.getSystemResource("sound/give_me_smile.wav").toString());
+//	public AudioClip bgm = this.loadSound("give_me_smile", "wav");
+	
+//	
 	public static SoundHolder getInstance() {
 		return instance;
+	}
+
+	public SoundHolder() {
+		super();
+		System.out.println("SoundHolder");
 	}
 
 	public AudioClip loadSound(String name, String fileType) {

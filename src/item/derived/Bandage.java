@@ -2,6 +2,7 @@ package item.derived;
 
 import character.Character;
 import constants.ImageHolder;
+import interfaces.Collidable;
 import item.base.Utility;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -35,7 +36,7 @@ public class Bandage extends Utility{
 	}
 
 	@Override
-	public void onCollide(SolidObject target) {
+	public void onCollide(Collidable target) {
 		// TODO Auto-generated method stub
 		if(target != null) {
 			if(target instanceof Character) {

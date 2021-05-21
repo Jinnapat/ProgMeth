@@ -134,23 +134,6 @@ public class Bullet extends SolidObject implements Movable{
 	}
 
 	@Override
-	public void onCollide(SolidObject target) {
-		if (target instanceof Character) {
-			Character targetCharacter = (Character)target;
-			if (targetCharacter.getHealth() > 0) {
-				DamageLogic.calculateDamage(this, targetCharacter);
-			}
-			GameScene.solidObjects.remove(this);
-			GameScene.root.getChildren().remove(this.getBoundBox());
-			this.setHit(true);
-		} else if (target instanceof Ground) {
-			GameScene.solidObjects.remove(this);
-			GameScene.root.getChildren().remove(this.getBoundBox());
-			this.setHit(true);
-		}
-	}
-
-	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 9;

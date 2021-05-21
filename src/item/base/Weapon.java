@@ -185,19 +185,6 @@ public class Weapon extends Item{
 	}
 
 	@Override
-	public void onCollide(SolidObject target) {
-		// TODO Auto-generated method stub
-		if(this.player == null) {
-			if(target instanceof Character) {
-				Character targetCharacter = (Character) target;
-				if(targetCharacter.getWeapon() == null) {
-					targetCharacter.setWeapon(this);
-				}
-			}
-		}
-	}
-
-	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 9;
