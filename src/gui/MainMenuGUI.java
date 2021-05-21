@@ -10,11 +10,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
-
+import logic.SceneHolder;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
+import main.testSelectionGUI;
+import sceneObject.SelectionScene;
 
 public class MainMenuGUI extends StackPane {
 	private HBox titileBox;
@@ -97,6 +99,7 @@ public class MainMenuGUI extends StackPane {
 	private void play2PlayerHandler() {
 		//TODO
 		System.out.println("Play2Player");
+		SceneHolder.switchScene(new SelectionScene());
 	}
 	
 	private void optionHandler() {
