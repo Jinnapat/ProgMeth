@@ -1,13 +1,16 @@
 package item.base;
 
 import character.Character;
+import constants.GameConstant;
 import interfaces.Collidable;
+import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
+import logic.RenderableHolder;
 import sceneObject.SolidObject;
 
-public class Utility extends Item implements Movable{
-
+public class Utility extends Item implements Movable, IRenderable{
+	
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
@@ -16,14 +19,11 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-		/////////TODO////////////
 		gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
 	}
 
 	@Override
 	public boolean isDestroy() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -35,8 +35,10 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		if (isFallable()) {
+			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+			setSpeed_y(newSpeed);
+		}
 	}
 
 	@Override

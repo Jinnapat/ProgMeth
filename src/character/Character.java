@@ -91,16 +91,16 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		return health;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
-		if (health <= 0) {
+	public void setHealth(int newHealth) {
+		if (newHealth <= 0) {
+			this.health = 0;
 			setCheckControls(false);
 			this.curImage = 0;
 			setState("dying");
-		}
-		
-		if (health > getMaxHealth()) {
+		} else if (newHealth > getMaxHealth()) {
 			this.health = getMaxHealth();
+		} else {
+			this.health = newHealth;
 		}
 	}
 
@@ -116,10 +116,11 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		return weapon;
 	}
 
-	public void setWeapon(Weapon weapon) {
-		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
-		weapon.setPlayer(this);
-		this.weapon = weapon;
+	public void setWeapon(Weapon newWeapon) {
+		this.weapon = newWeapon;
+		if (newWeapon != null) {
+			weapon.setPlayer(this);
+		}
 	}
 
 	public HashMap<String, KeyCode> getControlKeys() {
@@ -217,9 +218,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		
 		if (isFallable()) {
 			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
-				setSpeed_y(newSpeed);
-			}
+			setSpeed_y(newSpeed);
 		}
 			
 		if (isCheckControls()) {

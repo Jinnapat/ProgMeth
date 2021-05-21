@@ -10,7 +10,6 @@ public class AmmoStash extends Utility{
 	public void collectBy(Character character) {
 		System.out.println("Pick up AmmoStash");
 		character.getWeapon().refillAmmo();
-		checkCollide();
 	}
 	
 	@Override

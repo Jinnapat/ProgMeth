@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
+import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
 
@@ -50,7 +51,6 @@ public class GameCanvas extends Canvas{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
-		myChar2.setHealth(100);
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);
@@ -105,12 +105,14 @@ public class GameCanvas extends Canvas{
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
 		
-		DropBox db = new DropBox();
+		DropBox db = new DropBox(50.0, 50.0, 650.0, 400.0);
 		db.setFallable(true);
 		
-		Bandage bd = new Bandage();
-		bd.setX(100);
+		Bandage bd = new Bandage(50.0, 50.0, 650.0, 700.0);
 		bd.setFallable(true);
+		
+		//AmmoStash ammoStash = new AmmoStash();
+		
 	}
 	
 	private void loop() {

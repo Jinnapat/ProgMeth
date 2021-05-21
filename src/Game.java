@@ -10,7 +10,6 @@ import character.Heavy;
 import character.Scout;
 import character.Sniper;
 import constants.GameConstant;
-import gui.Healthbar;
 import item.base.Weapon;
 import sceneObject.GameScene;
 import sceneObject.Ground;
@@ -90,12 +89,6 @@ public class Game extends Application{
 		
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
-		
-		//Healthbar player1Healthbar = myChar.getHealthBar();
-		//AnchorPane.setLeftAnchor(player1Healthbar.getHealthBox(), 10.0);
-		
-		//Healthbar player2Healthbar = myChar2.getHealthBar();
-		//AnchorPane.setRightAnchor(player2Healthbar.getHealthBox(), 10.0);
 		
 		GameScene.start();
 		p.setResizable(false);

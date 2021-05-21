@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 import character.Character;
@@ -25,34 +26,29 @@ public class DropBox extends Utility{
 		this.setX(50);
 		this.setY(50);
 		this.setSprite(ImageHolder.getInstance().box);
-		ImageView imageView = ImageLogic.resizeImageToImageView(this,  this.getSprite(),32, 32);
-//		this.getBoundBox().getChildren().add(imageView);
+		RenderableHolder.getInstance().addObject(this);
 	}
 	
-	public DropBox(double width, double height, double x, double y, Color color) {
+	public DropBox(double width, double height, double x, double y) {
 		this();
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
+		this.setWidth(width);
+		this.setHeight(height);
 	}
 
 	@Override
 	public void collectBy(Character character) {
-		// TODO Auto-generated method stub
 		character.setWeapon(null);
 	}
 
 	@Override
 	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		if(target != null) {
-			if(target instanceof Character) {
-				Character targetCharacter = (Character) target;
-				GameScene.solidObjects.remove(this);
-				GameScene.root.getChildren().remove(this.getBoundBox());
-				System.out.println("Get DropBox");
-			}
+		if(target instanceof Character) {
+			Character targetCharacter = (Character) target;
+			collectBy(targetCharacter);
+			RenderableHolder.getInstance().addGarbage(this);
+			System.out.println("Get DropBox");
 		}
 	}
 

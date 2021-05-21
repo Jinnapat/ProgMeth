@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.SolidObject;
 
@@ -18,34 +19,28 @@ public class Bandage extends Utility{
 		this.setX(50);
 		this.setY(50);
 		this.setSprite(ImageHolder.getInstance().heartPlus);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public Bandage(double width, double height, double x, double y, Color color) {
+	public Bandage(double width, double height, double x, double y) {
 		this();
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
+		this.setWidth(width);
+		this.setHeight(height);
 	}
 
 	@Override
 	public void collectBy(Character character) {
-		// TODO Auto-generated method stub
 		DamageLogic.calulateHeal(0.3, character);
 	}
 
 	@Override
 	public void onCollide(Collidable target) {
-		// TODO Auto-generated method stub
-		if(target != null) {
-			if(target instanceof Character) {
-				Character targetCharacter = (Character) target;
-				DamageLogic.calulateHeal(0.3, targetCharacter);
-				GameScene.solidObjects.remove(this);
-				GameScene.root.getChildren().remove(this.getBoundBox());
-				System.out.println("Get Bandage");
-			}
+		if(target instanceof Character) {
+			Character targetCharacter = (Character) target;
+			collectBy(targetCharacter);
+			RenderableHolder.getInstance().addGarbage(this);
+			System.out.println("Healed");
 		}
 	}
 
