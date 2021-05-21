@@ -23,16 +23,16 @@ public class MainMenuGUI extends StackPane {
 	
 	public MainMenuGUI() {
 		
-		System.out.println(ImageHolder.getInstance().flatNightBackgound);
 		ImageView background = new ImageView(ImageHolder.getInstance().flatNightBackgound);
 		background.setFitHeight(GameConstant.WINDOW_HEIGHT);
-		background.setPreserveRatio(true);
+		background.setFitWidth(GameConstant.WINDOW_WIDTH);
+		background.setPreserveRatio(false);
 		this.getChildren().add(background);
 		
 		
-		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
-		mediaPlayer.setVolume(0.1);
-		mediaPlayer.play();
+//		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
+//		mediaPlayer.setVolume(0.1);
+//		mediaPlayer.play();
 		
 		this.titileBox = new HBox();
 		this.menuBox = new HBox();
@@ -82,7 +82,6 @@ public class MainMenuGUI extends StackPane {
 		
 		this.allBox = new VBox();
 		
-		allBox.setPadding(new Insets(20));
 		allBox.setAlignment(Pos.CENTER);
 		allBox.getChildren().add(this.titileBox);
 		allBox.getChildren().add(this.menuBox);
