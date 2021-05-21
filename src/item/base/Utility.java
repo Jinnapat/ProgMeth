@@ -1,6 +1,7 @@
 package item.base;
 
 import character.Character;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,7 +12,7 @@ public class Utility extends Item implements Movable{
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return 8;
+		return PriorityConstant.UTILITY;
 	}
 
 	@Override

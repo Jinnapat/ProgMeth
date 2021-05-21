@@ -2,6 +2,7 @@ package sceneObject;
 
 import character.Character;
 import constants.GameConstant;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import item.base.Utility;
 import javafx.scene.canvas.GraphicsContext;
@@ -47,7 +48,7 @@ public class Ground extends SolidObject{
 
 	@Override
 	public int getZ() {
-		return 10;
+		return PriorityConstant.GROUND;
 	}
 
 	@Override
