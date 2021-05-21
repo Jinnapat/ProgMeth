@@ -1,15 +1,17 @@
+package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sceneObject.MainMenuScene;
-import sceneObject.OptionScene;
+import sceneObject.SelectionScene;
 
-public class test2 extends Application{
+public class testSelectionGUI extends Application{
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		OptionScene scene = new OptionScene();
+		SelectionScene scene = new SelectionScene();
+		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("This is Option");
+		primaryStage.setTitle("This is Selection");
 		primaryStage.show();
 	}
 	

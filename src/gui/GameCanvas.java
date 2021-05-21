@@ -4,7 +4,10 @@ import java.util.List;
 
 import character.Heavy;
 import character.Scout;
+import constants.FontHolder;
 import constants.GameConstant;
+import constants.ImageHolder;
+import constants.SoundHolder;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -37,6 +40,7 @@ public class GameCanvas extends Canvas{
 //		this.gameObjects = new ArrayList<SolidObject>();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
+		this.loadResource();
 		
 		Heavy myChar = new Heavy();
 		myChar.setX(100.0);
@@ -163,5 +167,12 @@ public class GameCanvas extends Canvas{
 				obj.draw(gc);
 			}
 		}
+	}
+	
+	private void loadResource() {
+		new RenderableHolder();
+		new ImageHolder();
+		new SoundHolder();
+		new FontHolder();
 	}
 }

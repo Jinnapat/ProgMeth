@@ -10,11 +10,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
-
+import logic.SceneHolder;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
+import main.testSelectionGUI;
+import sceneObject.SelectionScene;
 
 public class MainMenuGUI extends StackPane {
 	private HBox titileBox;
@@ -23,16 +25,16 @@ public class MainMenuGUI extends StackPane {
 	
 	public MainMenuGUI() {
 		
-		System.out.println(ImageHolder.getInstance().flatNightBackgound);
 		ImageView background = new ImageView(ImageHolder.getInstance().flatNightBackgound);
 		background.setFitHeight(GameConstant.WINDOW_HEIGHT);
-		background.setPreserveRatio(true);
+		background.setFitWidth(GameConstant.WINDOW_WIDTH);
+		background.setPreserveRatio(false);
 		this.getChildren().add(background);
 		
 		
-		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
-		mediaPlayer.setVolume(0.1);
-		mediaPlayer.play();
+//		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
+//		mediaPlayer.setVolume(0.1);
+//		mediaPlayer.play();
 		
 		this.titileBox = new HBox();
 		this.menuBox = new HBox();
@@ -82,7 +84,6 @@ public class MainMenuGUI extends StackPane {
 		
 		this.allBox = new VBox();
 		
-		allBox.setPadding(new Insets(20));
 		allBox.setAlignment(Pos.CENTER);
 		allBox.getChildren().add(this.titileBox);
 		allBox.getChildren().add(this.menuBox);
@@ -98,6 +99,7 @@ public class MainMenuGUI extends StackPane {
 	private void play2PlayerHandler() {
 		//TODO
 		System.out.println("Play2Player");
+		SceneHolder.switchScene(new SelectionScene());
 	}
 	
 	private void optionHandler() {

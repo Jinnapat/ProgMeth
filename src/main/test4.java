@@ -1,3 +1,4 @@
+package main;
 import constants.GameConstant;
 import gui.GameCanvas;
 import javafx.application.Application;

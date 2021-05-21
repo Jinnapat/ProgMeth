@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import constants.GameConstant;
+import constants.PriorityConstant;
 import gui.Healthbar;
 
 public class Character extends SolidObject implements Movable, IRenderable {
@@ -70,6 +71,8 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		for (int i = 1; i <= 8; i++) {
 			dieImages.add(new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(), 0.0, 50.0, true, false));
 		}
+		
+		this.setSprite(this.runImages.get(0));
 	}
 
 	public String getName() {
@@ -164,7 +167,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public int getZ() {
-		return 100;
+		return PriorityConstant.CHARACTER;
 	}
 
 	@Override
