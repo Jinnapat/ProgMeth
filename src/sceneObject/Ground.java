@@ -14,11 +14,11 @@ public class Ground extends SolidObject {
 
 	private boolean passable;
 
-	public Ground(double width, double height, double x, double y, boolean passsable) {
+	public Ground(double width, double height, double x, double y, boolean passable) {
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
-		this.passable = passsable;
+		this.passable = passable;
 
 		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());
 		image = ImageLogic.resizeImage(image, width, height);
