@@ -8,39 +8,19 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import logic.SceneHolder;
 import scene.GameScene;
 
 public class RealMain extends Application{
+	
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
-		GameScene gs = new GameScene();
 		
-		gs.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent arg0) {
-				KeyCode k = arg0.getCode();
-				if (!(GameConstant.keyPressed.contains(k))) {
-					GameConstant.keyPressed.add(k);
-				}
-			}
-			
-		});
-		
-		gs.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent arg0) {
-				KeyCode k = arg0.getCode();
-				GameConstant.keyPressed.remove(k);
-			}
-			
-		});
+		SceneHolder sceneHolder = new SceneHolder(stage);
+		sceneHolder.initialize();
 		
 		stage.setTitle("Main");
-		stage.setScene(gs);
 		stage.show();
 		
 	}
@@ -48,5 +28,5 @@ public class RealMain extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 }
