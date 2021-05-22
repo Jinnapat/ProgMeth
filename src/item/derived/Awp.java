@@ -1,6 +1,7 @@
 package item.derived;
 
 import constants.ImageHolder;
+import item.base.Bullet;
 import item.base.Weapon;
 import javafx.scene.image.ImageView;
 import logic.ImageLogic;
@@ -29,8 +30,10 @@ public class Awp extends Weapon{
 	}
 
 	@Override
-	public void shoot(double x, double y, int isLeftSide) {
-		
+	public void shoot(double x, double y, int side) {
+		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
+		newBullet.setDamage(5);
+		newBullet.setSpeed_x(getBulletSpeed() * side);
 	}
 	
 	

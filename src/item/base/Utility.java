@@ -23,7 +23,6 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public void collectBy(Character character) {
-		// TODO Auto-generated method stub
 		
 	}
 

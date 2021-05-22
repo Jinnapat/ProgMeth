@@ -1,7 +1,6 @@
 package item.base;
 
 import character.Character;
-import character.Scout;
 import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;

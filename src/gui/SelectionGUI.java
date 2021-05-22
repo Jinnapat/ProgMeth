@@ -8,7 +8,6 @@ public class SelectionGUI extends HBox{
 	
 	private SelectCharacterUI selectCharacterBox;
 	private SelectCharacterUI selectCharacterBox2;
-	private SelectMapUI selectMap;
 	
 	public SelectionGUI() {
 		super();
@@ -17,11 +16,9 @@ public class SelectionGUI extends HBox{
 		
 		this.selectCharacterBox = new SelectCharacterUI();
 		this.selectCharacterBox2 = new SelectCharacterUI();
-		this.selectMap = new SelectMapUI();
 		
 		this.getChildren().add(this.selectCharacterBox);
 		this.getChildren().add(this.selectCharacterBox2);
-		this.getChildren().add(this.selectMap);
 	}
 	
 }

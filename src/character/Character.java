@@ -10,10 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import sceneObject.SolidObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import constants.GameConstant;
 import constants.PriorityConstant;
 

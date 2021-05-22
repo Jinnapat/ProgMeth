@@ -31,7 +31,6 @@ public class GameCanvas extends Canvas{
 	private GraphicsContext gc;
 	private AnimationTimer gameLoop;
 	private List<SolidObject> gameObjects;
-//	private Queue<SolidObject> instantiationQueue;
 	private double lastTimeTriggered;
 	private Image backgroundImage;
 	
@@ -173,19 +172,8 @@ public class GameCanvas extends Canvas{
 		for (int i = 0; i < garbage.size(); i++) {
 			gameObjects.remove(garbage.get(i));
 		}
-//		for (int i = 0; i < garbage.size(); i++) {
-//			gameObjects.remove(garbage.get(i));
-//		}
+
 		RenderableHolder.getInstance().clearGarbage();
-		
-//		SolidObject obj;
-//		if(this.instantiationQueue != null) {
-//			while(!this.instantiationQueue.isEmpty()) {
-//				obj = (SolidObject) this.instantiationQueue.poll();
-//				this.gameObjects.add(obj);
-//			}
-//		}
-		
 		RenderableHolder.getInstance().reRange();
 	}
 
@@ -221,7 +209,4 @@ public class GameCanvas extends Canvas{
 		new FontHolder();
 	}
 	
-//	public void addInstance(SolidObject obj) {
-//		this.instantiationQueue.add(obj);
-//	}
 }
