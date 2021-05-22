@@ -21,9 +21,9 @@ import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
 import item.derived.AmmoStash;
-import item.derived.Awp;
 import item.derived.Bandage;
 import item.derived.DropBox;
+import item.derived.Mine;
 
 public class GameCanvas extends Canvas{
 	
@@ -120,6 +120,8 @@ public class GameCanvas extends Canvas{
 		
 		new DropBox(30.0, 30.0, 50.0, 700.0);
 		new DropBox(30.0, 30.0, 1120.0, 700.0);
+		
+		new Mine(30.0, 10.0, 200.0, 700.0);
 	}
 	
 	private void loop() {
