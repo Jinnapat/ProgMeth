@@ -15,7 +15,7 @@ import java.util.HashMap;
 import constants.GameConstant;
 import constants.PriorityConstant;
 
-public class Character extends SolidObject implements Movable, IRenderable {
+public abstract class Character extends SolidObject implements Movable, IRenderable {
 	protected String name;
 	protected int maxHealth;
 	protected int health;
@@ -25,6 +25,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
 	protected Weapon weapon;
+	protected int standStillTime = 0;
 	private HashMap<String, KeyCode> controlKeys;
 	private boolean onGround;
 	private String state;
@@ -215,7 +216,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public void update() {
-
+		boolean actionTaken = false;
 		setSpeed_x(getSpeed_x() * getFriction());
 
 		if (isFallable()) {
@@ -224,15 +225,19 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		}
 
 		if (isCheckControls()) {
+			
+			
 			if (GameConstant.keyPressed.contains(controlKeys.get("leftKey"))) {
 				setSpeed_x(-speed);
 				setHeadLeft(true);
 				setState("running");
+				actionTaken = true;
 
 			} else if (GameConstant.keyPressed.contains(controlKeys.get("rightKey"))) {
 				setSpeed_x(speed);
 				setHeadLeft(false);
 				setState("running");
+				actionTaken = true;
 			} else {
 				setState("idle");
 			}
@@ -246,17 +251,25 @@ public class Character extends SolidObject implements Movable, IRenderable {
 						bulletSpawnX = getX() + getWidth() + 10.0;
 					}
 					getWeapon().holdTrigger(bulletSpawnX, getY() + 25.0, isHeadLeft());
+					actionTaken = true;
 				} else {
 					System.out.println("No weapon!");
 				}
 			}
 
 			if (GameConstant.keyPressed.contains(controlKeys.get("jumpKey"))) {
+				actionTaken = true;
 				if (getSpeed_y() < 0.5 && isOnGround()) {
 					setSpeed_y(-getJumpStrength());
 				}
 			}
 		}
+		
+		if (actionTaken) {
+			this.standStillTime = 0;
+		}
+		this.standStillTime += 1;
+		this.act();
 		setOnGround(false);
 
 	}
@@ -264,4 +277,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	@Override
 	public void onCollide(Collidable target) {
 	}
+	
+	public abstract void act();
 }

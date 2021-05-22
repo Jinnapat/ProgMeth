@@ -11,4 +11,10 @@ public class Sniper extends Character{
 		setWeapon(sniperRifle);
 	}
 
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

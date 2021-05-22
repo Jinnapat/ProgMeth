@@ -10,4 +10,10 @@ public class Scout extends Character{
 		Weapon shotgun = new Shotgun();
 		setWeapon(shotgun);
 	}
+
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
+	}
 }

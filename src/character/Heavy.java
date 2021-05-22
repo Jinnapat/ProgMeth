@@ -11,4 +11,10 @@ public class Heavy extends Character {
 		setWeapon(bombLaucher);
 	}
 
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

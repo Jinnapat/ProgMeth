@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import character.Engineer;
 import character.Heavy;
 import character.Scout;
 import constants.FontHolder;
@@ -49,7 +50,7 @@ public class GameCanvas extends Canvas{
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Heavy myChar = new Heavy();
+		Engineer myChar = new Engineer();
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
@@ -120,8 +121,6 @@ public class GameCanvas extends Canvas{
 		
 		new DropBox(30.0, 30.0, 50.0, 700.0);
 		new DropBox(30.0, 30.0, 1120.0, 700.0);
-		
-		new Mine(30.0, 10.0, 200.0, 700.0);
 	}
 	
 	private void loop() {

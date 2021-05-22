@@ -38,7 +38,7 @@ public class Mine extends SolidObject implements Movable{
 		if (target != null) {
 			if (target instanceof Character && !(target instanceof Engineer) && !this.triggered) {
 				Character targetCharacter = (Character) target;
-				DamageLogic.calculateDamage(100, targetCharacter);
+				DamageLogic.calculateDamage(1000, targetCharacter);
 				RenderableHolder.getInstance().addGarbage(this);
 				this.triggered = true;
 			}

@@ -11,4 +11,10 @@ public class Shield extends Character {
 		setWeapon(assaultRifle);
 	}
 
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
