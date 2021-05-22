@@ -1,6 +1,8 @@
 package item.base;
 
 import character.Character;
+import character.Scout;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
@@ -82,7 +84,7 @@ public abstract class Weapon extends Item implements Movable{
 	}
 
 	public void collectBy(Character character) {
-//		((Character) character).setWeapon(this);
+		((Character) character).setWeapon(this);
 	}
 
 	public int getMaxAmmo() {
@@ -160,7 +162,7 @@ public abstract class Weapon extends Item implements Movable{
 
 	@Override
 	public int getZ() {
-		return 9;
+		return PriorityConstant.WEAPON;
 	}
 
 	@Override
@@ -178,10 +180,6 @@ public abstract class Weapon extends Item implements Movable{
 		}
 	}
 
-	@Override
-	public boolean isDestroy() {
-		return false;
-	}
 
 	@Override
 	public void onCollide(Collidable target) {

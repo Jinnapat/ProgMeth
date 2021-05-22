@@ -212,10 +212,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		gc.fillRect(getX() - 10, getY() - 10, 50.0 * getHealth() / getMaxHealth(), 5);
 	}
 
-	@Override
-	public boolean isDestroy() {
-		return false;
-	}
 
 	@Override
 	public void update() {

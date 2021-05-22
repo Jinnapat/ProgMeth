@@ -1,7 +1,9 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
 
 import character.Heavy;
 import character.Scout;
@@ -18,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
+import systemMemory.Memory;
 import item.derived.AmmoStash;
 import item.derived.Awp;
 import item.derived.Bandage;
@@ -27,6 +30,8 @@ public class GameCanvas extends Canvas{
 	
 	private GraphicsContext gc;
 	private AnimationTimer gameLoop;
+	private List<SolidObject> gameObjects;
+//	private Queue<SolidObject> instantiationQueue;
 	private double lastTimeTriggered;
 	private Image backgroundImage;
 	
@@ -40,9 +45,12 @@ public class GameCanvas extends Canvas{
 	
 	private void setup() {
 		this.gc = this.getGraphicsContext2D();
+		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
+//		this.instantiationQueue = new LinkedList();
 		this.loadResource();
+		Memory.getInstance().gameCanvas = this;
 		
 		Heavy myChar = new Heavy();
 		myChar.setX(100.0);
@@ -128,9 +136,9 @@ public class GameCanvas extends Canvas{
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
 				if (now - lastTimeTriggered >= 10000000) {
 					GameCanvas.this.clearScreen();
-					GameCanvas.this.update();
-					GameCanvas.this.reRange();
 					GameCanvas.this.draw();
+					GameCanvas.this.reRange();
+					GameCanvas.this.update();
 					
 					lastTimeTriggered = now;
 				}
@@ -145,10 +153,8 @@ public class GameCanvas extends Canvas{
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
     }
 	
-	
 	private void reRange() {
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
-		List<SolidObject> gameObjects = RenderableHolder.getInstance().getGameObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
 		
@@ -167,26 +173,46 @@ public class GameCanvas extends Canvas{
 		for (int i = 0; i < garbage.size(); i++) {
 			gameObjects.remove(garbage.get(i));
 		}
+//		for (int i = 0; i < garbage.size(); i++) {
+//			gameObjects.remove(garbage.get(i));
+//		}
 		RenderableHolder.getInstance().clearGarbage();
+		
+//		SolidObject obj;
+//		if(this.instantiationQueue != null) {
+//			while(!this.instantiationQueue.isEmpty()) {
+//				obj = (SolidObject) this.instantiationQueue.poll();
+//				this.gameObjects.add(obj);
+//			}
+//		}
+		
+		RenderableHolder.getInstance().reRange();
 	}
 
 	private void update() {
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
 				if(obj instanceof Movable) {
-					((Movable) obj).update();
+					try {
+						((Movable) obj).update();
+					} catch(Exception e){
+						
+					}
 				}
 			}
 		}
 	}
 	
 	private void draw() {
-		if(RenderableHolder.getInstance().getGameObjects()!=null) {
-			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
-				obj.draw(gc);
-			}
+		
+		Iterator<SolidObject> point2 = this.gameObjects.iterator();
+		
+		while(point2.hasNext()) {
+			SolidObject obj = (SolidObject) point2.next();
+			obj.draw(gc);
 		}
 	}
+	
 	
 	private void loadResource() {
 		new RenderableHolder();
@@ -194,4 +220,8 @@ public class GameCanvas extends Canvas{
 		new SoundHolder();
 		new FontHolder();
 	}
+	
+//	public void addInstance(SolidObject obj) {
+//		this.instantiationQueue.add(obj);
+//	}
 }
