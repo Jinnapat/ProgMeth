@@ -18,6 +18,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
+import logic.SceneHolder;
+import scene.GameScene;
+import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
@@ -131,6 +134,11 @@ public class GameCanvas extends Canvas{
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
 				
 				if (now - lastTimeTriggered >= 10000000) {
+					
+					if (GameConstant.keyPressed.contains(KeyCode.ESCAPE)) {
+						SceneHolder.switchScene(new MainMenuScene());
+					}
+					
 					GameCanvas.this.clearScreen();
 					GameCanvas.this.draw();
 					GameCanvas.this.reRange();

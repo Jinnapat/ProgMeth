@@ -16,6 +16,13 @@ public class Engineer extends Character {
 		setWeapon(assaultRifle);
 	}
 
+	public Engineer(Character target) {
+		super(50.0, 50.0, 5.0, 8.0, 100, "Yellow");
+		this.lastMine = null;
+		Weapon assaultRifle = new Ak47();
+		setWeapon(assaultRifle);
+	}
+	
 	@Override
 	public void act() {
 		if (this.standStillTime >= 300) {
