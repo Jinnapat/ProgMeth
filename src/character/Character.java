@@ -226,6 +226,10 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 			setSpeed_y(newSpeed);
 		}
 
+		if (getY() > GameConstant.WINDOW_HEIGHT + this.getHeight()) {
+			this.setHealth(0);
+		}
+		
 		if (isCheckControls()) {
 			
 			
