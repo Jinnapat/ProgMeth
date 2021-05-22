@@ -27,6 +27,7 @@ import character.Sniper;
 public class SelectCharacterUI extends VBox{
 	private Character character;
 	private Image characterImage;
+	private ImageView characterImageView;
 	private TextField nameInput;
 	private VBox selectCharacter;
 
@@ -44,7 +45,7 @@ public class SelectCharacterUI extends VBox{
 		this.setNameInput();
 		this.setSelectCharacter();
 		
-		this.getChildren().add(new ImageView(ImageLogic.resizeImage(characterImage, 200, 200)));
+		this.getChildren().add(this.characterImageView);
 		this.getChildren().add(this.nameInput);
 		this.getChildren().add(this.selectCharacter);
 	}
@@ -76,6 +77,12 @@ public class SelectCharacterUI extends VBox{
 
 	public void setCharacterImage(Image characterImage) {
 		this.characterImage = characterImage;
+		if(this.characterImageView == null) {
+			this.characterImageView = new ImageView(ImageLogic.resizeImage(characterImage, 200, 200));
+		}
+		else {
+			this.characterImageView.setImage(ImageLogic.resizeImage(characterImage, 200, 200));
+		}
 	}
 	
 	public void setNameInput() {
@@ -109,6 +116,7 @@ public class SelectCharacterUI extends VBox{
 			characterBtn.setOnMouseClicked((event) -> {
 				this.setCharacter(name);
 //				System.out.println("Select: " + this.character.getClass());
+				System.out.println(this.characterImageView);
 			});
 			this.selectCharacter.getChildren().add(characterBtn);
 		}

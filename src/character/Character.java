@@ -74,6 +74,8 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 					new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(),
 							0.0, 50.0, true, false));
 		}
+		
+		this.setSprite(this.idleImages.get(0));
 	}
 
 	public String getName() {
