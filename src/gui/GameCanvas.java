@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import character.Character;
 import character.Engineer;
 import character.Heavy;
 import character.Scout;
@@ -45,7 +46,7 @@ public class GameCanvas extends Canvas{
 
 	}
 	
-	private void setup() {
+	public void setup() {
 		this.gc = this.getGraphicsContext2D();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
@@ -53,14 +54,15 @@ public class GameCanvas extends Canvas{
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Engineer myChar = new Engineer();
+		Character myChar = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox().getCharacter();
+		System.out.println(myChar.getClass().toGenericString());
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
-		myChar.setName("Player 1");
 		myChar.setFallable(true);
 		
-		Scout myChar2 = new Scout();
+		Character myChar2 = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox2().getCharacter();
+		System.out.println(myChar2.getClass().toGenericString());
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
 		myChar2.setHeadLeft(true);
@@ -69,7 +71,6 @@ public class GameCanvas extends Canvas{
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
 		myChar2.setCheckControls(true);
-		myChar2.setName("Player 2");
 		myChar2.setFallable(true);
 		
 		//Ground
@@ -167,7 +168,11 @@ public class GameCanvas extends Canvas{
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
+//			if (target instanceof Character) {
+//				System.out.print(target.getClass().toString());
+//			}
 		}
+		//System.out.println();
 		
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
@@ -175,7 +180,11 @@ public class GameCanvas extends Canvas{
 		RenderableHolder.getInstance().clearWillAdd();
 		
 		for (int i = 0; i < garbage.size(); i++) {
-			gameObjects.remove(garbage.get(i));
+			SolidObject t = garbage.get(i);
+			boolean test = gameObjects.remove(garbage.get(i));
+//			if (test && t instanceof Character) {
+//				System.out.println("removed");
+//			}
 		}
 
 		RenderableHolder.getInstance().clearGarbage();

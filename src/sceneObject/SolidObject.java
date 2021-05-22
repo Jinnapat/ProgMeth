@@ -93,7 +93,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 		}
 	}
 
-	
 	public double getFriction() {
 		return friction;
 	}

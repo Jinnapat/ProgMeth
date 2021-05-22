@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.image.ImageView;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ public class SelectCharacterUI extends VBox{
 	}
 
 	public void setCharacter(Character character) {
+		RenderableHolder.getInstance().addGarbage(this.character);
 		this.character = character;
 		this.setCharacterImage(this.character.getSprite());
 	}
@@ -119,4 +121,10 @@ public class SelectCharacterUI extends VBox{
 			this.selectCharacter.getChildren().add(characterBtn);
 		}
 	}
+
+	public Character getCharacter() {
+		return character;
+	}
+	
+	
 }

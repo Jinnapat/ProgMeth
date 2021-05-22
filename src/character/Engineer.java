@@ -18,9 +18,11 @@ public class Engineer extends Character {
 	
 	@Override
 	public void act() {
-		if (this.standStillTime >= 300) {
+		if (this.standStillTime >= 400) {
 			if (this.lastMine != null) {
-				RenderableHolder.getInstance().addGarbage(lastMine);
+				if (!this.lastMine.isTriggered()) {
+					RenderableHolder.getInstance().addGarbage(lastMine);
+				}
 			}
 			this.standStillTime = 0;
 			this.lastMine = new Mine(30.0, 10.0, getX(), getY());
