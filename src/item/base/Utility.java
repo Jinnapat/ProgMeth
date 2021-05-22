@@ -9,7 +9,20 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Utility extends Item implements Movable{
 	
-	protected boolean isDestroy = false;
+	protected boolean isDestroy;
+	protected int coolDown;
+	protected double createX;
+	protected double createY;
+	
+	public Utility(double x, double y) {
+		super();
+		this.createX = x;
+		this.createY = y;
+		this.setX(x);
+		this.setY(y);
+		this.isDestroy = false;
+		this.coolDown = -1;
+	}
 
 	@Override
 	public int getZ() {
@@ -18,7 +31,10 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		if (!this.isDestroy) {
+			gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		}
+		
 	}
 
 	@Override
@@ -28,9 +44,17 @@ public class Utility extends Item implements Movable{
 
 	@Override
 	public void update() {
-		if (isFallable()) {
-			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-			setSpeed_y(newSpeed);
+		double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+		setSpeed_y(newSpeed);
+		if (this.coolDown > 0) {
+			this.coolDown -= 1;
+		}
+		
+		if (this.coolDown == 0) {
+			this.setX(this.createX);
+			this.setY(this.createY);
+			this.isDestroy = false;
+			this.coolDown = -1;
 		}
 	}
 
