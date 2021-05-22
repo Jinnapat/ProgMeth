@@ -1,13 +1,9 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import character.Character;
-import character.Engineer;
-import character.Heavy;
-import character.Scout;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
@@ -20,17 +16,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
 import logic.SceneHolder;
-import scene.GameScene;
 import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
-import item.base.Bullet;
 import item.base.Weapon;
 import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
-import item.derived.Mine;
 
 public class GameCanvas extends Canvas{
 	
@@ -170,18 +163,13 @@ public class GameCanvas extends Canvas{
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		int a = 0;
 		for (int i = 0; i < gameObjects.size(); i++) {
 			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
-			if (target instanceof Character) {
-				a += 1;
-				//System.out.println(target.getX());
-			}
 		}
-		//System.out.println(a);
+
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
 		}
@@ -189,12 +177,7 @@ public class GameCanvas extends Canvas{
 		
 		for (int i = 0; i < garbage.size(); i++) {
 			SolidObject t = garbage.get(i);
-			boolean c = gameObjects.remove(t);
-			if (t instanceof Weapon) {
-				System.out.println(t.getClass().toString());
-				System.out.println(c);
-				System.out.println(a);
-			}
+			gameObjects.remove(t);
 		}
 
 		RenderableHolder.getInstance().clearGarbage();
@@ -217,16 +200,11 @@ public class GameCanvas extends Canvas{
 	
 	private void draw() {
 		
-		int q = 0;
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
 				obj.draw(this.gc);
-				if (obj instanceof Weapon) {
-					q += 1;
-				}
 			}
 		}
-		System.out.println(q);
 	}
 	
 	
