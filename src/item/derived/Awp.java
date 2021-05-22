@@ -3,9 +3,7 @@ package item.derived;
 import constants.ImageHolder;
 import item.base.Bullet;
 import item.base.Weapon;
-import javafx.scene.image.ImageView;
 import logic.ImageLogic;
-import logic.RenderableHolder;
 
 public class Awp extends Weapon{
 
@@ -32,6 +30,7 @@ public class Awp extends Weapon{
 	@Override
 	public void shoot(double x, double y, int side) {
 		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
+		newBullet.setMaxRange(1200.0);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
 	}

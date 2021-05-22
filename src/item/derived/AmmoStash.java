@@ -1,26 +1,16 @@
 package item.derived;
 
 import character.Character;
+import constants.GameConstant;
 import constants.ImageHolder;
 import interfaces.Collidable;
 import item.base.Utility;
 import logic.ImageLogic;
-import logic.RenderableHolder;
 
 public class AmmoStash extends Utility {
 
-	public AmmoStash() {
-		super();
-		this.setX(50);
-		this.setY(50);
-		this.isDestroy = false;
-		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().ammoStash, 32, 32);
-	}
-
 	public AmmoStash(double width, double height, double x, double y) {
-		this();
-		this.setX(x);
-		this.setY(y);
+		super(x, y);
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().ammoStash, width, height);
 	}
 
@@ -36,11 +26,12 @@ public class AmmoStash extends Utility {
 	@Override
 	public void onCollide(Collidable target) {
 		if (target != null) {
-			if (target instanceof Character) {
+			if (target instanceof Character && !this.isDestroy) {
 				Character targetCharacter = (Character) target;
 				if(targetCharacter.getWeapon() != null) {
 					this.collectBy(targetCharacter);
-					RenderableHolder.getInstance().addGarbage(this);
+					this.isDestroy = true;
+					this.coolDown = GameConstant.UTILITY_COOLDOWN;
 				}
 			}
 		}

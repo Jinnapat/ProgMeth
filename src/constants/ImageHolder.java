@@ -16,7 +16,8 @@ public class ImageHolder {
 	public Image ammoStash = this.loadImage("ammoStash", "png");
 	public Image flatNightBackgound = this.loadImage("flatNightBackground", "png");
 	public ArrayList<Image> charecterBlack = this.loadImage("Black", "run", "png", 6);
-
+	public Image mine = this.loadImage("mine", "png");
+	
 	public ImageHolder() {
 		super();
 		System.out.println("ImageHolder");

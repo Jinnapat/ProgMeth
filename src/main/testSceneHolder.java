@@ -10,7 +10,6 @@ public class testSceneHolder extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 		sceneHolder = new SceneHolder(primaryStage);
 		sceneHolder.initialize();
 		

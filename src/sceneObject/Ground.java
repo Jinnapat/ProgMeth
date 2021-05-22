@@ -5,6 +5,7 @@ import constants.GameConstant;
 import constants.PriorityConstant;
 import interfaces.Collidable;
 import item.base.Utility;
+import item.derived.Mine;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.ImageLogic;
@@ -119,6 +120,17 @@ public class Ground extends SolidObject {
 				if (targetUtility.getSpeed_y() > 0) {
 					targetUtility.setSpeed_y(0.0);
 					targetUtility.setY(this.getY() - targetUtility.getHeight());
+				}
+
+			}
+		} else if (target instanceof Mine) {
+			Mine targetMine = (Mine) target;
+			double bottom_y = targetMine.getY() + targetMine.getHeight();
+			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
+
+				if (targetMine.getSpeed_y() > 0) {
+					targetMine.setSpeed_y(0.0);
+					targetMine.setY(this.getY() - targetMine.getHeight());
 				}
 
 			}

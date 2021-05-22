@@ -1,11 +1,20 @@
 package character;
 
+import item.base.Weapon;
+import item.derived.Awp;
+
 public class Sniper extends Character{
 
 	public Sniper() {
-		super(50.0, 50.0, 10.0, 10, 100, "Green");
-		setMaxHealth(100);
-		setHealth(100);
+		super(50.0, 50.0, 7.0, 10.0, 100, "Green");
+		Weapon sniperRifle = new Awp();
+		setWeapon(sniperRifle);
+	}
+
+	@Override
+	public void act() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

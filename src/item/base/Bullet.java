@@ -91,6 +91,14 @@ public class Bullet extends SolidObject implements Movable{
 		}
 	}
 
+	public double getMaxRange() {
+		return maxRange;
+	}
+
+	public void setMaxRange(double maxRange) {
+		this.maxRange = maxRange;
+	}
+
 	@Override
 	public void update() {
 		

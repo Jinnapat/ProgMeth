@@ -3,8 +3,8 @@ package gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Queue;
 
+import character.Engineer;
 import character.Heavy;
 import character.Scout;
 import constants.FontHolder;
@@ -22,9 +22,9 @@ import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
 import item.derived.AmmoStash;
-import item.derived.Awp;
 import item.derived.Bandage;
 import item.derived.DropBox;
+import item.derived.Mine;
 
 public class GameCanvas extends Canvas{
 	
@@ -47,11 +47,10 @@ public class GameCanvas extends Canvas{
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
-//		this.instantiationQueue = new LinkedList();
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Heavy myChar = new Heavy();
+		Engineer myChar = new Engineer();
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
@@ -61,6 +60,7 @@ public class GameCanvas extends Canvas{
 		Scout myChar2 = new Scout();
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
+		myChar2.setHeadLeft(true);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);
 		myChar2.getControlKeys().put("rightKey", KeyCode.RIGHT);
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
@@ -113,18 +113,14 @@ public class GameCanvas extends Canvas{
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
 		
-		new Awp();
+		new Bandage(30.0, 30.0, 585.0, 400.0);
+		new Bandage(30.0, 30.0, 585.0, 700.0);
 		
-		DropBox db = new DropBox(50.0, 50.0, 650.0, 400.0);
-		db.setFallable(true);
+		new AmmoStash(30.0, 30.0, 50.0, 50.0);
+		new AmmoStash(30.0, 30.0, 1120.0, 50.0);
 		
-		Bandage bd = new Bandage(50.0, 50.0, 650.0, 700.0);
-		bd.setFallable(true);
-		
-		AmmoStash as = new AmmoStash();
-		as.setX(300);
-		as.setFallable(true);
-
+		new DropBox(30.0, 30.0, 50.0, 700.0);
+		new DropBox(30.0, 30.0, 1120.0, 700.0);
 	}
 	
 	private void loop() {
@@ -133,6 +129,7 @@ public class GameCanvas extends Canvas{
 			@Override
 			public void handle(long now) {
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+				
 				if (now - lastTimeTriggered >= 10000000) {
 					GameCanvas.this.clearScreen();
 					GameCanvas.this.draw();
