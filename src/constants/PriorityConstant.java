@@ -6,4 +6,5 @@ public class PriorityConstant {
 	public static final int UTILITY = 80;
 	public static final int BULLET = 90;
 	public static final int CHARACTER = 100;
+	public static final int WEAPON = 110;
 }

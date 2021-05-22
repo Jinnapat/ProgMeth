@@ -6,45 +6,59 @@ import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
-import logic.DamageLogic;
-import sceneObject.SolidObject;
 
-public class Utility extends Item implements Movable{
+public abstract class Utility extends Item implements Movable{
 	
-	protected boolean isDestroy = false;
+	protected boolean isDestroy;
+	protected int coolDown;
+	protected double createX;
+	protected double createY;
+	
+	public Utility(double x, double y) {
+		super();
+		this.createX = x;
+		this.createY = y;
+		this.setX(x);
+		this.setY(y);
+		this.isDestroy = false;
+		this.coolDown = -1;
+	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return PriorityConstant.UTILITY;
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-		/////////TODO////////////
-		gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
-	}
-
-	@Override
-	public void collectBy(Character character) {
-		// TODO Auto-generated method stub
+		if (!this.isDestroy) {
+			gc.drawImage(this.getSprite(), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		}
 		
 	}
 
 	@Override
+	public abstract void collectBy(Character character);
+
+	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		if(this.isFallable()) {
-			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
-				setSpeed_y(newSpeed);
-			}
+		double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+		setSpeed_y(newSpeed);
+		if (this.coolDown > 0) {
+			this.coolDown -= 1;
+		}
+		
+		if (this.coolDown == 0) {
+			this.setX(this.createX);
+			this.setY(this.createY);
+			this.isDestroy = false;
+			this.coolDown = -1;
 		}
 	}
 
 	@Override
-	public void onCollide(Collidable target) {
-	}
+	public abstract void onCollide(Collidable target);
+
+
 	
 }

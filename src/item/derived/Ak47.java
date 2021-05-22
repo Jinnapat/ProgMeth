@@ -1,7 +1,13 @@
 package item.derived;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
+import item.base.Bullet;
 import item.base.Weapon;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import logic.ImageLogic;
 
 public class Ak47 extends Weapon{
@@ -23,8 +29,15 @@ public class Ak47 extends Weapon{
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().awp,60,020);
 		this.setWidth(50);
 		this.setHeight(30);
-		this.getBoundBox().getChildren().add(imageView);
 		
 		System.out.println("AK47 have been create");
+	}
+
+	@Override
+	public void shoot(double x, double y, int side) {
+		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
+		newBullet.setDamage(5);
+		newBullet.setSpeed_x(getBulletSpeed() * side);
+		(new AudioClip(SoundHolder.getInstance().source)).play();
 	}
 }

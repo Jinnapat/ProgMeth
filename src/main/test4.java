@@ -41,6 +41,7 @@ public class test4 extends Application{
 		
 		stage.setScene(scene);
 		stage.setTitle("Test4");
+		stage.setResizable(false);
 		GameCanvas gameCanvas = new GameCanvas();
 		root.getChildren().add(gameCanvas);
 		stage.show();

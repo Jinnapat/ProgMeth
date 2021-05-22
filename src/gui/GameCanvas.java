@@ -2,17 +2,15 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
+import character.Engineer;
 import character.Heavy;
 import character.Scout;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
-import interfaces.IRenderable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -20,19 +18,22 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
+import logic.SceneHolder;
+import scene.GameScene;
+import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
 import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
+import item.derived.Mine;
 
 public class GameCanvas extends Canvas{
 	
 	private GraphicsContext gc;
 	private AnimationTimer gameLoop;
 	private List<SolidObject> gameObjects;
-//	private Queue<SolidObject> instantiationQueue;
 	private double lastTimeTriggered;
 	private Image backgroundImage;
 	
@@ -49,11 +50,10 @@ public class GameCanvas extends Canvas{
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
-//		this.instantiationQueue = new LinkedList();
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Heavy myChar = new Heavy();
+		Engineer myChar = new Engineer();
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
@@ -61,9 +61,9 @@ public class GameCanvas extends Canvas{
 		myChar.setFallable(true);
 		
 		Scout myChar2 = new Scout();
-		myChar2.setHealth(100);
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
+		myChar2.setHeadLeft(true);
 		myChar2.getControlKeys().put("leftKey", KeyCode.LEFT);
 		myChar2.getControlKeys().put("rightKey", KeyCode.RIGHT);
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
@@ -116,16 +116,14 @@ public class GameCanvas extends Canvas{
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
 		
-		DropBox db = new DropBox();
-		db.setFallable(true);
+		new Bandage(30.0, 30.0, 585.0, 400.0);
+		new Bandage(30.0, 30.0, 585.0, 700.0);
 		
-		Bandage bd = new Bandage();
-		bd.setX(100);
-		bd.setFallable(true);
+		new AmmoStash(30.0, 30.0, 50.0, 50.0);
+		new AmmoStash(30.0, 30.0, 1120.0, 50.0);
 		
-		AmmoStash as = new AmmoStash();
-		as.setX(300);
-		as.setFallable(true);
+		new DropBox(30.0, 30.0, 50.0, 700.0);
+		new DropBox(30.0, 30.0, 1120.0, 700.0);
 	}
 	
 	private void loop() {
@@ -134,7 +132,13 @@ public class GameCanvas extends Canvas{
 			@Override
 			public void handle(long now) {
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
+				
 				if (now - lastTimeTriggered >= 10000000) {
+					
+					if (GameConstant.keyPressed.contains(KeyCode.ESCAPE)) {
+						SceneHolder.switchScene(new MainMenuScene());
+					}
+					
 					GameCanvas.this.clearScreen();
 					GameCanvas.this.draw();
 					GameCanvas.this.reRange();
@@ -154,85 +158,47 @@ public class GameCanvas extends Canvas{
     }
 	
 	private void reRange() {
+		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
 		
-//		for (int i = 0; i < gameOjects.size(); i++) {
-//			SolidObject target = gameOjects.get(i);
-//			target.checkCollide();
-//			target.setX(target.getX() + target.getSpeed_x());
-//			target.setY(target.getY() + target.getSpeed_y());
-//		}
-		
-		Iterator point0 = this.gameObjects.iterator();
-		
-		while(point0.hasNext()) {
-			try {
-				SolidObject target = (SolidObject) point0.next();
-				target.checkCollide();
-				target.setX(target.getX() + target.getSpeed_x());
-				target.setY(target.getY() + target.getSpeed_y());
-			} catch(Exception e) {
-				
-			}
+		for (int i = 0; i < gameObjects.size(); i++) {
+			SolidObject target = gameObjects.get(i);
+			target.checkCollide();
+			target.setX(target.getX() + target.getSpeed_x());
+			target.setY(target.getY() + target.getSpeed_y());
 		}
 		
-		Iterator garbagePoint = garbage.iterator();
-		
-		while(garbagePoint.hasNext()) {
-			try {
-				this.gameObjects.remove(garbagePoint.next());
-			} catch(Exception e) {
-				
-			}
+		for (int i = 0; i < willAddObjects.size(); i++) {
+			gameObjects.add(willAddObjects.get(i));
 		}
-//		for (int i = 0; i < garbage.size(); i++) {
-//			gameObjects.remove(garbage.get(i));
-//		}
+		RenderableHolder.getInstance().clearWillAdd();
+		
+		for (int i = 0; i < garbage.size(); i++) {
+			gameObjects.remove(garbage.get(i));
+		}
+
 		RenderableHolder.getInstance().clearGarbage();
-		
-//		SolidObject obj;
-//		if(this.instantiationQueue != null) {
-//			while(!this.instantiationQueue.isEmpty()) {
-//				obj = (SolidObject) this.instantiationQueue.poll();
-//				this.gameObjects.add(obj);
-//			}
-//		}
-		
 		RenderableHolder.getInstance().reRange();
 	}
-	
+
 	private void update() {
-//		if(RenderableHolder.getInstance().getGameObjects()!=null) {
-//			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
-//				if(obj instanceof Movable) {
-//					try {
-//						((Movable) obj).update();
-//					} catch(Exception e){
-//						
-//					}
-//				}
-//			}
-//		}
-		
-		Iterator it = this.gameObjects.iterator();
-		SolidObject obj;
-		
-		while(it.hasNext()) {
-			obj = (SolidObject) it.next();
-			if(obj instanceof Movable) {
-				try {
-					((Movable) obj).update();
-				} catch(Exception e){
-					
+		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+				if(obj instanceof Movable) {
+					try {
+						((Movable) obj).update();
+					} catch(Exception e){
+						
+					}
 				}
-			}	
+			}
 		}
 	}
 	
 	private void draw() {
 		
-		Iterator point2 = this.gameObjects.iterator();
+		Iterator<SolidObject> point2 = this.gameObjects.iterator();
 		
 		while(point2.hasNext()) {
 			SolidObject obj = (SolidObject) point2.next();
@@ -248,7 +214,4 @@ public class GameCanvas extends Canvas{
 		new FontHolder();
 	}
 	
-//	public void addInstance(SolidObject obj) {
-//		this.instantiationQueue.add(obj);
-//	}
 }

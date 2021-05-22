@@ -5,6 +5,7 @@ import gui.MainMenuGUI;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import systemMemory.Memory;
 
 public class MainMenuScene extends Scene{
 	private StackPane stackPane;
@@ -16,6 +17,7 @@ public class MainMenuScene extends Scene{
 	public MainMenuScene() {
 		this(new StackPane());
 		this.initialize();
+		Memory.getInstance().mainMeneScene = this;
 	}
 	
 	private void initialize() {

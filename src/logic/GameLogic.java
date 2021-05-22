@@ -7,12 +7,10 @@ public class GameLogic {
 	
 	public static boolean willCollide(SolidObject o1, SolidObject o2) {
 		
-		/////TODO/////
 		double targetX1 = o2.getX();
 		double targetX2 = o2.getX() + o2.getWidth();
 		double targetY1 = o2.getY();
-		double targetY2 = o2.getY() + o2.getHeight();
-								
+		double targetY2 = o2.getY() + o2.getHeight();					
 		
 		boolean x_collide = false;
 		boolean y_collide = false;

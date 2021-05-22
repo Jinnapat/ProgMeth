@@ -27,6 +27,7 @@ import character.Sniper;
 public class SelectCharacterUI extends VBox{
 	private Character character;
 	private Image characterImage;
+	private ImageView characterImageView;
 	private TextField nameInput;
 	private VBox selectCharacter;
 
@@ -36,15 +37,15 @@ public class SelectCharacterUI extends VBox{
 		this.setPrefWidth(400);
 		this.setPrefHeight(800);
 		this.setAlignment(Pos.TOP_CENTER);
-		this.setPadding(new Insets(50));
+		this.setPadding(new Insets(100));
 		this.setSpacing(20);
-		this.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		this.setCharacter(new Scout());
 		this.setNameInput();
 		this.setSelectCharacter();
 		
-		this.getChildren().add(new ImageView(ImageLogic.resizeImage(characterImage, 200, 200)));
+		this.getChildren().add(this.characterImageView);
 		this.getChildren().add(this.nameInput);
 		this.getChildren().add(this.selectCharacter);
 	}
@@ -76,6 +77,12 @@ public class SelectCharacterUI extends VBox{
 
 	public void setCharacterImage(Image characterImage) {
 		this.characterImage = characterImage;
+		if(this.characterImageView == null) {
+			this.characterImageView = new ImageView(ImageLogic.resizeImage(characterImage, 200, 200));
+		}
+		else {
+			this.characterImageView.setImage(ImageLogic.resizeImage(characterImage, 200, 200));
+		}
 	}
 	
 	public void setNameInput() {
@@ -108,7 +115,6 @@ public class SelectCharacterUI extends VBox{
 			
 			characterBtn.setOnMouseClicked((event) -> {
 				this.setCharacter(name);
-//				System.out.println("Select: " + this.character.getClass());
 			});
 			this.selectCharacter.getChildren().add(characterBtn);
 		}

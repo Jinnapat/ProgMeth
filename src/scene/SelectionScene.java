@@ -5,6 +5,7 @@ import gui.SelectionGUI;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import systemMemory.Memory;
 
 public class SelectionScene extends Scene{
 	private StackPane stackPane;
@@ -16,6 +17,7 @@ public class SelectionScene extends Scene{
 	public SelectionScene() {
 		this(new StackPane());
 		this.initialize();
+		Memory.getInstance().selectionScene = this;
 	}
 	
 	private void initialize() {

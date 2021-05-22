@@ -12,6 +12,6 @@ public class GameConstant {
 	public static final double GRAVITY_G = 0.3;
 	public static final double CHARACTER_PHYSIC_X_OFFSET = 10.0;
 	public static final double CHARACTER_PHYSIC_Y_OFFSET = 3.0;
-//	public static final ArrayList<String> CHARACTER_CLASS = new ArrayList<String>();
 	public static final ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
+	public static final int UTILITY_COOLDOWN = 200;
 }

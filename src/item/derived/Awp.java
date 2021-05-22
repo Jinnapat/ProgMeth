@@ -1,8 +1,10 @@
 package item.derived;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
+import item.base.Bullet;
 import item.base.Weapon;
-import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import logic.ImageLogic;
 
 public class Awp extends Weapon{
@@ -24,9 +26,16 @@ public class Awp extends Weapon{
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().awp,100, 30);
 		this.setWidth(50);
 		this.setHeight(30);
-		this.getBoundBox().getChildren().add(imageView);
-		
 		System.out.println("AWP have been create");
+	}
+
+	@Override
+	public void shoot(double x, double y, int side) {
+		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
+		newBullet.setMaxRange(1200.0);
+		newBullet.setDamage(5);
+		newBullet.setSpeed_x(getBulletSpeed() * side);
+		(new AudioClip(SoundHolder.getInstance().source)).play();
 	}
 	
 	

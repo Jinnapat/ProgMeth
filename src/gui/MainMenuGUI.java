@@ -54,12 +54,10 @@ public class MainMenuGUI extends StackPane {
 		
 		Button play1PlayerBtn = new Button("1 player");
 		Button play2PlayerBtn = new Button("2 player");
-		Button optionBtn = new Button("option");
 		Button exitBtn = new Button("exit");
 		
 		play1PlayerBtn.setFont(FontHolder.getInstance().dream24);
 		play2PlayerBtn.setFont(FontHolder.getInstance().dream24);
-		optionBtn.setFont(FontHolder.getInstance().dream24);
 		exitBtn.setFont(FontHolder.getInstance().dream24);
 		
 		play1PlayerBtn.setOnMouseClicked((e) -> {
@@ -70,10 +68,6 @@ public class MainMenuGUI extends StackPane {
 			play2PlayerHandler();
 		});
 		
-		optionBtn.setOnMouseClicked((e) -> {
-			optionHandler();
-		});
-		
 		exitBtn.setOnMouseClicked((e) -> {
 			exitHandler();
 		});
@@ -82,7 +76,6 @@ public class MainMenuGUI extends StackPane {
 		
 		this.menuBox.getChildren().add(play1PlayerBtn);
 		this.menuBox.getChildren().add(play2PlayerBtn);
-		this.menuBox.getChildren().add(optionBtn);
 		this.menuBox.getChildren().add(exitBtn);
 		
 		this.allBox = new VBox();
@@ -97,19 +90,15 @@ public class MainMenuGUI extends StackPane {
 	private void play1PlayerHandler() {
 		//TODO
 		System.out.println("Play1Player");
-		SceneHolder.switchScene(new SelectionScene());
+		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	
 	private void play2PlayerHandler() {
 		//TODO
 		System.out.println("Play2Player");
-		SceneHolder.switchScene(new SelectionScene());
+		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	
-	private void optionHandler() {
-		//TODO
-		System.out.println("Option");
-	}
 	
 	private void exitHandler() {
 		System.out.println("Exit");

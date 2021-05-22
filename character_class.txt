@@ -5,6 +5,7 @@ max health: 50
 speed: 10
 jumpStrength: 
 usable guns: 
+weapon: shotgun
 
 ================================
 Heavy
@@ -13,6 +14,7 @@ max health: 150
 speed: 3
 jumpStrength: 
 usable guns: 
+weapon: bomb shooter
 
 ================================
 Sniper
@@ -21,6 +23,7 @@ max health: 100
 speed: 5
 jumpStrength: 
 usable guns: 
+weapon: sniper rifle
 
 ================================
 Shield
@@ -29,6 +32,7 @@ max health: 100
 speed: 5
 jumpStrength: 
 usable guns: 
+weapon: AK47
 
 ================================
 Engineer
@@ -37,3 +41,4 @@ max health: 100
 speed: 5
 jumpStrength: 
 usable guns: 
+weapon: bomb shooter

@@ -9,19 +9,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import sceneObject.SolidObject;
-import sceneObject.GameScene;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import constants.GameConstant;
 import constants.PriorityConstant;
-import gui.Healthbar;
 
-public class Character extends SolidObject implements Movable, IRenderable {
+public abstract class Character extends SolidObject implements Movable, IRenderable {
 	protected String name;
 	protected int maxHealth;
 	protected int health;
@@ -31,6 +25,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	protected boolean isHeadLeft;
 	protected double jumpStrength;
 	protected Weapon weapon;
+	protected int standStillTime = 0;
 	private HashMap<String, KeyCode> controlKeys;
 	private boolean onGround;
 	private String state;
@@ -51,7 +46,9 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.checkControls = false;
 		this.animationDelay = 7;
 		this.currentAnimationDelay = this.animationDelay;
-
+		this.setMaxHealth(maxHealth);
+		this.setHealth(maxHealth);
+		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
@@ -77,6 +74,8 @@ public class Character extends SolidObject implements Movable, IRenderable {
 					new Image(ClassLoader.getSystemResource("character/" + color + "/die/" + i + ".png").toString(),
 							0.0, 50.0, true, false));
 		}
+		
+		this.setSprite(this.idleImages.get(0));
 	}
 
 	public String getName() {
@@ -93,20 +92,22 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	public void setMaxHealth(int maxHealth) {
 		this.maxHealth = maxHealth;
-		// this.healthBar.displayHealth(getHealth(), maxHealth);
 	}
 
 	public int getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
-		// this.healthBar.displayHealth(health, this.maxHealth);
-		if (health <= 0) {
+	public void setHealth(int newHealth) {
+		if (newHealth <= 0) {
+			this.health = 0;
 			setCheckControls(false);
 			this.curImage = 0;
 			setState("dying");
+		} else if (newHealth > getMaxHealth()) {
+			this.health = getMaxHealth();
+		} else {
+			this.health = newHealth;
 		}
 	}
 
@@ -122,10 +123,9 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		return weapon;
 	}
 
-	public void setWeapon(Weapon weapon) {
-//		System.out.println(this.getName() + " get Weapon: " + weapon.getName());
-		this.weapon = weapon;
-		if(weapon != null ) {
+	public void setWeapon(Weapon newWeapon) {
+		this.weapon = newWeapon;
+		if (newWeapon != null) {
 			weapon.setPlayer(this);
 		}
 	}
@@ -205,7 +205,12 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		}
 
 		gc.setFill(Color.BLACK);
-		gc.fillText(getName(), getX() - 10, getY() - 13);
+		if (getWeapon() == null) {
+			gc.fillText("No gun", getX() - 10, getY() - 13);
+		} else {
+			gc.fillText(getWeapon().getName() + " : " + getWeapon().getCurrentAmmo(), getX() - 10, getY() - 13);
+		}
+		gc.fillText(getName(), getX() - 10, getY() - 23);
 		gc.setFill(Color.CRIMSON);
 		gc.fillRect(getX() - 10, getY() - 10, 50.0 * getHealth() / getMaxHealth(), 5);
 	}
@@ -213,26 +218,28 @@ public class Character extends SolidObject implements Movable, IRenderable {
 
 	@Override
 	public void update() {
-
+		boolean actionTaken = false;
 		setSpeed_x(getSpeed_x() * getFriction());
 
 		if (isFallable()) {
 			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-			if (newSpeed <= GameConstant.MAX_SPEED_Y) {
-				setSpeed_y(newSpeed);
-			}
+			setSpeed_y(newSpeed);
 		}
 
 		if (isCheckControls()) {
+			
+			
 			if (GameConstant.keyPressed.contains(controlKeys.get("leftKey"))) {
 				setSpeed_x(-speed);
 				setHeadLeft(true);
 				setState("running");
+				actionTaken = true;
 
 			} else if (GameConstant.keyPressed.contains(controlKeys.get("rightKey"))) {
 				setSpeed_x(speed);
 				setHeadLeft(false);
 				setState("running");
+				actionTaken = true;
 			} else {
 				setState("idle");
 			}
@@ -245,18 +252,26 @@ public class Character extends SolidObject implements Movable, IRenderable {
 					} else {
 						bulletSpawnX = getX() + getWidth() + 10.0;
 					}
-					getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+					getWeapon().holdTrigger(bulletSpawnX, getY() + 25.0, isHeadLeft());
+					actionTaken = true;
 				} else {
 					System.out.println("No weapon!");
 				}
 			}
 
 			if (GameConstant.keyPressed.contains(controlKeys.get("jumpKey"))) {
+				actionTaken = true;
 				if (getSpeed_y() < 0.5 && isOnGround()) {
 					setSpeed_y(-getJumpStrength());
 				}
 			}
 		}
+		
+		if (actionTaken) {
+			this.standStillTime = 0;
+		}
+		this.standStillTime += 1;
+		this.act();
 		setOnGround(false);
 
 	}
@@ -264,4 +279,6 @@ public class Character extends SolidObject implements Movable, IRenderable {
 	@Override
 	public void onCollide(Collidable target) {
 	}
+	
+	public abstract void act();
 }

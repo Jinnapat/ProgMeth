@@ -1,17 +1,13 @@
 package item.base;
 
-import java.util.ArrayList;
-
 import character.Character;
-import character.Scout;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import logic.RenderableHolder;
-import sceneObject.SolidObject;
 
-public class Weapon extends Item implements Movable{
+public abstract class Weapon extends Item implements Movable{
 	
 	private int maxAmmo;
 	private int currentAmmo;
@@ -20,8 +16,7 @@ public class Weapon extends Item implements Movable{
 	private int damage;
 	private double bulletSpeed;
 	private double range;
-	private double runSpeed; //percent
-	private ArrayList<Bullet> bullets;
+	private double runSpeed;
 	private Character player;
 	
 	public Weapon() {
@@ -53,24 +48,17 @@ public class Weapon extends Item implements Movable{
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
-//		if(this.bullets == null) {
-//			this.bullets = new ArrayList<Bullet>();
-//		}
-//		this.bullets.clear();
-//		
-//		for(int i=0; i<this.maxAmmo; i++) {
-//			bullets.add(new Bullet(this.damage, this.bulletSpeed));
-//		}
 	}
 	
-	public void shoot(double x, double y, boolean isLeftSide) {
-
+	public void holdTrigger(double x, double y, boolean headLeft) {
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
+				int side = 1;
+				if (headLeft) {
+					side = -1;
+				}
 				this.currentAmmo -= 1;
-				Bullet bl = new Bullet(this.damage, this.bulletSpeed);
-				bl.shoot(x, y, isLeftSide);
-//				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
+				this.shoot(x, y, side);
 				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
@@ -78,6 +66,8 @@ public class Weapon extends Item implements Movable{
 			coolDown = 100.0;
 		}
 	}
+	
+	public abstract void shoot(double x, double y, int side);
 	
 	public void update() {
 		
@@ -88,13 +78,6 @@ public class Weapon extends Item implements Movable{
 		if(player != null) {
 			setX(player.getX() - getWidth()/2);
 			setY(player.getY() + getHeight()/2);
-			if(getImageView() != null) {
-				if(player.isHeadLeft()) {
-					getImageView().setScaleX(-1.0);
-				}else {
-					getImageView().setScaleX(1.0);
-				}
-			}
 		}
 		
 	}
@@ -178,13 +161,22 @@ public class Weapon extends Item implements Movable{
 
 	@Override
 	public int getZ() {
-		return 9;
+		return PriorityConstant.WEAPON;
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-		//////////////TODO///////////////
+		if (getSprite() != null) {
+			if (player != null) {
+				int side = 1;
+				if (player.isHeadLeft()) {
+					side = -1;
+				}
+				gc.drawImage(getSprite(), getX() - Math.min(0.0, getSprite().getWidth() * side), getY(), getSprite().getWidth() * side, getSprite().getHeight());
+			} else {
+				gc.drawImage(getSprite(), getX(), getY(), getSprite().getWidth(), getSprite().getHeight());
+			}
+		}
 	}
 
 

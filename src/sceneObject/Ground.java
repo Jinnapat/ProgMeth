@@ -5,6 +5,7 @@ import constants.GameConstant;
 import constants.PriorityConstant;
 import interfaces.Collidable;
 import item.base.Utility;
+import item.derived.Mine;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.ImageLogic;
@@ -14,13 +15,11 @@ public class Ground extends SolidObject {
 
 	private boolean passable;
 
-	public Ground(double width, double height, double x, double y, boolean passsable) {
+	public Ground(double width, double height, double x, double y, boolean passable) {
 		super(width, height);
 		this.setX(x);
 		this.setY(y);
-		this.getBoundBox().setPrefWidth(width);
-		this.getBoundBox().setPrefHeight(height);
-		this.passable = passsable;
+		this.passable = passable;
 
 		Image image = new Image(ClassLoader.getSystemResource("images/Platform.png").toString());
 		image = ImageLogic.resizeImage(image, width, height);
@@ -124,7 +123,17 @@ public class Ground extends SolidObject {
 				}
 
 			}
+		} else if (target instanceof Mine) {
+			Mine targetMine = (Mine) target;
+			double bottom_y = targetMine.getY() + targetMine.getHeight();
+			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
 
+				if (targetMine.getSpeed_y() > 0) {
+					targetMine.setSpeed_y(0.0);
+					targetMine.setY(this.getY() - targetMine.getHeight());
+				}
+
+			}
 		}
 	}
 

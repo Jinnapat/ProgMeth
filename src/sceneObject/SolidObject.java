@@ -8,8 +8,9 @@ import logic.GameLogic;
 import logic.RenderableHolder;
 import java.util.List;
 
+import constants.GameConstant;
+
 public abstract class SolidObject implements IRenderable, Collidable{
-	private AnchorPane boundBox;
 	private double width;
 	private double height;
 	private double x;
@@ -30,9 +31,7 @@ public abstract class SolidObject implements IRenderable, Collidable{
 		this.speed_y = 0.0;
 		this.friction = 0.8;
 		this.fallable = false;
-		this.boundBox = new AnchorPane();
-		this.boundBox.setPrefSize(getWidth(), getHeight());
-		RenderableHolder.getInstance().addObject(this);
+		RenderableHolder.getInstance().addWillAddObject(this);
 	}
 	
 	public SolidObject(double width, double height, double x, double y) {
@@ -74,15 +73,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	}
 
 	
-	public AnchorPane getBoundBox() {
-		return boundBox;
-	}
-
-	public void setBoundBox(AnchorPane boundBox) {
-		this.boundBox = boundBox;
-	}
-
-	
 	public double getSpeed_x() {
 		return speed_x;
 	}
@@ -96,7 +86,11 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	}
 
 	public void setSpeed_y(double speed_y) {
-		this.speed_y = speed_y;
+		if (speed_y > GameConstant.MAX_SPEED_Y) {
+			this.speed_y = GameConstant.MAX_SPEED_Y;
+		} else {
+			this.speed_y = speed_y;
+		}
 	}
 
 	
