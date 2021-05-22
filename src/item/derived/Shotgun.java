@@ -12,12 +12,12 @@ public class Shotgun extends Weapon {
 
 	@Override
 	public void shoot(double x, double y, int side) {
-		double maxDegree = Math.PI / 10;
+		double maxDegree = Math.PI / 50;
 		for (int i = 0; i < 4; i++) {
 			double angle = (2 * maxDegree * Math.random()) - maxDegree;
 			Bullet newBullet = new Bullet(3.0, 3.0, x, y, 5, 3.0);
 			newBullet.setSpeed_x(Math.cos(angle) * getBulletSpeed() * side);
-			newBullet.setSpeed_y(Math.sin(angle) * getBulletSpeed() * side);
+			newBullet.setSpeed_y(Math.sin(angle) * getBulletSpeed());
 		}
 	}
 
