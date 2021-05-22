@@ -42,12 +42,8 @@ public class Bullet extends SolidObject implements Movable{
 	
 	public Bullet(int damage, double speed) {
 		this();
-		this.setDamage(damage);
-		this.setSpeed(speed);
-	}
-
-	public Bullet(double width, double height, double x, double y, int damage, double speed) {
-		this(width, height, x, y);
+		this.setX(0);
+		this.setY(0);
 		this.setDamage(damage);
 		this.setSpeed(speed);
 	}

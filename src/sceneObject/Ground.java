@@ -129,7 +129,6 @@ public class Ground extends SolidObject {
 				}
 
 			}
-			System.out.println("yPos: " + targetUtility.getY());
 
 		}
 	}

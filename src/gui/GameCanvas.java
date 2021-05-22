@@ -165,7 +165,10 @@ public class GameCanvas extends Canvas{
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
 				if(obj instanceof Movable) {
-					((Movable) obj).update();
+					try {
+						((Movable) obj).update();
+					} catch(Exception e){
+					}
 				}
 			}
 		}

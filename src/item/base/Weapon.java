@@ -21,7 +21,7 @@ public class Weapon extends Item implements Movable{
 	private double bulletSpeed;
 	private double range;
 	private double runSpeed; //percent
-	private ArrayList<Bullet> bullets;
+//	private ArrayList<Bullet> bullets;
 	private Character player;
 	
 	public Weapon() {
@@ -35,7 +35,6 @@ public class Weapon extends Item implements Movable{
 		this.coolDown = 0.0;
 		this.setBulletSpeed(1);
 		this.setPlayer(null);
-		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
 		RenderableHolder.getInstance().addObject(this);
@@ -48,20 +47,20 @@ public class Weapon extends Item implements Movable{
 		this.setRunSpeed(runSpeed);
 		this.setDamage(damage);
 		this.coolDown = 0.0;
-		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
 	}
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
-		if(this.bullets == null) {
-			this.bullets = new ArrayList<Bullet>();
-		}
-		this.bullets.clear();
-		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet(this.damage, this.bulletSpeed));
-		}
+//		if(this.bullets == null) {
+//			this.bullets = new ArrayList<Bullet>();
+//		}
+//		this.bullets.clear();
+//		
+//		for(int i=0; i<this.maxAmmo; i++) {
+//			bullets.add(new Bullet(this.damage, this.bulletSpeed));
+//		}
 	}
 	
 	public void shoot(double x, double y, boolean isLeftSide) {
@@ -69,8 +68,10 @@ public class Weapon extends Item implements Movable{
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
 				this.currentAmmo -= 1;
-				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
-				this.bullets.remove(currentAmmo);
+				Bullet bl = new Bullet(this.damage, this.bulletSpeed);
+				bl.shoot(x, y, isLeftSide);
+//				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
+//				this.bullets.remove(currentAmmo);
 				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
