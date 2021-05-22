@@ -92,6 +92,10 @@ public class SelectCharacterUI extends VBox{
 		this.nameInput.setAlignment(Pos.CENTER);
 		this.nameInput.setFont(new Font(30));
 		this.nameInput.setText(this.character.getName());
+		
+		this.nameInput.setOnKeyTyped((event) -> {
+			getCharacter().setName(nameInput.getText());
+		});
 	}
 
 	public void setSelectCharacter() {

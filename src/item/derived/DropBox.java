@@ -23,7 +23,6 @@ public class DropBox extends Utility{
 
 	@Override
 	public void collectBy(Character character) {
-		character.setWeapon(null);
 	}
 
 	@Override
@@ -32,7 +31,6 @@ public class DropBox extends Utility{
 			if(target instanceof Character && !this.isDestroy()) {
 				this.setDestroy(true);
 				Character targetCharacter = (Character) target;
-				this.collectBy(targetCharacter);
 				System.out.println("Get DropBox");
 				this.coolDown = GameConstant.UTILITY_COOLDOWN;
 				int newClass = (int)Math.floor(5 * Math.random());
@@ -66,7 +64,6 @@ public class DropBox extends Utility{
 				newCharacter.setCheckControls(true);
 				newCharacter.setName(targetCharacter.getName());
 				newCharacter.setFallable(true);
-				RenderableHolder.getInstance().addWillAddObject(newCharacter);
 				RenderableHolder.getInstance().addGarbage(targetCharacter.getWeapon());
 				RenderableHolder.getInstance().addGarbage(targetCharacter);
 			}

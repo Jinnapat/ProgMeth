@@ -25,6 +25,8 @@ import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
+import item.base.Bullet;
+import item.base.Weapon;
 import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
@@ -43,26 +45,32 @@ public class GameCanvas extends Canvas{
 		this.lastTimeTriggered = 0.0;
 		this.setup();
 		this.loop();
-
 	}
 	
 	public void setup() {
 		this.gc = this.getGraphicsContext2D();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
+		gameObjects.clear();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
 		Character myChar = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox().getCharacter();
+		gameObjects.add(myChar);
+		gameObjects.add(myChar.getWeapon());
 		System.out.println(myChar.getClass().toGenericString());
+		System.out.println(myChar.getName());
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
 		myChar.setFallable(true);
 		
 		Character myChar2 = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox2().getCharacter();
+		gameObjects.add(myChar2);
+		gameObjects.add(myChar2.getWeapon());
 		System.out.println(myChar2.getClass().toGenericString());
+		System.out.println(myChar2.getName());
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
 		myChar2.setHeadLeft(true);
@@ -87,9 +95,9 @@ public class GameCanvas extends Canvas{
 		new Ground(50, 50, 850, 620, false);
 		
 		// roof
-		new Ground(100, 20, 300, 500, true);
-		new Ground(240, 20, 480, 500, true);
-		new Ground(100, 20, 800, 500, true);
+		new Ground(100, 50, 300, 470, true);
+		new Ground(240, 50, 480, 470, true);
+		new Ground(100, 50, 800, 470, true);
 		
 		// left platforms
 		new Ground(100, 20, 50, 620, true);
@@ -162,18 +170,18 @@ public class GameCanvas extends Canvas{
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		
+		int a = 0;
 		for (int i = 0; i < gameObjects.size(); i++) {
 			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
-//			if (target instanceof Character) {
-//				System.out.print(target.getClass().toString());
-//			}
+			if (target instanceof Character) {
+				a += 1;
+				//System.out.println(target.getX());
+			}
 		}
-		//System.out.println();
-		
+		//System.out.println(a);
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
 		}
@@ -181,10 +189,12 @@ public class GameCanvas extends Canvas{
 		
 		for (int i = 0; i < garbage.size(); i++) {
 			SolidObject t = garbage.get(i);
-			boolean test = gameObjects.remove(garbage.get(i));
-//			if (test && t instanceof Character) {
-//				System.out.println("removed");
-//			}
+			boolean c = gameObjects.remove(t);
+			if (t instanceof Weapon) {
+				System.out.println(t.getClass().toString());
+				System.out.println(c);
+				System.out.println(a);
+			}
 		}
 
 		RenderableHolder.getInstance().clearGarbage();
@@ -207,12 +217,16 @@ public class GameCanvas extends Canvas{
 	
 	private void draw() {
 		
-		Iterator<SolidObject> point2 = this.gameObjects.iterator();
-		
-		while(point2.hasNext()) {
-			SolidObject obj = (SolidObject) point2.next();
-			obj.draw(gc);
+		int q = 0;
+		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+				obj.draw(this.gc);
+				if (obj instanceof Weapon) {
+					q += 1;
+				}
+			}
 		}
+		System.out.println(q);
 	}
 	
 	
