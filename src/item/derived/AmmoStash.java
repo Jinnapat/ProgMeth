@@ -37,7 +37,6 @@ public class AmmoStash extends Utility {
 			if (target instanceof Character) {
 				Character targetCharacter = (Character) target;
 				if(targetCharacter.getWeapon() != null) {
-					targetCharacter.getWeapon().refillAmmo();
 					this.collectBy(targetCharacter);
 					RenderableHolder.getInstance().addGarbage(this);
 				}

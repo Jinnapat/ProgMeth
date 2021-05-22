@@ -31,8 +31,8 @@ public class GameCanvas extends Canvas{
 	
 	private GraphicsContext gc;
 	private AnimationTimer gameLoop;
-	private ArrayList<SolidObject> gameObjects;
-	private Queue<SolidObject> instantiationQueue;
+	private List<SolidObject> gameObjects;
+//	private Queue<SolidObject> instantiationQueue;
 	private double lastTimeTriggered;
 	private Image backgroundImage;
 	
@@ -49,7 +49,7 @@ public class GameCanvas extends Canvas{
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
-		this.instantiationQueue = new LinkedList();
+//		this.instantiationQueue = new LinkedList();
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
@@ -191,13 +191,13 @@ public class GameCanvas extends Canvas{
 //		}
 		RenderableHolder.getInstance().clearGarbage();
 		
-		SolidObject obj;
-		if(this.instantiationQueue != null) {
-			while(!this.instantiationQueue.isEmpty()) {
-				obj = (SolidObject) this.instantiationQueue.poll();
-				this.gameObjects.add(obj);
-			}
-		}
+//		SolidObject obj;
+//		if(this.instantiationQueue != null) {
+//			while(!this.instantiationQueue.isEmpty()) {
+//				obj = (SolidObject) this.instantiationQueue.poll();
+//				this.gameObjects.add(obj);
+//			}
+//		}
 		
 		RenderableHolder.getInstance().reRange();
 	}
@@ -248,7 +248,7 @@ public class GameCanvas extends Canvas{
 		new FontHolder();
 	}
 	
-	public void addInstance(SolidObject obj) {
-		this.instantiationQueue.add(obj);
-	}
+//	public void addInstance(SolidObject obj) {
+//		this.instantiationQueue.add(obj);
+//	}
 }

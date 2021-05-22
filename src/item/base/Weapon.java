@@ -53,14 +53,14 @@ public class Weapon extends Item implements Movable{
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
-		if(this.bullets == null) {
-			this.bullets = new ArrayList<Bullet>();
-		}
-		this.bullets.clear();
-		
-		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet(this.damage, this.bulletSpeed));
-		}
+//		if(this.bullets == null) {
+//			this.bullets = new ArrayList<Bullet>();
+//		}
+//		this.bullets.clear();
+//		
+//		for(int i=0; i<this.maxAmmo; i++) {
+//			bullets.add(new Bullet(this.damage, this.bulletSpeed));
+//		}
 	}
 	
 	public void shoot(double x, double y, boolean isLeftSide) {
@@ -68,9 +68,9 @@ public class Weapon extends Item implements Movable{
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
 				this.currentAmmo -= 1;
-//				Bullet bl = new Bullet(this.damage, this.bulletSpeed);
-//				bl.shoot(x, y, isLeftSide);
-				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
+				Bullet bl = new Bullet(this.damage, this.bulletSpeed);
+				bl.shoot(x, y, isLeftSide);
+//				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
 				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
