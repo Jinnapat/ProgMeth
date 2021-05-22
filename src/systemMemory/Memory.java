@@ -1,6 +1,7 @@
 package systemMemory;
 
 import gui.GameCanvas;
+import scene.EndGameScene;
 import scene.GameScene;
 import scene.MainMenuScene;
 import scene.SelectionScene;
@@ -12,6 +13,7 @@ public class Memory {
 	public GameCanvas gameCanvas;
 	public GameScene gameScene;
 	public SelectionScene selectionScene;
+	public EndGameScene endGameScene;
 	
 	public Memory() {}
 	
