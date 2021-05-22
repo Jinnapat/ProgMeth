@@ -3,11 +3,15 @@ package character;
 import item.base.Weapon;
 import item.derived.Ak47;
 import item.derived.Mine;
+import logic.RenderableHolder;
 
 public class Engineer extends Character {
 	
+	private Mine lastMine;
+	
 	public Engineer() {
 		super(50.0, 50.0, 5.0, 8.0, 100, "Yellow");
+		this.lastMine = null;
 		Weapon assaultRifle = new Ak47();
 		setWeapon(assaultRifle);
 	}
@@ -15,8 +19,11 @@ public class Engineer extends Character {
 	@Override
 	public void act() {
 		if (this.standStillTime >= 100) {
+			if (this.lastMine != null) {
+				RenderableHolder.getInstance().addGarbage(lastMine);
+			}
 			this.standStillTime = 0;
-			new Mine(30.0, 10.0, getX(), getY());
+			this.lastMine = new Mine(30.0, 10.0, getX(), getY());
 		}
 	}
 
