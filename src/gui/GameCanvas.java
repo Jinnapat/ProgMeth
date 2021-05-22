@@ -202,7 +202,7 @@ public class GameCanvas extends Canvas{
 	private void loadResource() {
 		new RenderableHolder();
 		new ImageHolder();
-		new SoundHolder();
+//		new SoundHolder();
 		new FontHolder();
 	}
 	

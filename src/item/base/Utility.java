@@ -7,7 +7,7 @@ import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Utility extends Item implements Movable{
+public abstract class Utility extends Item implements Movable{
 	
 	protected boolean isDestroy;
 	protected int coolDown;
@@ -38,9 +38,7 @@ public class Utility extends Item implements Movable{
 	}
 
 	@Override
-	public void collectBy(Character character) {
-		
-	}
+	public abstract void collectBy(Character character);
 
 	@Override
 	public void update() {
@@ -59,7 +57,8 @@ public class Utility extends Item implements Movable{
 	}
 
 	@Override
-	public void onCollide(Collidable target) {
-	}
+	public abstract void onCollide(Collidable target);
+
+
 	
 }
