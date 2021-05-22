@@ -45,7 +45,9 @@ public class Character extends SolidObject implements Movable, IRenderable {
 		this.checkControls = false;
 		this.animationDelay = 7;
 		this.currentAnimationDelay = this.animationDelay;
-
+		this.setHealth(maxHealth);
+		this.setMaxHealth(maxHealth);
+		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
