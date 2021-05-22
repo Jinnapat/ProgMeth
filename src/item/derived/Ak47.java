@@ -1,8 +1,13 @@
 package item.derived;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
 import item.base.Bullet;
 import item.base.Weapon;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import logic.ImageLogic;
 
 public class Ak47 extends Weapon{
@@ -33,5 +38,6 @@ public class Ak47 extends Weapon{
 		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
+		(new AudioClip(SoundHolder.getInstance().source)).play();
 	}
 }

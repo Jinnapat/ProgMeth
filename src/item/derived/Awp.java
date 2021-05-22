@@ -1,8 +1,10 @@
 package item.derived;
 
 import constants.ImageHolder;
+import constants.SoundHolder;
 import item.base.Bullet;
 import item.base.Weapon;
+import javafx.scene.media.AudioClip;
 import logic.ImageLogic;
 
 public class Awp extends Weapon{
@@ -33,6 +35,7 @@ public class Awp extends Weapon{
 		newBullet.setMaxRange(1200.0);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
+		(new AudioClip(SoundHolder.getInstance().source)).play();
 	}
 	
 	

@@ -1,7 +1,9 @@
 package item.derived;
 
+import constants.SoundHolder;
 import item.base.Bullet;
 import item.base.Weapon;
+import javafx.scene.media.AudioClip;
 
 public class Shotgun extends Weapon {
 
@@ -20,6 +22,7 @@ public class Shotgun extends Weapon {
 			newBullet.setSpeed(3.0);
 			newBullet.setSpeed_x(Math.cos(angle) * getBulletSpeed() * side);
 			newBullet.setSpeed_y(Math.sin(angle) * getBulletSpeed());
+			(new AudioClip(SoundHolder.getInstance().source)).play();
 		}
 	}
 
