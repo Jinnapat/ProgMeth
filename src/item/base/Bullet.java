@@ -7,6 +7,7 @@ import logic.RenderableHolder;
 import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
+import systemMemory.Memory;
 import character.Character;
 import constants.GameConstant;
 import constants.PriorityConstant;
@@ -29,7 +30,7 @@ public class Bullet extends SolidObject implements Movable{
 		this.isLeftSide = false;
 		this.isHit = false;
 		this.isShot = false;
-		RenderableHolder.getInstance().addObject(this);
+//		Memory.getInstance().gameCanvas.addInstance(this);
 	}
 	
 	public Bullet(double width, double height, double x, double y) {

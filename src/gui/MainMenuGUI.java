@@ -94,6 +94,7 @@ public class MainMenuGUI extends StackPane {
 	private void play1PlayerHandler() {
 		//TODO
 		System.out.println("Play1Player");
+		SceneHolder.switchScene(new SelectionScene());
 	}
 	
 	private void play2PlayerHandler() {

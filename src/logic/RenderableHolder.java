@@ -42,13 +42,15 @@ public class RenderableHolder {
 
 	public void addObject(SolidObject obj) {
 		gameObjects.add(obj);
-		Collections.sort(this.gameObjects, comparator);
 	}
 	
 	public static RenderableHolder getInstance() {
 		return instance;
 	}
-
+	
+	public void reRange() {
+		Collections.sort(this.gameObjects, comparator);
+	}
 
 	public List<SolidObject> getGameObjects() {
 		return gameObjects;

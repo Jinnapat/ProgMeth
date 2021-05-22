@@ -26,6 +26,7 @@ public class AmmoStash extends Utility {
 	@Override
 	public void collectBy(Character character) {
 		if(character.getWeapon() != null) {
+			System.out.println(character.getWeapon());
 			character.getWeapon().refillAmmo();
 		}
 	}
@@ -35,9 +36,11 @@ public class AmmoStash extends Utility {
 		if (target != null) {
 			if (target instanceof Character) {
 				Character targetCharacter = (Character) target;
-				System.out.println("Pick up AmmoStash");
-				collectBy(targetCharacter);
-				RenderableHolder.getInstance().addGarbage(this);
+				if(targetCharacter.getWeapon() != null) {
+					targetCharacter.getWeapon().refillAmmo();
+					this.collectBy(targetCharacter);
+					RenderableHolder.getInstance().addGarbage(this);
+				}
 			}
 		}
 	}
