@@ -107,11 +107,6 @@ public class Bullet extends SolidObject implements Movable{
 	}
 
 	@Override
-	public boolean isDestroy() {
-		return false;
-	}
-
-	@Override
 	public void update() {
 		if (this.isShot) {
 			if (maxRange <= 0.0) {

@@ -27,12 +27,6 @@ public class Utility extends Item implements Movable{
 	}
 
 	@Override
-	public boolean isDestroy() {
-		// TODO Auto-generated method stub
-		return this.isDestroy;
-	}
-
-	@Override
 	public void collectBy(Character character) {
 		// TODO Auto-generated method stub
 		

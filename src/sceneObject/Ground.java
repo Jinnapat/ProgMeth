@@ -61,11 +61,6 @@ public class Ground extends SolidObject {
 	}
 
 	@Override
-	public boolean isDestroy() {
-		return false;
-	}
-
-	@Override
 	public void onCollide(Collidable target) {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character) target;

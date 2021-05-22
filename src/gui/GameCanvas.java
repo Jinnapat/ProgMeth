@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.Iterator;
 import java.util.List;
 
 import character.Heavy;
@@ -162,15 +163,29 @@ public class GameCanvas extends Canvas{
 	}
 	
 	private void update() {
-		if(RenderableHolder.getInstance().getGameObjects()!=null) {
-			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
-				if(obj instanceof Movable) {
-					try {
-						((Movable) obj).update();
-					} catch(Exception e){
-					}
+//		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+//			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+//				if(obj instanceof Movable) {
+//					try {
+//						((Movable) obj).update();
+//					} catch(Exception e){
+//						
+//					}
+//				}
+//			}
+//		}
+		
+		Iterator point = RenderableHolder.getInstance().getGameObjects().iterator();
+		
+		while(point.hasNext()) {
+			SolidObject obj = (SolidObject) point.next();
+			if(obj instanceof Movable) {
+				try {
+					((Movable) obj).update();
+				} catch(Exception e){
+					
 				}
-			}
+			}	
 		}
 	}
 	

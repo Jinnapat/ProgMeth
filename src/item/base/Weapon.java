@@ -188,10 +188,6 @@ public class Weapon extends Item implements Movable{
 		//////////////TODO///////////////
 	}
 
-	@Override
-	public boolean isDestroy() {
-		return false;
-	}
 
 	@Override
 	public void onCollide(Collidable target) {
