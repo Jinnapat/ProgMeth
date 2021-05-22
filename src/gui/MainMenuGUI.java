@@ -17,6 +17,7 @@ import constants.ImageHolder;
 import constants.SoundHolder;
 import main.testSelectionGUI;
 import scene.SelectionScene;
+import systemMemory.Memory;
 
 public class MainMenuGUI extends StackPane {
 	private HBox titileBox;
@@ -30,6 +31,8 @@ public class MainMenuGUI extends StackPane {
 		background.setFitWidth(GameConstant.WINDOW_WIDTH);
 		background.setPreserveRatio(false);
 		this.getChildren().add(background);
+		
+		Memory.getInstance().mainMenuGui = this;
 		
 		
 //		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);

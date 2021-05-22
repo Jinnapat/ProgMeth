@@ -3,6 +3,7 @@ package gui;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import systemMemory.Memory;
 
 public class SelectionGUI extends HBox{
 	
@@ -12,6 +13,8 @@ public class SelectionGUI extends HBox{
 	
 	public SelectionGUI() {
 		super();
+		
+		Memory.getInstance().selectionGui = this;
 		
 		this.setPadding(new Insets(20));
 		
