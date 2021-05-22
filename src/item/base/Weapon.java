@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import character.Character;
 import character.Scout;
+import constants.PriorityConstant;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
@@ -178,7 +179,7 @@ public class Weapon extends Item implements Movable{
 
 	@Override
 	public int getZ() {
-		return 9;
+		return PriorityConstant.WEAPON;
 	}
 
 	@Override

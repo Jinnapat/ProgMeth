@@ -30,7 +30,6 @@ public class Bullet extends SolidObject implements Movable{
 		this.isLeftSide = false;
 		this.isHit = false;
 		this.isShot = false;
-//		Memory.getInstance().gameCanvas.addInstance(this);
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
