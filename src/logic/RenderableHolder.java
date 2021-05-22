@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import gui.GameCanvas;
 import sceneObject.SolidObject;
 
 public class RenderableHolder {

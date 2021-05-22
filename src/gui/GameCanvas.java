@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class GameCanvas extends Canvas{
 	
 	private GraphicsContext gc;
 	private AnimationTimer gameLoop;
+	private ArrayList<SolidObject> gameObjects;
 	private double lastTimeTriggered;
 	private Image backgroundImage;
 	
@@ -40,7 +42,7 @@ public class GameCanvas extends Canvas{
 	
 	private void setup() {
 		this.gc = this.getGraphicsContext2D();
-//		this.gameObjects = new ArrayList<SolidObject>();
+		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
 		this.loadResource();
@@ -146,19 +148,37 @@ public class GameCanvas extends Canvas{
     }
 	
 	private void reRange() {
-		List<SolidObject> gameOjects = RenderableHolder.getInstance().getGameObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		for (int i = 0; i < gameOjects.size(); i++) {
-			SolidObject target = gameOjects.get(i);
+		
+//		for (int i = 0; i < gameOjects.size(); i++) {
+//			SolidObject target = gameOjects.get(i);
+//			target.checkCollide();
+//			target.setX(target.getX() + target.getSpeed_x());
+//			target.setY(target.getY() + target.getSpeed_y());
+//		}
+		
+		Iterator point0 = this.gameObjects.iterator();
+		
+		while(point0.hasNext()) {
+			SolidObject target = (SolidObject) point0.next();
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
 		}
 		
-		for (int i = 0; i < garbage.size(); i++) {
-			gameOjects.remove(garbage.get(i));
+		Iterator garbagePoint = garbage.iterator();
+		
+		while(garbagePoint.hasNext()) {
+			try {
+				this.gameObjects.remove(garbagePoint.next());
+			} catch(Exception e) {
+				
+			}
 		}
+//		for (int i = 0; i < garbage.size(); i++) {
+//			gameObjects.remove(garbage.get(i));
+//		}
 		RenderableHolder.getInstance().clearGarbage();
 	}
 	
@@ -175,10 +195,11 @@ public class GameCanvas extends Canvas{
 //			}
 //		}
 		
-		Iterator point = RenderableHolder.getInstance().getGameObjects().iterator();
+		Iterator it = this.gameObjects.iterator();
+		SolidObject obj;
 		
-		while(point.hasNext()) {
-			SolidObject obj = (SolidObject) point.next();
+		while(it.hasNext()) {
+			obj = (SolidObject) it.next();
 			if(obj instanceof Movable) {
 				try {
 					((Movable) obj).update();
@@ -190,12 +211,20 @@ public class GameCanvas extends Canvas{
 	}
 	
 	private void draw() {
-		if(RenderableHolder.getInstance().getGameObjects()!=null) {
-			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
-				obj.draw(gc);
-			}
+//		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+//			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+//				obj.draw(gc);
+//			}
+//		}
+		
+		Iterator point2 = this.gameObjects.iterator();
+		
+		while(point2.hasNext()) {
+			SolidObject obj = (SolidObject) point2.next();
+			obj.draw(gc);
 		}
 	}
+	
 	
 	private void loadResource() {
 		new RenderableHolder();
