@@ -37,9 +37,9 @@ public class SelectCharacterUI extends VBox{
 		this.setPrefWidth(400);
 		this.setPrefHeight(800);
 		this.setAlignment(Pos.TOP_CENTER);
-		this.setPadding(new Insets(50));
+		this.setPadding(new Insets(100));
 		this.setSpacing(20);
-		this.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setBackground(new Background(new BackgroundFill(Color.CADETBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 		
 		this.setCharacter(new Scout());
 		this.setNameInput();
@@ -115,8 +115,6 @@ public class SelectCharacterUI extends VBox{
 			
 			characterBtn.setOnMouseClicked((event) -> {
 				this.setCharacter(name);
-//				System.out.println("Select: " + this.character.getClass());
-				System.out.println(this.characterImageView);
 			});
 			this.selectCharacter.getChildren().add(characterBtn);
 		}

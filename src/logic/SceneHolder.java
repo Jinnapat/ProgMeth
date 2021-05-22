@@ -1,5 +1,7 @@
 package logic;
 
+import java.awt.Canvas;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import scene.MainMenuScene;
@@ -23,4 +25,5 @@ public class SceneHolder {
 		pStage.setScene(targetScene);
 		pStage.sizeToScene();
 	}
+	
 }
