@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import logic.RenderableHolder;
-import sceneObject.GameScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import character.Character;
@@ -19,7 +18,6 @@ public class Bullet extends SolidObject implements Movable{
 	private double maxRange;
 	private boolean isLeftSide;
 	private boolean isHit;
-	private boolean isShot;
 	
 	public Bullet() {
 		super(5.0, 3.0);
@@ -28,8 +26,6 @@ public class Bullet extends SolidObject implements Movable{
 		this.speed = 30;
 		this.isLeftSide = false;
 		this.isHit = false;
-		this.isShot = false;
-		RenderableHolder.getInstance().addObject(this);
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
@@ -50,18 +46,6 @@ public class Bullet extends SolidObject implements Movable{
 		this(width, height, x, y);
 		this.setDamage(damage);
 		this.setSpeed(speed);
-	}
-
-	public void shoot(double x, double y, boolean isLeftSide) {
-		System.out.println("Bang!");
-		if (isLeftSide) {
-			setSpeed_x(getSpeed() * -1);
-		} else {
-			setSpeed_x(getSpeed());
-		}
-		setX(x);
-		setY(y);
-		this.isShot = true;
 	}
 
 	public double getSpeed() {
@@ -104,26 +88,27 @@ public class Bullet extends SolidObject implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		if (this.isShot) {
+		if (!this.isHit()) {
 			gc.setFill(Color.GOLD);
-			gc.fillRect(getX(), getY(), 5, 2);
+			gc.fillRect(getX(), getY(), getWidth(), getHeight());
 		}
-	}
-
-	@Override
-	public boolean isDestroy() {
-		return false;
 	}
 
 	@Override
 	public void update() {
-		if (this.isShot) {
-			if (maxRange <= 0.0) {
-				this.isShot = false;
-				RenderableHolder.getInstance().addGarbage(this);
-			}
-			maxRange -= Math.abs(getSpeed());
+		
+		maxRange -= Math.abs(getSpeed_x());
+				
+		if (maxRange <= 0.0) {
+			this.setHit(true);
+			RenderableHolder.getInstance().addGarbage(this);
 		}
+
+		if (isFallable()) {
+			this.setSpeed_y(getSpeed_y() + GameConstant.GRAVITY_G);
+		}
+		
+		
 	}
 
 	@Override
@@ -133,11 +118,14 @@ public class Bullet extends SolidObject implements Movable{
 			if (targetCharacter.getHealth() > 0) {
 				DamageLogic.calculateDamage(this, targetCharacter);
 			}
-			this.isShot = false;
 			this.setHit(true);
 		} else if (target instanceof Ground) {
-			this.isShot = false;
 			this.setHit(true);
 		}
+	}
+
+	@Override
+	public boolean isDestroy() {
+		return false;
 	}
 }

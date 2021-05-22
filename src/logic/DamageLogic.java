@@ -23,4 +23,8 @@ public class DamageLogic {
 		int newHealth = Math.min(currentHealth += maxHealth*(percent), maxHealth);
 		character.setHealth(newHealth);
 	}
+	
+	public static void pushCharacter(Character character) {
+		
+	}
 }

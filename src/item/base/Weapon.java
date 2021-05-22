@@ -1,17 +1,12 @@
 package item.base;
 
-import java.util.ArrayList;
-
 import character.Character;
-import character.Scout;
 import interfaces.Collidable;
 import interfaces.Movable;
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import logic.RenderableHolder;
-import sceneObject.SolidObject;
 
-public class Weapon extends Item implements Movable{
+public abstract class Weapon extends Item implements Movable{
 	
 	private int maxAmmo;
 	private int currentAmmo;
@@ -20,8 +15,7 @@ public class Weapon extends Item implements Movable{
 	private int damage;
 	private double bulletSpeed;
 	private double range;
-	private double runSpeed; //percent
-	private ArrayList<Bullet> bullets;
+	private double runSpeed;
 	private Character player;
 	
 	public Weapon() {
@@ -35,7 +29,6 @@ public class Weapon extends Item implements Movable{
 		this.coolDown = 0.0;
 		this.setBulletSpeed(1);
 		this.setPlayer(null);
-		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
 		RenderableHolder.getInstance().addObject(this);
@@ -48,29 +41,23 @@ public class Weapon extends Item implements Movable{
 		this.setRunSpeed(runSpeed);
 		this.setDamage(damage);
 		this.coolDown = 0.0;
-		this.bullets = new ArrayList<Bullet>();
 		this.refillAmmo();
 		this.update();
 	}
 	
 	public void refillAmmo() {
 		this.currentAmmo = this.maxAmmo;
-		if(this.bullets == null) {
-			this.bullets = new ArrayList<Bullet>();
-		}
-		this.bullets.clear();
-		for(int i=0; i<this.maxAmmo; i++) {
-			bullets.add(new Bullet(this.damage, this.bulletSpeed));
-		}
 	}
 	
-	public void shoot(double x, double y, boolean isLeftSide) {
-
+	public void holdTrigger(double x, double y, boolean headLeft) {
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
+				int side = 1;
+				if (headLeft) {
+					side = -1;
+				}
 				this.currentAmmo -= 1;
-				this.bullets.get(currentAmmo).shoot(x, y, isLeftSide);
-				this.bullets.remove(currentAmmo);
+				this.shoot(x, y, side);
 				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
@@ -78,6 +65,8 @@ public class Weapon extends Item implements Movable{
 			coolDown = 100.0;
 		}
 	}
+	
+	public abstract void shoot(double x, double y, int side);
 	
 	public void update() {
 		

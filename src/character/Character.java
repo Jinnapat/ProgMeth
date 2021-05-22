@@ -249,7 +249,7 @@ public class Character extends SolidObject implements Movable, IRenderable {
 					} else {
 						bulletSpawnX = getX() + getWidth() + 10.0;
 					}
-					getWeapon().shoot(bulletSpawnX, getY() + 25.0, isHeadLeft());
+					getWeapon().holdTrigger(bulletSpawnX, getY() + 25.0, isHeadLeft());
 				} else {
 					System.out.println("No weapon!");
 				}

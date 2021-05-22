@@ -26,4 +26,9 @@ public class Ak47 extends Weapon{
 		
 		System.out.println("AK47 have been create");
 	}
+
+	@Override
+	public void shoot(double x, double y, int isLeftSide) {
+		
+	}
 }

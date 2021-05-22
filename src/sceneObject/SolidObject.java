@@ -31,7 +31,7 @@ public abstract class SolidObject implements IRenderable, Collidable{
 		this.speed_y = 0.0;
 		this.friction = 0.8;
 		this.fallable = false;
-		RenderableHolder.getInstance().addObject(this);
+		RenderableHolder.getInstance().addWillAddObject(this);
 	}
 	
 	public SolidObject(double width, double height, double x, double y) {

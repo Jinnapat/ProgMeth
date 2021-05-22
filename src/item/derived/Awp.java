@@ -27,6 +27,11 @@ public class Awp extends Weapon{
 		this.setHeight(30);
 		System.out.println("AWP have been create");
 	}
+
+	@Override
+	public void shoot(double x, double y, int isLeftSide) {
+		
+	}
 	
 	
 }

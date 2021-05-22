@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import character.Heavy;
@@ -144,23 +145,31 @@ public class GameCanvas extends Canvas{
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
     }
 	
+	
 	private void reRange() {
-		List<SolidObject> gameOjects = RenderableHolder.getInstance().getGameObjects();
+		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
+		List<SolidObject> gameObjects = RenderableHolder.getInstance().getGameObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		for (int i = 0; i < gameOjects.size(); i++) {
-			SolidObject target = gameOjects.get(i);
+		
+		for (int i = 0; i < gameObjects.size(); i++) {
+			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
 		}
 		
+		for (int i = 0; i < willAddObjects.size(); i++) {
+			gameObjects.add(willAddObjects.get(i));
+		}
+		RenderableHolder.getInstance().clearWillAdd();
+		
 		for (int i = 0; i < garbage.size(); i++) {
-			gameOjects.remove(garbage.get(i));
+			gameObjects.remove(garbage.get(i));
 		}
 		RenderableHolder.getInstance().clearGarbage();
 	}
-	
+
 	private void update() {
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
