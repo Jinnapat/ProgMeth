@@ -20,7 +20,6 @@ public class Ak47 extends Weapon{
 		this.setDamage(100);
 		this.setBulletSpeed(10);
 		this.setRange(10);
-		this.setRunSpeed(50);
 		this.refillAmmo();
 		
 		this.setX(200);

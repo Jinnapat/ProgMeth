@@ -20,7 +20,6 @@ import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
-import item.base.Weapon;
 import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
@@ -52,8 +51,6 @@ public class GameCanvas extends Canvas{
 		Character myChar = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox().getCharacter();
 		gameObjects.add(myChar);
 		gameObjects.add(myChar.getWeapon());
-		System.out.println(myChar.getClass().toGenericString());
-		System.out.println(myChar.getName());
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
@@ -62,8 +59,6 @@ public class GameCanvas extends Canvas{
 		Character myChar2 = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox2().getCharacter();
 		gameObjects.add(myChar2);
 		gameObjects.add(myChar2.getWeapon());
-		System.out.println(myChar2.getClass().toGenericString());
-		System.out.println(myChar2.getName());
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
 		myChar2.setHeadLeft(true);
@@ -138,7 +133,7 @@ public class GameCanvas extends Canvas{
 				if (now - lastTimeTriggered >= 10000000) {
 					
 					if (GameConstant.keyPressed.contains(KeyCode.ESCAPE)) {
-						SceneHolder.switchScene(new MainMenuScene());
+						SceneHolder.switchScene(Memory.getInstance().mainMeneScene);
 					}
 					
 					GameCanvas.this.clearScreen();

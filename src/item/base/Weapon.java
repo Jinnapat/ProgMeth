@@ -16,7 +16,6 @@ public abstract class Weapon extends Item implements Movable{
 	private int damage;
 	private double bulletSpeed;
 	private double range;
-	private double runSpeed;
 	private Character player;
 	
 	public Weapon() {
@@ -26,7 +25,6 @@ public abstract class Weapon extends Item implements Movable{
 		this.fireRate = 10;
 		this.range = 10;
 		this.setDamage(10);
-		this.runSpeed = 100.00;
 		this.coolDown = 0.0;
 		this.setBulletSpeed(1);
 		this.setPlayer(null);
@@ -38,7 +36,6 @@ public abstract class Weapon extends Item implements Movable{
 		this();
 		this.maxAmmo = maxAmmo;
 		this.setFireRate(fireRate);
-		this.setRunSpeed(runSpeed);
 		this.setDamage(damage);
 		this.coolDown = 0.0;
 		this.refillAmmo();
@@ -115,14 +112,6 @@ public abstract class Weapon extends Item implements Movable{
 
 	public void setRange(double range) {
 		this.range = Math.max(range, 0.00d);
-	}
-
-	public double getRunSpeed() {
-		return runSpeed;
-	}
-
-	public void setRunSpeed(double runSpeed) {
-		this.runSpeed = Math.max(runSpeed, 0.00d);
 	}
 
 	public double getCoolDown() {

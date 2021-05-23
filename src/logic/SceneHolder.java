@@ -1,7 +1,5 @@
 package logic;
 
-import java.awt.Canvas;
-
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import scene.EndGameScene;
