@@ -164,7 +164,6 @@ public abstract class Weapon extends Item implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		System.out.println(getX());
 		if (getSprite() != null) {
 			if (player != null) {
 				int side = 1;

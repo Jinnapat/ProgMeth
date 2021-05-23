@@ -27,7 +27,6 @@ import character.Sniper;
 
 public class SelectCharacterUI extends VBox{
 	private Character character;
-	private Image characterImage;
 	private ImageView characterImageView;
 	private TextField nameInput;
 	private VBox selectCharacter;
@@ -52,6 +51,9 @@ public class SelectCharacterUI extends VBox{
 	}
 
 	public void setCharacter(Character character) {
+		if (this.character != null) {
+			character.setName(this.character.getName());
+		}
 		RenderableHolder.getInstance().addGarbage(this.character);
 		this.character = character;
 		this.setCharacterImage(this.character.getSprite());
@@ -78,7 +80,6 @@ public class SelectCharacterUI extends VBox{
 	}
 
 	public void setCharacterImage(Image characterImage) {
-		this.characterImage = characterImage;
 		if(this.characterImageView == null) {
 			this.characterImageView = new ImageView(ImageLogic.resizeImage(characterImage, 200, 200));
 		}
