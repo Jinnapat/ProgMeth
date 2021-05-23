@@ -8,6 +8,7 @@ import item.base.Utility;
 import item.derived.Mine;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import logic.GameLogic;
 import logic.ImageLogic;
 import logic.RenderableHolder;
 
@@ -29,22 +30,6 @@ public class Ground extends SolidObject {
 		checkCollide();
 	}
 
-	public double calculateDelta(double x1, double x2, double tx1, double tx2) {
-		if (x1 >= tx1 && x1 <= tx2) {
-			if (x2 >= tx1 && x2 <= tx2) {
-				return x2 - x1;
-			} else {
-				return tx2 - x1;
-			}
-		} else {
-			if (x2 >= tx1 && x2 <= tx2) {
-				return x2 - tx1;
-			} else {
-				return tx2 - tx1;
-			}
-		}
-	}
-
 	@Override
 	public int getZ() {
 		return PriorityConstant.GROUND;
@@ -64,18 +49,8 @@ public class Ground extends SolidObject {
 		if (target instanceof Character) {
 			Character targetCharacter = (Character) target;
 
-			double x1 = getX();
-			double x2 = getX() + getWidth();
-			double tx1 = targetCharacter.getX();
-			double tx2 = targetCharacter.getX() + targetCharacter.getWidth();
-
-			double y1 = getY();
-			double y2 = getY() + getHeight();
-			double ty1 = targetCharacter.getY();
-			double ty2 = targetCharacter.getY() + targetCharacter.getHeight();
-
-			double deltaX = calculateDelta(x1, x2, tx1, tx2);
-			double deltaY = calculateDelta(y1, y2, ty1, ty2);
+			double deltaX = GameLogic.calculateCollideDeltaX((SolidObject)this, (SolidObject)target);
+			double deltaY = GameLogic.calculateCollideDeltaY((SolidObject)this, (SolidObject)target);
 
 			if (targetCharacter.getSpeed_y() > 0.0) {
 				if (deltaX > 10.0) {
