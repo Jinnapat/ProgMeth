@@ -21,6 +21,43 @@ public class DropBox extends Utility{
 		ImageLogic.resizeAndsetSprite(this, ImageHolder.getInstance().box, width, height);
 	}
 
+	private Character createNewCharacter() {
+		int chosenClass = (int)Math.floor(5 * Math.random());
+		Character createdCharacter = null;
+		if (chosenClass == 0) {
+			createdCharacter = new Engineer();
+		} else if (chosenClass == 1) {
+			createdCharacter = new Scout();
+		} else if (chosenClass == 2) {
+			createdCharacter = new Sniper();
+		} else if (chosenClass == 3) {
+			createdCharacter = new Heavy();
+		} else if (chosenClass == 4) {
+			createdCharacter = new Shield();
+		}
+		return createdCharacter;
+	}
+	private void copyCharacterStats(Character targetCharacter, Character createdCharacter) {
+		createdCharacter.setX(targetCharacter.getX());
+		createdCharacter.setY(targetCharacter.getY());
+		createdCharacter.setHeadLeft(targetCharacter.isHeadLeft());
+		createdCharacter.setControlKeys(targetCharacter.getControlKeys());
+		createdCharacter.setCheckControls(true);
+		createdCharacter.setName(targetCharacter.getName());
+		double healthPercent = (double)targetCharacter.getHealth() / (double)targetCharacter.getMaxHealth();
+		createdCharacter.setHealth((int)Math.round(healthPercent * createdCharacter.getMaxHealth()));
+	}
+	
+	private void replaceOldCharacter(Character targetCharacter, Character createdCharacter) {
+		Character memChar1 = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
+		Character memChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
+		if (targetCharacter.getName().equals(memChar1.getName())) {
+			Memory.getInstance().selectionGui.getSelectCharacterBox().setCharacter(createdCharacter);
+		} else if (targetCharacter.getName().equals(memChar2.getName())) {
+			Memory.getInstance().selectionGui.getSelectCharacterBox2().setCharacter(createdCharacter);
+		}
+	}
+	
 	@Override
 	public void collectBy(Character character) {
 		
@@ -33,48 +70,11 @@ public class DropBox extends Utility{
 				this.setDestroy(true);
 				Character targetCharacter = (Character) target;
 				this.coolDown = GameConstant.UTILITY_COOLDOWN;
-				int newClass = (int)Math.floor(5 * Math.random());
-				Character newCharacter = null;
-				switch (newClass) {
-					case 0: {
-						newCharacter = new Engineer();
-						break;
-					}
-					case 1: {
-						newCharacter = new Scout();
-						break;
-					}
-					case 2: {
-						newCharacter = new Sniper();
-						break;
-					}
-					case 3: {
-						newCharacter = new Heavy();
-						break;
-					}
-					case 4: {
-						newCharacter = new Shield();
-						break;
-					}
-				}
-				newCharacter.setX(targetCharacter.getX());
-				newCharacter.setY(targetCharacter.getY());
-				newCharacter.setHeadLeft(targetCharacter.isHeadLeft());
-				newCharacter.setControlKeys(targetCharacter.getControlKeys());
-				newCharacter.setCheckControls(true);
-				newCharacter.setName(targetCharacter.getName());
-				newCharacter.setHealth((int)Math.round((double)targetCharacter.getHealth() / (double)targetCharacter.getMaxHealth() * newCharacter.getMaxHealth()));
+				Character createdCharacter = createNewCharacter();
 				RenderableHolder.getInstance().addGarbage(targetCharacter.getWeapon());
 				RenderableHolder.getInstance().addGarbage(targetCharacter);
-				
-				Character memChar1 = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
-				Character memChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
-				if (targetCharacter.getName().equals(memChar1.getName())) {
-					Memory.getInstance().selectionGui.getSelectCharacterBox().setCharacter(newCharacter);
-				} else if (targetCharacter.getName().equals(memChar2.getName())) {
-					Memory.getInstance().selectionGui.getSelectCharacterBox2().setCharacter(newCharacter);
-				}
-				
+				this.copyCharacterStats(targetCharacter, createdCharacter);
+				this.replaceOldCharacter(targetCharacter, createdCharacter);
 			}
 		}
 	}

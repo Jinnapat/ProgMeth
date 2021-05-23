@@ -88,12 +88,10 @@ public class MainMenuGUI extends StackPane {
 		return button;
 	}
 	private void play1PlayerHandler() {
-		Memory.getInstance().selectionGui.setPlayerNum(1);
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	
 	private void play2PlayerHandler() {
-		Memory.getInstance().selectionGui.setPlayerNum(2);
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	

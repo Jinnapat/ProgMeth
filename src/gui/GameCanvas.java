@@ -33,22 +33,23 @@ public class GameCanvas extends Canvas{
 	private Image backgroundImage;
 	
 	public GameCanvas() {
-		this.backgroundImage = new Image(ClassLoader.getSystemResource("images/background.png").toString(), GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT, true, false);
+		super();
+		this.gc = this.getGraphicsContext2D();
+		this.backgroundImage = ImageHolder.getInstance().gameBackgound;
 		this.lastTimeTriggered = 0.0;
+		this.setWidth(GameConstant.WINDOW_WIDTH);
+		this.setHeight(GameConstant.WINDOW_HEIGHT);
+		this.loadResource();
+		Memory.getInstance().gameCanvas = this;
 		this.setup();
 		this.loop();
 	}
 	
 	public void setup() {
-		this.gc = this.getGraphicsContext2D();
 		RenderableHolder.getInstance().getWillAddObjects().clear();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		gameObjects.clear();
 		GameConstant.keyPressed.clear();
-		this.setWidth(GameConstant.WINDOW_WIDTH);
-		this.setHeight(GameConstant.WINDOW_HEIGHT);
-		this.loadResource();
-		Memory.getInstance().gameCanvas = this;
 		
 		Character myChar = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
 		gameObjects.add(myChar);

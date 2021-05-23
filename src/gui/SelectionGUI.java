@@ -8,14 +8,12 @@ import systemMemory.Memory;
 
 public class SelectionGUI extends HBox{
 	
-	private int playerNum;
 	private SelectCharacterUI selectCharacterBox;
 	private SelectCharacterUI selectCharacterBox2;
 	private ReadyUI readyBox;
 	
 	public SelectionGUI() {
 		super();
-		this.setPlayerNum(1);
 		
 		Memory.getInstance().selectionGui = this;
 		
@@ -43,13 +41,5 @@ public class SelectionGUI extends HBox{
 
 	public SelectCharacterUI getSelectCharacterBox2() {
 		return selectCharacterBox2;
-	}
-
-	public int getPlayerNum() {
-		return playerNum;
-	}
-
-	public void setPlayerNum(int playerNum) {
-		this.playerNum = playerNum;
 	}
 }
