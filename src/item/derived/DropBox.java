@@ -64,6 +64,7 @@ public class DropBox extends Utility{
 				newCharacter.setCheckControls(true);
 				newCharacter.setName(targetCharacter.getName());
 				newCharacter.setFallable(true);
+				newCharacter.setHealth((int)Math.round((double)targetCharacter.getHealth() / (double)targetCharacter.getMaxHealth() * newCharacter.getMaxHealth()));
 				RenderableHolder.getInstance().addGarbage(targetCharacter.getWeapon());
 				RenderableHolder.getInstance().addGarbage(targetCharacter);
 			}

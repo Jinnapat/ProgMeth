@@ -13,8 +13,6 @@ public class Sniper extends Character{
 
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -7,7 +7,6 @@ import logic.DamageLogic;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
-import systemMemory.Memory;
 import character.Character;
 import constants.GameConstant;
 import constants.PriorityConstant;

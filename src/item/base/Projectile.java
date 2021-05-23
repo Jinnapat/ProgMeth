@@ -29,6 +29,7 @@ public class Projectile extends Bullet {
 				Bullet blast = new Bullet(3.0, 3.0, spawnX, spawnY);
 				double angle = Math.PI * 2.0 * Math.random();
 				double blastSpeed = Math.random() * 3.0 + 3.0;
+				blast.setDamage(this.getDamage());
 				blast.setSpeed(blastSpeed);
 				blast.setSpeed_x(Math.cos(angle) * blast.getSpeed());
 				blast.setSpeed_y(Math.sin(angle) * -blast.getSpeed());
