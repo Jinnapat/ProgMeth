@@ -96,4 +96,13 @@ public class GameLogic {
 		}
 		return false;
 	}
+	
+	public static void fixNameDuplicate() {
+		String name1 = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter().getName();
+		String name2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter().getName();
+		
+		if(name1.equals(name2)) {
+			Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter().setName(name2 + " 1");
+		}
+	}
 }
