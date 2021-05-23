@@ -1,5 +1,6 @@
 package systemMemory;
 
+import gui.EndGameGUI;
 import gui.GameCanvas;
 import gui.MainMenuGUI;
 import gui.SelectionGUI;
@@ -16,6 +17,7 @@ public class Memory {
 	public SelectionGUI selectionGui;
 	public GameScene gameScene;
 	public SelectionScene selectionScene;
+	public EndGameGUI endGameGui;
 	public EndGameScene endGameScene;
 
 	public Memory() {
