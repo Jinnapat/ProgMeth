@@ -19,7 +19,6 @@ public class EndGameScene extends Scene{
 		this(new StackPane());
 		this.initialize();
 		Memory.getInstance().endGameScene = this;
-		System.out.println("what");
 	}
 	
 	private void initialize() {

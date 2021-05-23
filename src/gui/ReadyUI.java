@@ -14,8 +14,8 @@ import systemMemory.Memory;
 
 public class ReadyUI extends VBox {
 	
-	Button startBtn;
-	Button backBtn;
+	private Button startBtn;
+	private Button backBtn;
 
 	public ReadyUI() {
 		super();
@@ -53,7 +53,7 @@ public class ReadyUI extends VBox {
 	private void backHandler() {
 		// TODO Auto-generated method stub
 		System.out.println("Back to mainMenu");
-		SceneHolder.switchScene(Memory.getInstance().mainMeneScene);
+		SceneHolder.switchScene(Memory.getInstance().mainMenuScene);
 	}
 	
 	

@@ -10,8 +10,8 @@ import scene.MainMenuScene;
 import scene.SelectionScene;
 
 public class Memory {
-	public static Memory instance = new Memory();
-	public MainMenuScene mainMeneScene;
+	private static Memory instance = new Memory();
+	public MainMenuScene mainMenuScene;
 	public GameCanvas gameCanvas;
 	public MainMenuGUI mainMenuGui;
 	public SelectionGUI selectionGui;

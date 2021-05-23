@@ -29,7 +29,7 @@ public class SelectionScene extends Scene{
 	}
 
 	public SelectionGUI getSelectionGUI() {
-		return selectionGUI;
+		return this.selectionGUI;
 	}
 	
 }
