@@ -19,10 +19,10 @@ public class RenderableHolder {
 		this.willAddObjects = new ArrayList<SolidObject>();
 		
 		comparator = (SolidObject o1, SolidObject o2) -> {
-			if(o1.getZ() > o2.getZ()) {
-				return 1;
+			if(o1.getZ() == o2.getZ()) {
+				return o1.getY() < o2.getY() ? -1: 1;
 			}
-			return -1;
+			return o1.getZ() < o2.getZ() ? -1: 1;
 		};
 		System.out.println("RenderableHolder");
 	}

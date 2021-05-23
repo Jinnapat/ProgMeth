@@ -49,7 +49,7 @@ public class GameCanvas extends Canvas{
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Character myChar = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox().getCharacter();
+		Character myChar = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
 		gameObjects.add(myChar);
 		gameObjects.add(myChar.getWeapon());
 		System.out.println(myChar.getClass().toGenericString());
@@ -59,7 +59,7 @@ public class GameCanvas extends Canvas{
 		myChar.setCheckControls(true);
 		myChar.setFallable(true);
 		
-		Character myChar2 = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox2().getCharacter();
+		Character myChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
 		gameObjects.add(myChar2);
 		gameObjects.add(myChar2.getWeapon());
 		System.out.println(myChar2.getClass().toGenericString());
