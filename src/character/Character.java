@@ -39,6 +39,7 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 	
 	public Character(double width, double height, double speed, double jumpStrength, int maxHealth, String color) {
 		super(width, height);
+		this.name= "";
 		this.state = "idle";
 		this.speed = speed;
 		this.jumpStrength = jumpStrength;

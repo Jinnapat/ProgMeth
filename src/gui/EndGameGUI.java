@@ -39,11 +39,9 @@ public class EndGameGUI extends StackPane{
 		this.winnerBox.getChildren().add(this.winnerName);
 		this.winnerBox.getChildren().add(backBtn);
 		this.getChildren().add(this.winnerBox);
-		// TODO Auto-generated constructor stub
 	}
 
 	private void backHandler() {
-		// TODO Auto-generated method stub
 		System.out.println("Back to mainMenu");
 		SceneHolder.switchScene(new MainMenuScene());
 //		new RealMain();

@@ -25,9 +25,7 @@ public class SceneHolder {
 	}
 	
 	public static void switchScene(Scene targetScene){
-		pStage.setResizable(false);
 		pStage.setScene(targetScene);
-		pStage.sizeToScene();
 	}
 	
 }

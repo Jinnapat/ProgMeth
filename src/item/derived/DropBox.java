@@ -8,6 +8,7 @@ import item.base.Utility;
 import javafx.scene.input.KeyCode;
 import logic.ImageLogic;
 import logic.RenderableHolder;
+import systemMemory.Memory;
 import character.Engineer;
 import character.Heavy;
 import character.Sniper;
@@ -67,6 +68,15 @@ public class DropBox extends Utility{
 				newCharacter.setHealth((int)Math.round((double)targetCharacter.getHealth() / (double)targetCharacter.getMaxHealth() * newCharacter.getMaxHealth()));
 				RenderableHolder.getInstance().addGarbage(targetCharacter.getWeapon());
 				RenderableHolder.getInstance().addGarbage(targetCharacter);
+				
+				Character memChar1 = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
+				Character memChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
+				if (targetCharacter.getName().equals(memChar1.getName())) {
+					Memory.getInstance().selectionGui.getSelectCharacterBox().setCharacter(newCharacter);
+				} else if (targetCharacter.getName().equals(memChar2.getName())) {
+					Memory.getInstance().selectionGui.getSelectCharacterBox2().setCharacter(newCharacter);
+				}
+				
 			}
 		}
 	}

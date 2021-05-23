@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -53,8 +52,10 @@ public class SelectCharacterUI extends VBox{
 	public void setCharacter(Character character) {
 		if (this.character != null) {
 			character.setName(this.character.getName());
+		} else {
+			RenderableHolder.getInstance().addGarbage(this.character);
 		}
-		RenderableHolder.getInstance().addGarbage(this.character);
+		
 		this.character = character;
 		this.setCharacterImage(this.character.getSprite());
 	}
