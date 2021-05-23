@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import logic.GameLogic;
 import logic.SceneHolder;
-import scene.GameScene;
 import systemMemory.Memory;
 
 public class ReadyUI extends VBox {

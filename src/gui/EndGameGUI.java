@@ -1,10 +1,15 @@
 package gui;
 
 import constants.FontHolder;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import logic.SceneHolder;
 import scene.MainMenuScene;
@@ -29,6 +34,7 @@ public class EndGameGUI extends StackPane{
 	private void fillWinnerBox() {
 		this.winnerName = new Text();
 		this.setWinnerName(null);
+		this.winnerBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));;
 		this.winnerName.setFont(FontHolder.getInstance().dream32);
 		
 		Button backBtn = new Button("back to menu");

@@ -1,5 +1,8 @@
 package gui;
 
+import constants.FontHolder;
+import constants.GameConstant;
+import constants.ImageHolder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,16 +13,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import logic.SceneHolder;
-import constants.FontHolder;
-import constants.GameConstant;
-import constants.ImageHolder;
-import constants.SoundHolder;
-import scene.SelectionScene;
 import systemMemory.Memory;
 
 public class MainMenuGUI extends StackPane {

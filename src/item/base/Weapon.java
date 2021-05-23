@@ -6,7 +6,6 @@ import exception.ShootFailedException;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
-import logic.RenderableHolder;
 
 public abstract class Weapon extends Item implements Movable{
 	

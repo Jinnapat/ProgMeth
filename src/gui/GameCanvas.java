@@ -11,6 +11,7 @@ import constants.SoundHolder;
 import exception.PositionException;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -174,9 +175,26 @@ public class GameCanvas extends Canvas{
         this.gc.clearRect(0.0D, 0.0D, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
         if(GameLogic.isEndGame()) {
-        	Memory.getInstance().selectionGui.reset();
-        	this.gameLoop.stop();
-			SceneHolder.switchScene(Memory.getInstance().endGameScene);
+        	
+        	Thread thread = new Thread(() -> {
+        		try {
+    				Thread.sleep(1000);
+    				Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							Memory.getInstance().selectionGui.reset();
+		    	        	gameLoop.stop();
+		    				SceneHolder.switchScene(Memory.getInstance().endGameScene);
+						}
+    					
+    				});
+    			}catch (InterruptedException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	});
+        	thread.start();
 		}
     }
 	
