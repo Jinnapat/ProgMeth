@@ -102,7 +102,8 @@ public class GameLogic {
 		String name2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter().getName();
 		
 		if(name1.equals(name2)) {
-			Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter().setName(name2 + " 1");
+			Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter().setName(name1 + " 1");
+			Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter().setName(name2 + " 2");
 		}
 	}
 }
