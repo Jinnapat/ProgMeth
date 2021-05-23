@@ -26,11 +26,11 @@ public class AmmoStash extends Utility {
 	@Override
 	public void onCollide(Collidable target) {
 		if (target != null) {
-			if (target instanceof Character && !this.isDestroy) {
+			if (target instanceof Character && !this.isDestroy()) {
 				Character targetCharacter = (Character) target;
 				if(targetCharacter.getWeapon() != null) {
 					this.collectBy(targetCharacter);
-					this.isDestroy = true;
+					this.setDestroy(true);
 					this.coolDown = GameConstant.UTILITY_COOLDOWN;
 				}
 			}

@@ -23,7 +23,6 @@ public class ImageLogic {
 	}
 	
 	public static Image resizeImage(Image image, double width, double height){
-		System.out.println(image.getUrl());
 		return new Image(image.getUrl(), width, height, false, false);
 	}
 }

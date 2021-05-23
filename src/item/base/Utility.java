@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Utility extends Item implements Movable{
 	
-	protected boolean isDestroy;
+	private boolean isDestroy;
 	protected int coolDown;
 	protected double createX;
 	protected double createY;
@@ -59,6 +59,12 @@ public abstract class Utility extends Item implements Movable{
 	@Override
 	public abstract void onCollide(Collidable target);
 
+	public boolean isDestroy() {
+		return isDestroy;
+	}
 
+	public void setDestroy(boolean isDestroy) {
+		this.isDestroy = isDestroy;
+	}
 	
 }

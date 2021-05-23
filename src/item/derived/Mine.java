@@ -51,4 +51,11 @@ public class Mine extends SolidObject implements Movable{
 		setSpeed_y(newSpeed);
 	}
 
+	public boolean isTriggered() {
+		return triggered;
+	}
+
+	public void setTriggered(boolean triggered) {
+		this.triggered = triggered;
+	}
 }

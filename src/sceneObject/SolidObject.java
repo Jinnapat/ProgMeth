@@ -93,7 +93,6 @@ public abstract class SolidObject implements IRenderable, Collidable{
 		}
 	}
 
-	
 	public double getFriction() {
 		return friction;
 	}
@@ -101,8 +100,7 @@ public abstract class SolidObject implements IRenderable, Collidable{
 	public void setFriction(double friction) {
 		this.friction = friction;
 	}
-	
-	
+
 	public boolean isFallable() {
 		return fallable;
 	}

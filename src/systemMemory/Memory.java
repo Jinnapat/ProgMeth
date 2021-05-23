@@ -7,6 +7,7 @@ import scene.EndGameScene;
 import scene.GameScene;
 import scene.MainMenuScene;
 import scene.SelectionScene;
+import character.Character;
 
 public class Memory {
 	public static Memory instance = new Memory();

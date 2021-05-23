@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.image.ImageView;
 import logic.ImageLogic;
+import logic.RenderableHolder;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,6 @@ import character.Sniper;
 
 public class SelectCharacterUI extends VBox{
 	private Character character;
-	private Image characterImage;
 	private ImageView characterImageView;
 	private TextField nameInput;
 	private VBox selectCharacter;
@@ -51,6 +51,10 @@ public class SelectCharacterUI extends VBox{
 	}
 
 	public void setCharacter(Character character) {
+		if (this.character != null) {
+			character.setName(this.character.getName());
+		}
+		RenderableHolder.getInstance().addGarbage(this.character);
 		this.character = character;
 		this.setCharacterImage(this.character.getSprite());
 	}
@@ -76,7 +80,6 @@ public class SelectCharacterUI extends VBox{
 	}
 
 	public void setCharacterImage(Image characterImage) {
-		this.characterImage = characterImage;
 		if(this.characterImageView == null) {
 			this.characterImageView = new ImageView(ImageLogic.resizeImage(characterImage, 200, 200));
 		}
@@ -90,6 +93,10 @@ public class SelectCharacterUI extends VBox{
 		this.nameInput.setAlignment(Pos.CENTER);
 		this.nameInput.setFont(new Font(30));
 		this.nameInput.setText(this.character.getName());
+		
+		this.nameInput.setOnKeyTyped((event) -> {
+			getCharacter().setName(nameInput.getText());
+		});
 	}
 
 	public void setSelectCharacter() {
@@ -119,4 +126,10 @@ public class SelectCharacterUI extends VBox{
 			this.selectCharacter.getChildren().add(characterBtn);
 		}
 	}
+
+	public Character getCharacter() {
+		return character;
+	}
+	
+	
 }

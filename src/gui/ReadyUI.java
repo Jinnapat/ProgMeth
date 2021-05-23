@@ -45,6 +45,7 @@ public class ReadyUI extends VBox {
 	private void startHandler() {
 		// TODO Auto-generated method stub
 		System.out.println("Start");
+		Memory.getInstance().gameCanvas.setup();
 		SceneHolder.switchScene(Memory.getInstance().gameScene);
 	}
 	

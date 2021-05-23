@@ -29,5 +29,13 @@ public class SelectionGUI extends HBox{
 		this.getChildren().add(this.selectCharacterBox2);
 		this.getChildren().add(this.readyBox);
 	}
+
+	public SelectCharacterUI getSelectCharacterBox() {
+		return selectCharacterBox;
+	}
+
+	public SelectCharacterUI getSelectCharacterBox2() {
+		return selectCharacterBox2;
+	}
 	
 }

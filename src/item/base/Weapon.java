@@ -32,7 +32,6 @@ public abstract class Weapon extends Item implements Movable{
 		this.setPlayer(null);
 		this.refillAmmo();
 		this.update();
-		RenderableHolder.getInstance().addObject(this);
 	}
 	
 	public Weapon(int maxAmmo, double fireRate, int damage, double range, double runSpeed) {
@@ -59,7 +58,6 @@ public abstract class Weapon extends Item implements Movable{
 				}
 				this.currentAmmo -= 1;
 				this.shoot(x, y, side);
-				System.out.println(this.currentAmmo);
 			} else {
 				System.out.println("Can't shoot");
 			}

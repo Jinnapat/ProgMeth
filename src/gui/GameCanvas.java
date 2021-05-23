@@ -1,12 +1,9 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import character.Engineer;
-import character.Heavy;
-import character.Scout;
+import character.Character;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
@@ -19,15 +16,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import logic.RenderableHolder;
 import logic.SceneHolder;
-import scene.GameScene;
 import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
+import item.base.Weapon;
 import item.derived.AmmoStash;
 import item.derived.Bandage;
 import item.derived.DropBox;
-import item.derived.Mine;
 
 public class GameCanvas extends Canvas{
 	
@@ -42,25 +38,32 @@ public class GameCanvas extends Canvas{
 		this.lastTimeTriggered = 0.0;
 		this.setup();
 		this.loop();
-
 	}
 	
-	private void setup() {
+	public void setup() {
 		this.gc = this.getGraphicsContext2D();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
+		gameObjects.clear();
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
 		this.loadResource();
 		Memory.getInstance().gameCanvas = this;
 		
-		Engineer myChar = new Engineer();
+		Character myChar = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox().getCharacter();
+		gameObjects.add(myChar);
+		gameObjects.add(myChar.getWeapon());
+		System.out.println(myChar.getClass().toGenericString());
+		System.out.println(myChar.getName());
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
-		myChar.setName("Player 1");
 		myChar.setFallable(true);
 		
-		Scout myChar2 = new Scout();
+		Character myChar2 = Memory.getInstance().selectionScene.getSelectionGUI().getSelectCharacterBox2().getCharacter();
+		gameObjects.add(myChar2);
+		gameObjects.add(myChar2.getWeapon());
+		System.out.println(myChar2.getClass().toGenericString());
+		System.out.println(myChar2.getName());
 		myChar2.setX(1050.0);
 		myChar2.setY(500.0);
 		myChar2.setHeadLeft(true);
@@ -69,7 +72,6 @@ public class GameCanvas extends Canvas{
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
 		myChar2.setCheckControls(true);
-		myChar2.setName("Player 2");
 		myChar2.setFallable(true);
 		
 		//Ground
@@ -86,9 +88,9 @@ public class GameCanvas extends Canvas{
 		new Ground(50, 50, 850, 620, false);
 		
 		// roof
-		new Ground(100, 20, 300, 500, true);
-		new Ground(240, 20, 480, 500, true);
-		new Ground(100, 20, 800, 500, true);
+		new Ground(100, 50, 300, 470, true);
+		new Ground(240, 50, 480, 470, true);
+		new Ground(100, 50, 800, 470, true);
 		
 		// left platforms
 		new Ground(100, 20, 50, 620, true);
@@ -161,21 +163,21 @@ public class GameCanvas extends Canvas{
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		
 		for (int i = 0; i < gameObjects.size(); i++) {
 			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
 		}
-		
+
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
 		}
 		RenderableHolder.getInstance().clearWillAdd();
 		
 		for (int i = 0; i < garbage.size(); i++) {
-			gameObjects.remove(garbage.get(i));
+			SolidObject t = garbage.get(i);
+			gameObjects.remove(t);
 		}
 
 		RenderableHolder.getInstance().clearGarbage();
@@ -198,11 +200,10 @@ public class GameCanvas extends Canvas{
 	
 	private void draw() {
 		
-		Iterator<SolidObject> point2 = this.gameObjects.iterator();
-		
-		while(point2.hasNext()) {
-			SolidObject obj = (SolidObject) point2.next();
-			obj.draw(gc);
+		if(RenderableHolder.getInstance().getGameObjects()!=null) {
+			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
+				obj.draw(this.gc);
+			}
 		}
 	}
 	

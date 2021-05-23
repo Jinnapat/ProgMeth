@@ -15,19 +15,14 @@ public class Engineer extends Character {
 		Weapon assaultRifle = new Ak47();
 		setWeapon(assaultRifle);
 	}
-
-	public Engineer(Character target) {
-		super(50.0, 50.0, 5.0, 8.0, 100, "Yellow");
-		this.lastMine = null;
-		Weapon assaultRifle = new Ak47();
-		setWeapon(assaultRifle);
-	}
 	
 	@Override
 	public void act() {
-		if (this.standStillTime >= 300) {
+		if (this.standStillTime >= 400) {
 			if (this.lastMine != null) {
-				RenderableHolder.getInstance().addGarbage(lastMine);
+				if (!this.lastMine.isTriggered()) {
+					RenderableHolder.getInstance().addGarbage(lastMine);
+				}
 			}
 			this.standStillTime = 0;
 			this.lastMine = new Mine(30.0, 10.0, getX(), getY());

@@ -18,7 +18,6 @@ public class Bullet extends SolidObject implements Movable{
 	private int damage;
 	private double maxRange;
 	private boolean isLeftSide;
-	private boolean isHit;
 	
 	public Bullet() {
 		super(5.0, 3.0);
@@ -26,7 +25,6 @@ public class Bullet extends SolidObject implements Movable{
 		this.damage = 1;
 		this.speed = 30;
 		this.isLeftSide = false;
-		this.isHit = false;
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
@@ -68,15 +66,6 @@ public class Bullet extends SolidObject implements Movable{
 	public void setDamage(int damage) {
 		this.damage = Math.max(damage, 0);
 	}
-	
-
-	public boolean isHit() {
-		return isHit;
-	}
-
-	public void setHit(boolean isHit) {
-		this.isHit = isHit;
-	}
 
 	@Override
 	public int getZ() {
@@ -85,10 +74,8 @@ public class Bullet extends SolidObject implements Movable{
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		if (!this.isHit()) {
-			gc.setFill(Color.GOLD);
-			gc.fillRect(getX(), getY(), getWidth(), getHeight());
-		}
+		gc.setFill(Color.GOLD);
+		gc.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 
 	public double getMaxRange() {
@@ -105,7 +92,6 @@ public class Bullet extends SolidObject implements Movable{
 		maxRange -= Math.abs(getSpeed_x());
 				
 		if (maxRange <= 0.0) {
-			this.setHit(true);
 			RenderableHolder.getInstance().addGarbage(this);
 		}
 
@@ -123,9 +109,9 @@ public class Bullet extends SolidObject implements Movable{
 			if (targetCharacter.getHealth() > 0) {
 				DamageLogic.calculateDamage(this, targetCharacter);
 			}
-			this.setHit(true);
+			RenderableHolder.getInstance().addGarbage(this);
 		} else if (target instanceof Ground) {
-			this.setHit(true);
+			RenderableHolder.getInstance().addGarbage(this);
 		}
 	}
 }
