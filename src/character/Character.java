@@ -208,14 +208,16 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 	
 	private void displayTags(GraphicsContext gc) {
 		gc.setFill(Color.BLACK);
+		double tagX = getX() - GameConstant.TAGS_OFFSET_X;
+		double tagY = getY() - GameConstant.AMMO_TAG_OFFSET_Y;
 		if (getWeapon() == null) {
-			gc.fillText("No gun", getX() - 10, getY() - 13);
+			gc.fillText("No gun", tagX, tagY);
 		} else {
-			gc.fillText(getWeapon().getName() + " : " + getWeapon().getCurrentAmmo(), getX() - 10, getY() - 13);
+			gc.fillText(getWeapon().getName() + " : " + getWeapon().getCurrentAmmo(), tagX, tagY);
 		}
-		gc.fillText(getName(), getX() - 10, getY() - 23);
+		gc.fillText(getName(), tagX, getY() - GameConstant.NAME_TAG_OFFSET_Y);
 		gc.setFill(Color.CRIMSON);
-		gc.fillRect(getX() - 10, getY() - 10, 50.0 * getHealth() / getMaxHealth(), 5);
+		gc.fillRect(tagX, getY() - GameConstant.TAGS_OFFSET_X, getWidth() * getHealth() / getMaxHealth(), GameConstant.HEALTHBAR_HEIGHT);
 	}
 	
 	@Override
@@ -308,11 +310,11 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 		if (getWeapon() != null) {
 			double bulletSpawnX = 0.0;
 			if (isHeadLeft()) {
-				bulletSpawnX = getX() - 15.0;
+				bulletSpawnX = getX() - GameConstant.BULLET_SPAWN_OFFSET_X;
 			} else {
-				bulletSpawnX = getX() + getWidth() + 15.0;
+				bulletSpawnX = getX() + getWidth() + GameConstant.BULLET_SPAWN_OFFSET_X;
 			}
-			getWeapon().holdTrigger(bulletSpawnX, getY() + 25.0, isHeadLeft());
+			getWeapon().holdTrigger(bulletSpawnX, getY() + (getHeight() / 2.0), isHeadLeft());
 		} else {
 			System.out.println("No weapon!");
 		}
