@@ -123,6 +123,7 @@ public class SelectCharacterUI extends VBox{
 			String name = characterClass.get(i);
 			Button characterBtn = new Button();
 			characterBtn.setText(name);
+			characterBtn.setMinWidth(200);
 			characterBtn.setPadding(new Insets(0, 20, 0, 20));
 			characterBtn.setFont(new Font(20));
 			

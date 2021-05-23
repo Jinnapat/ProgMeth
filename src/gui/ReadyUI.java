@@ -1,5 +1,6 @@
 package gui;
 
+import constants.FontHolder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ public class ReadyUI extends VBox {
 		
 		this.setPrefWidth(400);
 		this.setPrefHeight(800);
-		this.setAlignment(Pos.TOP_CENTER);
+		this.setAlignment(Pos.CENTER);
 		this.setPadding(new Insets(100));
 		this.setSpacing(20);
 		this.setBackground(new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -32,8 +33,14 @@ public class ReadyUI extends VBox {
 	}
 	
 	private void setUpButtons() {
-		this.startBtn = new Button("Start");
-		this.backBtn = new Button("Back");
+		this.startBtn = new Button("start");
+		this.backBtn = new Button("back");
+		
+		this.startBtn.setMinWidth(200);
+		this.backBtn.setMinWidth(200);
+		
+		this.startBtn.setFont(FontHolder.getInstance().dream24);
+		this.backBtn.setFont(FontHolder.getInstance().dream24);
 		
 		this.startBtn.setOnMouseClicked((e) -> {
 			this.startHandler();

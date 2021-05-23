@@ -12,6 +12,7 @@ public class Main extends Application{
 	public void start(Stage stage) throws Exception {
 		setup(stage);
 		stage.setTitle("Main");
+		stage.setResizable(false);
 		stage.getIcons().add(ImageHolder.getInstance().charecterBlack.get(0));
 		stage.show();
 	}

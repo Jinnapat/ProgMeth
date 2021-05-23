@@ -4,11 +4,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import logic.SceneHolder;
 import constants.FontHolder;
@@ -45,12 +49,15 @@ public class MainMenuGUI extends StackPane {
 	private void setUpTitleBox() {
 		this.titileBox = new HBox();
 		this.titileBox.setAlignment(Pos.CENTER);
+		this.titileBox.setPadding(new Insets(20));
 		
 		Text title = new Text();
 		title.setFont(FontHolder.getInstance().dream64);
+		title.setFill(Color.LIGHTCYAN);
 		title.setText("tiny shooters");
 		
 		this.titileBox.getChildren().add(title);
+		this.titileBox.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	private void setUpMenuBox() {
