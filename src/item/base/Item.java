@@ -23,7 +23,6 @@ public abstract class Item extends SolidObject{
 		this.setY(yPos);
 	}
 
-	// TODO
 	public abstract void collectBy(Character character);
 
 	public String getName() {

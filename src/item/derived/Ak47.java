@@ -16,7 +16,6 @@ public class Ak47 extends Weapon{
 		this.setBulletSpeed(30);
 		this.setRange(600);
 		this.refillAmmo();
-		System.out.println("AK47 have been create");
 	}
 
 	@Override

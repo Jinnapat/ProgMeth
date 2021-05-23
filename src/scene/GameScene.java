@@ -2,7 +2,6 @@ package scene;
 
 import constants.GameConstant;
 import gui.GameCanvas;
-import gui.MainMenuGUI;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,9 +27,11 @@ public class GameScene extends Scene{
 		this.setRoot(this.stackPane = new StackPane());
 		this.stackPane.setPrefSize(GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
 		this.stackPane.getChildren().add(new GameCanvas());
-		
+		this.addKeyEvents();
+	}
+	
+	private void addKeyEvents() {
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
 			@Override
 			public void handle(KeyEvent arg0) {
 				KeyCode k = arg0.getCode();
@@ -38,17 +39,14 @@ public class GameScene extends Scene{
 					GameConstant.keyPressed.add(k);
 				}
 			}
-			
 		});
 		
 		this.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
 			@Override
 			public void handle(KeyEvent arg0) {
 				KeyCode k = arg0.getCode();
 				GameConstant.keyPressed.remove(k);
 			}
-			
 		});
 	}
 }

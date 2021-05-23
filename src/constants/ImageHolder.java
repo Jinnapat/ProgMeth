@@ -3,6 +3,7 @@ package constants;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
+import java.util.HashMap;
 
 public class ImageHolder {
 	private static final ImageHolder instance = new ImageHolder();
@@ -17,7 +18,6 @@ public class ImageHolder {
 	
 	public ImageHolder() {
 		super();
-		System.out.println("ImageHolder");
 	}
 
 	public static ImageHolder getInstance() {

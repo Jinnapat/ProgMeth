@@ -5,7 +5,6 @@ import constants.GameConstant;
 import constants.ImageHolder;
 import interfaces.Collidable;
 import item.base.Utility;
-import javafx.scene.input.KeyCode;
 import logic.ImageLogic;
 import logic.RenderableHolder;
 import systemMemory.Memory;
@@ -24,6 +23,7 @@ public class DropBox extends Utility{
 
 	@Override
 	public void collectBy(Character character) {
+		
 	}
 
 	@Override
@@ -32,7 +32,6 @@ public class DropBox extends Utility{
 			if(target instanceof Character && !this.isDestroy()) {
 				this.setDestroy(true);
 				Character targetCharacter = (Character) target;
-				System.out.println("Get DropBox");
 				this.coolDown = GameConstant.UTILITY_COOLDOWN;
 				int newClass = (int)Math.floor(5 * Math.random());
 				Character newCharacter = null;
@@ -64,7 +63,6 @@ public class DropBox extends Utility{
 				newCharacter.setControlKeys(targetCharacter.getControlKeys());
 				newCharacter.setCheckControls(true);
 				newCharacter.setName(targetCharacter.getName());
-				newCharacter.setFallable(true);
 				newCharacter.setHealth((int)Math.round((double)targetCharacter.getHealth() / (double)targetCharacter.getMaxHealth() * newCharacter.getMaxHealth()));
 				RenderableHolder.getInstance().addGarbage(targetCharacter.getWeapon());
 				RenderableHolder.getInstance().addGarbage(targetCharacter);

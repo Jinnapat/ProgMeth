@@ -33,26 +33,39 @@ public class MainMenuGUI extends StackPane {
 		
 		Memory.getInstance().mainMenuGui = this;
 		
+		this.setUpTitleBox();
+		this.setUpMenuBox();
+		this.allBox = new VBox();
+		allBox.setAlignment(Pos.CENTER);
+		allBox.getChildren().add(this.titileBox);
+		allBox.getChildren().add(this.menuBox);
+		this.getChildren().add(allBox);
+	}
+	
+	private void setUpTitleBox() {
 		this.titileBox = new HBox();
-		this.menuBox = new HBox();
-		
 		this.titileBox.setAlignment(Pos.CENTER);
-		
-		this.menuBox.setAlignment(Pos.CENTER);
-		this.menuBox.setPadding(new Insets(50));
-		this.menuBox.setSpacing(20);
 		
 		Text title = new Text();
 		title.setFont(FontHolder.getInstance().dream64);
 		title.setText("tiny shooters");
 		
-		Button play1PlayerBtn = new Button("1 player");
-		Button play2PlayerBtn = new Button("2 player");
-		Button exitBtn = new Button("exit");
+		this.titileBox.getChildren().add(title);
+	}
+	
+	private void setUpMenuBox() {
+		this.menuBox = new HBox();
 		
-		play1PlayerBtn.setFont(FontHolder.getInstance().dream24);
-		play2PlayerBtn.setFont(FontHolder.getInstance().dream24);
-		exitBtn.setFont(FontHolder.getInstance().dream24);
+		this.menuBox.setAlignment(Pos.CENTER);
+		this.menuBox.setPadding(new Insets(50));
+		this.menuBox.setSpacing(20);
+		this.setUpButtons();
+	}
+	
+	private void setUpButtons() {
+		Button play1PlayerBtn = addButtonToMenu("1 player");
+		Button play2PlayerBtn = addButtonToMenu("2 player");
+		Button exitBtn = addButtonToMenu("exit");
 		
 		play1PlayerBtn.setOnMouseClicked((e) -> {
 			play1PlayerHandler();
@@ -66,26 +79,21 @@ public class MainMenuGUI extends StackPane {
 			exitHandler();
 		});
 		
-		this.titileBox.getChildren().add(title);
-		
-		this.menuBox.getChildren().add(play1PlayerBtn);
-		this.menuBox.getChildren().add(play2PlayerBtn);
-		this.menuBox.getChildren().add(exitBtn);
-		
-		this.allBox = new VBox();
-		
-		allBox.setAlignment(Pos.CENTER);
-		allBox.getChildren().add(this.titileBox);
-		allBox.getChildren().add(this.menuBox);
-		
-		this.getChildren().add(allBox);
 	}
 	
+	private Button addButtonToMenu(String label) {
+		Button button = new Button(label);
+		button.setFont(FontHolder.getInstance().dream24);
+		this.menuBox.getChildren().add(button);
+		return button;
+	}
 	private void play1PlayerHandler() {
+		Memory.getInstance().selectionGui.setPlayerNum(1);
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	
 	private void play2PlayerHandler() {
+		Memory.getInstance().selectionGui.setPlayerNum(2);
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	

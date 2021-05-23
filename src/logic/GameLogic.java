@@ -87,7 +87,6 @@ public class GameLogic {
 	public static boolean isEndGame() {
 		Character P1 = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
 		Character P2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
-//		System.out.println(stateP1 +" "+ stateP2);
 		if (P1.getState().equals("dying")) {
 			Memory.getInstance().endGameGui.setWinnerName(P2.getName());
 			return true;

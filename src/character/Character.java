@@ -41,22 +41,23 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 		this.currentAnimationDelay = GameConstant.CHARACTER_ANIMATION_DELAY;
 		this.setMaxHealth(maxHealth);
 		this.setHealth(maxHealth);
-
+		this.state = "idle";
+		
 		controlKeys = new HashMap<String, KeyCode>();
 		controlKeys.put("leftKey", KeyCode.A);
 		controlKeys.put("rightKey", KeyCode.D);
 		controlKeys.put("jumpKey", KeyCode.W);
 		controlKeys.put("shootKey", KeyCode.SPACE);
 
-		runImages = new ArrayList<Image>();
-		idleImages = new ArrayList<Image>();
-		dieImages = new ArrayList<Image>();
-
 		this.loadSprites(color);
 		this.setSprite(this.idleImages.get(0));
 	}
 
 	private void loadSprites(String color) {
+		runImages = new ArrayList<Image>();
+		idleImages = new ArrayList<Image>();
+		dieImages = new ArrayList<Image>();
+		
 		for (int i = 1; i <= 6; i++) {
 			runImages.add(
 					new Image(ClassLoader.getSystemResource("character/" + color + "/run/" + i + ".png").toString(),
@@ -253,12 +254,22 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 	}
 	
 	private void upStandStillTime() {
+		boolean takeAction = false;
 		ArrayList<KeyCode> keyPressed = GameConstant.keyPressed;
-		boolean takeAction = keyPressed.contains(controlKeys.get("leftKey"));
-		takeAction = takeAction || keyPressed.contains(controlKeys.get("rightKey"));
-		takeAction = takeAction || keyPressed.contains(controlKeys.get("shootKey"));
-		takeAction = takeAction || keyPressed.contains(controlKeys.get("jumpKey"));
-		if (!takeAction) {
+		if (keyPressed.contains(controlKeys.get("leftKey"))) {
+			takeAction = true;
+		}
+		if (keyPressed.contains(controlKeys.get("rightKey"))) {
+			takeAction = true;	
+		}
+		if (keyPressed.contains(controlKeys.get("shootKey"))) {
+			takeAction = true;
+		}
+		if (keyPressed.contains(controlKeys.get("jumpKey"))) {
+			takeAction = true;
+		}
+
+		if (takeAction) {
 			this.standStillTime = 0;
 		}
 		this.standStillTime += 1;
@@ -267,10 +278,8 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 	private void updateNaturalForces() {
 		setSpeed_x(getSpeed_x() * getFriction());
 
-		if (isFallable()) {
-			double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
-			setSpeed_y(newSpeed);
-		}
+		double newSpeed = getSpeed_y() + GameConstant.GRAVITY_G;
+		setSpeed_y(newSpeed);
 
 		if (getY() > GameConstant.WINDOW_HEIGHT + this.getHeight()) {
 			this.setHealth(0);

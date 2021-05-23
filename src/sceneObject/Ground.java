@@ -44,6 +44,58 @@ public class Ground extends SolidObject {
 		}
 	}
 
+	private void handleCharacterFromAbove(Character targetCharacter, double deltaX) {
+		if (targetCharacter.getSpeed_y() > 0.0) {
+			if (deltaX > 10.0) {
+				double bottom_y = targetCharacter.getY() + targetCharacter.getHeight()
+						+ targetCharacter.getSpeed_y();
+				if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
+					targetCharacter.setSpeed_y(0);
+					targetCharacter.setY(getY() - targetCharacter.getHeight());
+					targetCharacter.setOnGround(true);
+				}
+			}
+		}
+	}
+	
+	private void handleCharacterFromBelow(Character targetCharacter, double deltaX) {
+		if (!passable) {
+			if (targetCharacter.getSpeed_y() < 0.0) {
+				if (deltaX > GameConstant.CHARACTER_PHYSIC_X_OFFSET) {
+					double top_y = targetCharacter.getY() + targetCharacter.getSpeed_y();
+					if (top_y >= this.getY() && top_y <= this.getY() + this.getHeight()) {
+						targetCharacter.setSpeed_y(0);
+						targetCharacter.setY(getY() + getHeight());
+					}
+				}
+			}
+		}
+	}
+	private void handleCharacterFromSides(Character targetCharacter, double deltaY) {
+		if (deltaY > GameConstant.CHARACTER_PHYSIC_Y_OFFSET) {
+			double left_x = targetCharacter.getX() + targetCharacter.getSpeed_x();
+			if (left_x >= this.getX() && left_x <= this.getX() + this.getWidth()) {
+				targetCharacter.setSpeed_x(0.0);
+			}
+
+			double right_x = targetCharacter.getX() + targetCharacter.getWidth() + targetCharacter.getSpeed_x();
+			if (right_x >= this.getX() && right_x <= this.getX() + this.getWidth()) {
+				targetCharacter.setSpeed_x(0.0);
+			}
+		}
+	}
+	
+	private void handleCollideNotCharacter(SolidObject obj) {
+		double bottom_y = obj.getY() + obj.getHeight();
+		if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
+
+			if (obj.getSpeed_y() > 0) {
+				obj.setSpeed_y(0.0);
+				obj.setY(this.getY() - obj.getHeight());
+			}
+
+		}
+	}
 	@Override
 	public void onCollide(Collidable target) {
 		if (target instanceof Character) {
@@ -52,63 +104,12 @@ public class Ground extends SolidObject {
 			double deltaX = GameLogic.calculateCollideDeltaX((SolidObject)this, (SolidObject)target);
 			double deltaY = GameLogic.calculateCollideDeltaY((SolidObject)this, (SolidObject)target);
 
-			if (targetCharacter.getSpeed_y() > 0.0) {
-				if (deltaX > 10.0) {
-					double bottom_y = targetCharacter.getY() + targetCharacter.getHeight()
-							+ targetCharacter.getSpeed_y();
-					if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
-						targetCharacter.setSpeed_y(0);
-						targetCharacter.setY(getY() - targetCharacter.getHeight());
-						targetCharacter.setOnGround(true);
-					}
-				}
-			}
+			this.handleCharacterFromAbove(targetCharacter, deltaX);
+			this.handleCharacterFromBelow(targetCharacter, deltaX);
+			this.handleCharacterFromSides(targetCharacter, deltaY);
 
-			if (!passable) {
-				if (targetCharacter.getSpeed_y() < 0.0) {
-					if (deltaX > GameConstant.CHARACTER_PHYSIC_X_OFFSET) {
-						double top_y = targetCharacter.getY() + targetCharacter.getSpeed_y();
-						if (top_y >= this.getY() && top_y <= this.getY() + this.getHeight()) {
-							targetCharacter.setSpeed_y(0);
-							targetCharacter.setY(getY() + getHeight());
-						}
-					}
-				}
-			}
-
-			if (deltaY > GameConstant.CHARACTER_PHYSIC_Y_OFFSET) {
-				double left_x = targetCharacter.getX() + targetCharacter.getSpeed_x();
-				if (left_x >= this.getX() && left_x <= this.getX() + this.getWidth()) {
-					targetCharacter.setSpeed_x(0.0);
-				}
-
-				double right_x = targetCharacter.getX() + targetCharacter.getWidth() + targetCharacter.getSpeed_x();
-				if (right_x >= this.getX() && right_x <= this.getX() + this.getWidth()) {
-					targetCharacter.setSpeed_x(0.0);
-				}
-			}
-		} else if (target instanceof Utility) {
-			Utility targetUtility = (Utility) target;
-			double bottom_y = targetUtility.getY() + targetUtility.getHeight();
-			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
-
-				if (targetUtility.getSpeed_y() > 0) {
-					targetUtility.setSpeed_y(0.0);
-					targetUtility.setY(this.getY() - targetUtility.getHeight());
-				}
-
-			}
-		} else if (target instanceof Mine) {
-			Mine targetMine = (Mine) target;
-			double bottom_y = targetMine.getY() + targetMine.getHeight();
-			if (bottom_y >= this.getY() && bottom_y <= this.getY() + this.getHeight()) {
-
-				if (targetMine.getSpeed_y() > 0) {
-					targetMine.setSpeed_y(0.0);
-					targetMine.setY(this.getY() - targetMine.getHeight());
-				}
-
-			}
+		} else if (target instanceof SolidObject) {
+			this.handleCollideNotCharacter((SolidObject)target);
 		}
 	}
 

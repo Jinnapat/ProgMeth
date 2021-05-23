@@ -27,6 +27,10 @@ public class ReadyUI extends VBox {
 		this.setSpacing(20);
 		this.setBackground(new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));
 		
+		this.setUpButtons();
+	}
+	
+	private void setUpButtons() {
 		this.startBtn = new Button("Start");
 		this.backBtn = new Button("Back");
 		

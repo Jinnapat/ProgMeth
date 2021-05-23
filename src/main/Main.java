@@ -17,7 +17,6 @@ public class Main extends Application{
 		stage.setTitle("Main");
 		stage.getIcons().add(ImageHolder.getInstance().charecterBlack.get(0));
 		stage.show();
-		
 	}
 	
 	public static void main(String[] args) {
