@@ -12,6 +12,7 @@ public class ImageHolder {
 	public Image ammoStash = this.loadImage("ammoStash", "png");
 	public Image flatNightBackgound = this.loadImage("flatNightBackground", "png");
 	public Image gameBackgound = this.loadImage("background", "png", GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
+	public Image endGameBackground = this.loadImage("endGameBackground", "jpg");
 	public ArrayList<Image> charecterBlack = this.loadImage("Black", "run", "png", 6);
 	public Image mine = this.loadImage("mine", "png");
 	

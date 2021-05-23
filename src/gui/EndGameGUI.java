@@ -1,9 +1,12 @@
 package gui;
 
 import constants.FontHolder;
+import constants.GameConstant;
+import constants.ImageHolder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -24,6 +27,12 @@ public class EndGameGUI extends StackPane{
 		super();
 		Memory.getInstance().endGameGui = this;
 		
+		ImageView background = new ImageView(ImageHolder.getInstance().endGameBackground);
+		background.setFitHeight(GameConstant.WINDOW_HEIGHT);
+		background.setFitWidth(GameConstant.WINDOW_WIDTH);
+		background.setPreserveRatio(false);
+		this.getChildren().add(background);
+		
 		this.winnerBox = new VBox();
 		this.winnerBox.setAlignment(Pos.CENTER);
 		this.winnerBox.setSpacing(20);
@@ -34,7 +43,6 @@ public class EndGameGUI extends StackPane{
 	private void fillWinnerBox() {
 		this.winnerName = new Text();
 		this.setWinnerName(null);
-		this.winnerBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));;
 		this.winnerName.setFont(FontHolder.getInstance().dream32);
 		
 		Button backBtn = new Button("back to menu");
