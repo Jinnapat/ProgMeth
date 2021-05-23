@@ -1,7 +1,5 @@
 package main;
 import constants.ImageHolder;
-import constants.GameConstant;
-import gui.GameCanvas;
 import constants.SoundHolder;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -7,10 +7,6 @@ import javafx.scene.image.Image;
 public class ImageHolder {
 	private static final ImageHolder instance = new ImageHolder();
 
-	public Image nothing = this.loadImage("nothing", "png");
-	public Image awp = this.loadImage("guns/AWP", "png");
-	public Image shortgun = this.loadImage("guns/shortgun", "png");
-	public Image ak47 = this.loadImage("guns/Ak47", "png");
 	public Image box = this.loadImage("box", "png");
 	public Image heartPlus = this.loadImage("heart+", "png");
 	public Image ammoStash = this.loadImage("ammoStash", "png");

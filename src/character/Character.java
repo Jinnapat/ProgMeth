@@ -8,14 +8,12 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import sceneObject.SolidObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import constants.GameConstant;
 import constants.PriorityConstant;
-import constants.SoundHolder;
 
 public abstract class Character extends SolidObject implements Movable, IRenderable {
 	protected String name;
