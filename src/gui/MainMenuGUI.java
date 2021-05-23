@@ -15,7 +15,6 @@ import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
-import main.testSelectionGUI;
 import scene.SelectionScene;
 import systemMemory.Memory;
 
@@ -34,11 +33,6 @@ public class MainMenuGUI extends StackPane {
 		
 		Memory.getInstance().mainMenuGui = this;
 		
-		
-//		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
-//		mediaPlayer.setVolume(0.1);
-//		mediaPlayer.play();
-		
 		this.titileBox = new HBox();
 		this.menuBox = new HBox();
 		
@@ -50,7 +44,7 @@ public class MainMenuGUI extends StackPane {
 		
 		Text title = new Text();
 		title.setFont(FontHolder.getInstance().dream64);
-		title.setText("this is new");
+		title.setText("tiny shooters");
 		
 		Button play1PlayerBtn = new Button("1 player");
 		Button play2PlayerBtn = new Button("2 player");
@@ -88,14 +82,10 @@ public class MainMenuGUI extends StackPane {
 	}
 	
 	private void play1PlayerHandler() {
-		//TODO
-		System.out.println("Play1Player");
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	
 	private void play2PlayerHandler() {
-		//TODO
-		System.out.println("Play2Player");
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
 	

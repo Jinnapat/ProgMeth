@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.SceneHolder;
 
-public class RealMain extends Application{
+public class Main extends Application{
 	
 
 	@Override

@@ -205,14 +205,12 @@ public class GameCanvas extends Canvas{
 	}
 	
 	private void draw() {
-		
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
 				obj.draw(this.gc);
 			}
 		}
 	}
-	
 	
 	private void loadResource() {
 		new RenderableHolder();
@@ -224,9 +222,6 @@ public class GameCanvas extends Canvas{
 	public AnimationTimer getGameLoop() {
 		return gameLoop;
 	}
-
-	public void setGameLoop(AnimationTimer gameLoop) {
-		this.gameLoop = gameLoop;
-	}
+	
 	
 }
