@@ -37,6 +37,6 @@ public class Ak47 extends Weapon{
 		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
-		(new AudioClip(SoundHolder.getInstance().source)).play();
+		(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 	}
 }

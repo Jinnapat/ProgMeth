@@ -1,6 +1,8 @@
 package item.base;
 
+import constants.SoundHolder;
 import interfaces.Collidable;
+import javafx.scene.media.AudioClip;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 
@@ -16,6 +18,8 @@ public class Projectile extends Bullet {
 		if (target instanceof Ground) {
 			double spawnX = getX() - getSpeed_x();
 			double spawnY = getY() - getSpeed_y();
+			
+			(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 			
 			if (getSpeed_x() > 0.0) {
 				spawnX -= 3.0;

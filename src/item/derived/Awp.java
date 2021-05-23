@@ -34,7 +34,7 @@ public class Awp extends Weapon{
 		newBullet.setMaxRange(1200.0);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
-		(new AudioClip(SoundHolder.getInstance().source)).play();
+		(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 	}
 	
 	
