@@ -1,6 +1,7 @@
 package logic;
 
 import sceneObject.SolidObject;
+import systemMemory.Memory;
 
 public class GameLogic {
 	
@@ -47,5 +48,12 @@ public class GameLogic {
 		
 		collided = x_collide && y_collide;
 		return collided;
+	}
+	
+	public static boolean isEndGame() {
+		if(false) {
+			return true;
+		}
+		return false;
 	}
 }

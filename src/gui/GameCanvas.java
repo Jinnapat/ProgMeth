@@ -14,6 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import logic.GameLogic;
 import logic.RenderableHolder;
 import logic.SceneHolder;
 import scene.MainMenuScene;
@@ -155,6 +156,9 @@ public class GameCanvas extends Canvas{
 	}
 	
 	public void clearScreen() {
+		if(GameLogic.isEndGame()) {
+			SceneHolder.switchScene(Memory.getInstance().endGameScene);
+		}
         this.gc.clearRect(0.0D, 0.0D, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
     }
