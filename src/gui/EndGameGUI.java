@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logic.SceneHolder;
+import scene.MainMenuScene;
 import systemMemory.Memory;
 
 public class EndGameGUI extends StackPane{
@@ -20,7 +21,13 @@ public class EndGameGUI extends StackPane{
 		Memory.getInstance().endGameGui = this;
 		
 		this.winnerBox = new VBox();
-		
+		this.winnerBox.setAlignment(Pos.CENTER);
+		this.winnerBox.setSpacing(20);
+		this.getChildren().add(this.winnerBox);
+		this.fillWinnerBox();
+	}
+
+	private void fillWinnerBox() {
 		this.winnerName = new Text();
 		this.setWinnerName(null);
 		this.winnerName.setFont(FontHolder.getInstance().dream32);
@@ -32,17 +39,14 @@ public class EndGameGUI extends StackPane{
 			this.backHandler();
 		});
 		
-		this.winnerBox.setAlignment(Pos.CENTER);
-		this.winnerBox.setSpacing(20);
-		
 		this.winnerBox.getChildren().add(this.winnerName);
 		this.winnerBox.getChildren().add(backBtn);
-		this.getChildren().add(this.winnerBox);
 	}
-
+	
 	private void backHandler() {
 		System.out.println("Back to mainMenu");
-		SceneHolder.switchScene(Memory.getInstance().mainMenuScene);
+		SceneHolder.switchScene(new MainMenuScene());
+//		new RealMain();
 	}
 
 	public Text getWinnerName() {

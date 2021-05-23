@@ -8,6 +8,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import logic.GameLogic;
 import logic.SceneHolder;
 import scene.GameScene;
 import systemMemory.Memory;
@@ -27,6 +28,10 @@ public class ReadyUI extends VBox {
 		this.setSpacing(20);
 		this.setBackground(new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));
 		
+		this.setUpButtons();
+	}
+	
+	private void setUpButtons() {
 		this.startBtn = new Button("Start");
 		this.backBtn = new Button("Back");
 		
@@ -43,15 +48,14 @@ public class ReadyUI extends VBox {
 	}
 	
 	private void startHandler() {
-		// TODO Auto-generated method stub
 		System.out.println("Start");
+		GameLogic.fixNameDuplicate();
 		Memory.getInstance().gameCanvas.setup();
 		Memory.getInstance().gameCanvas.getGameLoop().start();
 		SceneHolder.switchScene(Memory.getInstance().gameScene);
 	}
 	
 	private void backHandler() {
-		// TODO Auto-generated method stub
 		System.out.println("Back to mainMenu");
 		SceneHolder.switchScene(Memory.getInstance().mainMenuScene);
 	}
