@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 public class FontHolder {
 	private static final FontHolder instance = new FontHolder();
 	public Font dream24 = this.loadFont("Dream_MMA", 24);
+	public Font dream32 = this.loadFont("Dream_MMA", 32);
 	public Font dream64 = this.loadFont("Dream_MMA", 64);
 	// can add new font
 	
