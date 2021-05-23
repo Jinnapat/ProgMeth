@@ -25,10 +25,10 @@ public class Projectile extends Bullet {
 				spawnX -= 3.0;
 			}
 			
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 20; i++) {
 				Bullet blast = new Bullet(3.0, 3.0, spawnX, spawnY);
 				blast.setSpeed(6.0);
-				double angle = Math.PI * Math.random();
+				double angle = Math.PI * 2.0 * Math.random();
 				blast.setSpeed_x(Math.cos(angle) * blast.getSpeed());
 				blast.setSpeed_y(Math.sin(angle) * -blast.getSpeed());
 				blast.setFallable(true);
