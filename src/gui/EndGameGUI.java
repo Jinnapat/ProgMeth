@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logic.SceneHolder;
+import scene.MainMenuScene;
 import systemMemory.Memory;
 
 public class EndGameGUI extends StackPane{
@@ -44,7 +45,8 @@ public class EndGameGUI extends StackPane{
 	private void backHandler() {
 		// TODO Auto-generated method stub
 		System.out.println("Back to mainMenu");
-		SceneHolder.switchScene(Memory.getInstance().mainMeneScene);
+		SceneHolder.switchScene(new MainMenuScene());
+//		new RealMain();
 	}
 
 	public Text getWinnerName() {

@@ -10,14 +10,17 @@ public class RealMain extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		
-		SceneHolder sceneHolder = new SceneHolder(stage);
-		sceneHolder.initialize();
-		SoundHolder.getInstance().bgmPlayer.play();
+		setup(stage);
 		stage.setTitle("Main");
 		stage.getIcons().add(ImageHolder.getInstance().charecterBlack.get(0));
 		stage.show();
 		
+	}
+	
+	public static void setup(Stage stage) {
+		SceneHolder sceneHolder = new SceneHolder(stage);
+		sceneHolder.initialize();
+		SoundHolder.getInstance().bgmPlayer.play();
 	}
 	
 	public static void main(String[] args) {
