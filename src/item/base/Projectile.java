@@ -1,6 +1,8 @@
 package item.base;
 
+import constants.SoundHolder;
 import interfaces.Collidable;
+import javafx.scene.media.AudioClip;
 import logic.RenderableHolder;
 import sceneObject.Ground;
 
@@ -14,11 +16,20 @@ public class Projectile extends Bullet {
 	@Override
 	public void onCollide(Collidable target) {
 		if (target instanceof Ground) {
-			Ground targetGround = (Ground) target;
-			for (int i = 0; i < 10; i++) {
-				Bullet blast = new Bullet(3.0, 3.0, getX(), targetGround.getY() - 10.0);
-				blast.setSpeed(6.0);
-				double angle = Math.PI * Math.random();
+			double spawnX = getX() - getSpeed_x();
+			double spawnY = getY() - getSpeed_y();
+			
+			(new AudioClip(SoundHolder.getInstance().gunShot)).play();
+			
+			if (getSpeed_x() > 0.0) {
+				spawnX -= 3.0;
+			}
+			
+			for (int i = 0; i < 20; i++) {
+				Bullet blast = new Bullet(3.0, 3.0, spawnX, spawnY);
+				double angle = Math.PI * 2.0 * Math.random();
+				double blastSpeed = Math.random() * 3.0 + 3.0;
+				blast.setSpeed(blastSpeed);
 				blast.setSpeed_x(Math.cos(angle) * blast.getSpeed());
 				blast.setSpeed_y(Math.sin(angle) * -blast.getSpeed());
 				blast.setFallable(true);

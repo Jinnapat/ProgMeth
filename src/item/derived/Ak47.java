@@ -20,7 +20,6 @@ public class Ak47 extends Weapon{
 		this.setDamage(100);
 		this.setBulletSpeed(10);
 		this.setRange(10);
-		this.setRunSpeed(50);
 		this.refillAmmo();
 		
 		this.setX(200);
@@ -38,6 +37,6 @@ public class Ak47 extends Weapon{
 		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
 		newBullet.setDamage(5);
 		newBullet.setSpeed_x(getBulletSpeed() * side);
-		(new AudioClip(SoundHolder.getInstance().source)).play();
+		(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 	}
 }
