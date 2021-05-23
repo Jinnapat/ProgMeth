@@ -4,7 +4,41 @@ import sceneObject.SolidObject;
 import systemMemory.Memory;
 
 public class GameLogic {
-
+	
+	public static double calculateDelta(double x1, double x2, double tx1, double tx2) {
+		if (x1 >= tx1 && x1 <= tx2) {
+			if (x2 >= tx1 && x2 <= tx2) {
+				return x2 - x1;
+			} else {
+				return tx2 - x1;
+			}
+		} else {
+			if (x2 >= tx1 && x2 <= tx2) {
+				return x2 - tx1;
+			} else {
+				return tx2 - tx1;
+			}
+		}
+	}
+	
+	public static double calculateCollideDeltaX(SolidObject o1, SolidObject o2) {
+		double x1 = o1.getX();
+		double x2 = o1.getX() + o1.getWidth();
+		double tx1 = o2.getX();
+		double tx2 = o2.getX() + o2.getWidth();
+		return calculateDelta(x1, x2, tx1, tx2);
+		
+	}
+	
+	public static double calculateCollideDeltaY(SolidObject o1, SolidObject o2) {
+		double y1 = o1.getY();
+		double y2 = o1.getY() + o1.getHeight();
+		double ty1 = o2.getY();
+		double ty2 = o2.getY() + o2.getHeight();
+		return calculateDelta(y1, y2, ty1, ty2);
+		
+	}
+	
 	public static boolean willCollide(SolidObject o1, SolidObject o2) {
 
 		double targetX1 = o2.getX();

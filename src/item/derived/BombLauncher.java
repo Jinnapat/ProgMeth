@@ -17,7 +17,7 @@ public class BombLauncher extends Weapon{
 		Projectile newProjectile = new Projectile(x, y - 5.0);
 		newProjectile.setSpeed_x(5.0 * side);
 		newProjectile.setSpeed_y(-10.0);
-		(new AudioClip(SoundHolder.getInstance().source)).play();
+		(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 	}
 
 }

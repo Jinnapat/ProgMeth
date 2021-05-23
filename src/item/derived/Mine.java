@@ -3,9 +3,11 @@ package item.derived;
 import character.Engineer;
 import constants.GameConstant;
 import constants.ImageHolder;
+import constants.SoundHolder;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import logic.DamageLogic;
 import logic.ImageLogic;
 import logic.RenderableHolder;
@@ -38,6 +40,8 @@ public class Mine extends SolidObject implements Movable{
 		if (target != null) {
 			if (target instanceof Character && !(target instanceof Engineer) && !this.triggered) {
 				Character targetCharacter = (Character) target;
+				(new AudioClip(SoundHolder.getInstance().grunt)).play();
+				(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 				DamageLogic.calculateDamage(1000, targetCharacter);
 				RenderableHolder.getInstance().addGarbage(this);
 				this.triggered = true;

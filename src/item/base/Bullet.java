@@ -1,6 +1,7 @@
 package item.base;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import logic.DamageLogic;
 import logic.RenderableHolder;
@@ -10,6 +11,7 @@ import systemMemory.Memory;
 import character.Character;
 import constants.GameConstant;
 import constants.PriorityConstant;
+import constants.SoundHolder;
 import interfaces.Collidable;
 import interfaces.Movable;
 
@@ -108,6 +110,7 @@ public class Bullet extends SolidObject implements Movable{
 			Character targetCharacter = (Character)target;
 			if (targetCharacter.getHealth() > 0) {
 				DamageLogic.calculateDamage(this, targetCharacter);
+				(new AudioClip(SoundHolder.getInstance().grunt)).play();
 			}
 			RenderableHolder.getInstance().addGarbage(this);
 		} else if (target instanceof Ground) {
