@@ -21,7 +21,13 @@ public class EndGameGUI extends StackPane{
 		Memory.getInstance().endGameGui = this;
 		
 		this.winnerBox = new VBox();
-		
+		this.winnerBox.setAlignment(Pos.CENTER);
+		this.winnerBox.setSpacing(20);
+		this.getChildren().add(this.winnerBox);
+		this.fillWinnerBox();
+	}
+
+	private void fillWinnerBox() {
 		this.winnerName = new Text();
 		this.setWinnerName(null);
 		this.winnerName.setFont(FontHolder.getInstance().dream32);
@@ -33,14 +39,10 @@ public class EndGameGUI extends StackPane{
 			this.backHandler();
 		});
 		
-		this.winnerBox.setAlignment(Pos.CENTER);
-		this.winnerBox.setSpacing(20);
-		
 		this.winnerBox.getChildren().add(this.winnerName);
 		this.winnerBox.getChildren().add(backBtn);
-		this.getChildren().add(this.winnerBox);
 	}
-
+	
 	private void backHandler() {
 		System.out.println("Back to mainMenu");
 		SceneHolder.switchScene(new MainMenuScene());

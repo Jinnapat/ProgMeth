@@ -29,9 +29,12 @@ public class SelectCharacterUI extends VBox{
 	private ImageView characterImageView;
 	private TextField nameInput;
 	private VBox selectCharacter;
-
+	private ArrayList<String> characterClass;
+	
 	public SelectCharacterUI() {
 		super();
+		
+		this.setUpClassList();
 		
 		this.setPrefWidth(400);
 		this.setPrefHeight(800);
@@ -49,6 +52,15 @@ public class SelectCharacterUI extends VBox{
 		this.getChildren().add(this.selectCharacter);
 	}
 
+	private void setUpClassList() {
+		this.characterClass = new ArrayList<String>();
+		characterClass.add("Scout");
+		characterClass.add("Engineer");
+		characterClass.add("Heavy");
+		characterClass.add("Shield");
+		characterClass.add("Sniper");
+	}
+	
 	public void setCharacter(Character character) {
 		if (this.character != null) {
 			character.setName(this.character.getName());
@@ -106,14 +118,7 @@ public class SelectCharacterUI extends VBox{
 		this.selectCharacter.setPadding(new Insets(20));
 		this.selectCharacter.setSpacing(20);
 		
-		ArrayList<String> characterClass = new ArrayList<String>();
-		characterClass.add("Scout");
-		characterClass.add("Engineer");
-		characterClass.add("Heavy");
-		characterClass.add("Shield");
-		characterClass.add("Sniper");
-		
-		for(int i=0; i<characterClass.size();i++) {
+		for(int i = 0; i < this.characterClass.size(); i++) {
 			
 			String name = characterClass.get(i);
 			Button characterBtn = new Button();

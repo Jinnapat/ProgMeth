@@ -11,13 +11,12 @@ public class ImageHolder {
 	public Image heartPlus = this.loadImage("heart+", "png");
 	public Image ammoStash = this.loadImage("ammoStash", "png");
 	public Image flatNightBackgound = this.loadImage("flatNightBackground", "png");
-	public Image gameBackgound = this.loadImage("background", "png");
+	public Image gameBackgound = this.loadImage("background", "png", GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
 	public ArrayList<Image> charecterBlack = this.loadImage("Black", "run", "png", 6);
 	public Image mine = this.loadImage("mine", "png");
 	
 	public ImageHolder() {
 		super();
-		System.out.println("ImageHolder");
 	}
 
 	public static ImageHolder getInstance() {
@@ -29,6 +28,11 @@ public class ImageHolder {
 		return new Image(ClassLoader.getSystemResourceAsStream(path));
 	}
 
+	private Image loadImage(String name, String fileType, double width, double height) {
+		String path = "images/" + name + "." + fileType;
+		return new Image(ClassLoader.getSystemResourceAsStream(path), width, height, true, false);
+	}
+	
 	private ArrayList<Image> loadImage(String name, String action, String fileType, int number) {
 		ArrayList<Image> imgList = new ArrayList<Image>();
 

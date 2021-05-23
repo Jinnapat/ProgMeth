@@ -19,6 +19,7 @@ public class Bullet extends SolidObject implements Movable{
 	private int damage;
 	private double maxRange;
 	private boolean isLeftSide;
+	private boolean fallable;
 	
 	public Bullet() {
 		super(5.0, 3.0);
@@ -26,6 +27,7 @@ public class Bullet extends SolidObject implements Movable{
 		this.damage = 1;
 		this.speed = 30;
 		this.isLeftSide = false;
+		this.fallable = false;
 	}
 	
 	public Bullet(double width, double height, double x, double y) {
@@ -115,5 +117,13 @@ public class Bullet extends SolidObject implements Movable{
 		} else if (target instanceof Ground) {
 			RenderableHolder.getInstance().addGarbage(this);
 		}
+	}
+
+	public boolean isFallable() {
+		return fallable;
+	}
+
+	public void setFallable(boolean fallable) {
+		this.fallable = fallable;
 	}
 }

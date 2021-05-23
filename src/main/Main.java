@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.SceneHolder;
 
-public class RealMain extends Application{
+public class Main extends Application{
 	
 
 	@Override
@@ -14,7 +14,6 @@ public class RealMain extends Application{
 		stage.setTitle("Main");
 		stage.getIcons().add(ImageHolder.getInstance().charecterBlack.get(0));
 		stage.show();
-		
 	}
 	
 	public static void setup(Stage stage) {

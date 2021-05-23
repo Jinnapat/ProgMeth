@@ -12,7 +12,7 @@ public class Awp extends Weapon{
 		this.setName("AWP");
 		this.setMaxAmmo(15);
 		this.setFireRate(1);
-		this.setDamage(20);
+		this.setDamage(40);
 		this.setBulletSpeed(40);
 		this.setRange(1200);
 		this.refillAmmo();

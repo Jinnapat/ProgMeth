@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import character.Character;
-import character.Heavy;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
@@ -18,7 +17,6 @@ import javafx.scene.input.KeyCode;
 import logic.GameLogic;
 import logic.RenderableHolder;
 import logic.SceneHolder;
-import scene.MainMenuScene;
 import sceneObject.Ground;
 import sceneObject.SolidObject;
 import systemMemory.Memory;
@@ -35,22 +33,23 @@ public class GameCanvas extends Canvas{
 	private Image backgroundImage;
 	
 	public GameCanvas() {
-		this.backgroundImage = new Image(ClassLoader.getSystemResource("images/background.png").toString(), GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT, true, false);
+		super();
+		this.gc = this.getGraphicsContext2D();
+		this.backgroundImage = ImageHolder.getInstance().gameBackgound;
 		this.lastTimeTriggered = 0.0;
+		this.setWidth(GameConstant.WINDOW_WIDTH);
+		this.setHeight(GameConstant.WINDOW_HEIGHT);
+		this.loadResource();
+		Memory.getInstance().gameCanvas = this;
 		this.setup();
 		this.loop();
 	}
 	
 	public void setup() {
-		this.gc = this.getGraphicsContext2D();
 		RenderableHolder.getInstance().getWillAddObjects().clear();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		gameObjects.clear();
-		System.out.println(gameObjects.size());
-		this.setWidth(GameConstant.WINDOW_WIDTH);
-		this.setHeight(GameConstant.WINDOW_HEIGHT);
-		this.loadResource();
-		Memory.getInstance().gameCanvas = this;
+		GameConstant.keyPressed.clear();
 		
 		Character myChar = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
 		gameObjects.add(myChar);
@@ -58,7 +57,6 @@ public class GameCanvas extends Canvas{
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
-		myChar.setFallable(true);
 		
 		Character myChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
 		gameObjects.add(myChar2);
@@ -71,13 +69,26 @@ public class GameCanvas extends Canvas{
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
 		myChar2.setCheckControls(true);
-		myChar2.setFallable(true);
 		
+		this.createSceneObjects();
+	}
+	
+	private void createSceneObjects() {
+		this.createGrounds();
+		this.createHouse();
+		this.createVerticalPlatforms();
+		this.createUtilities();
+	}
+	
+	private void createGrounds() {
 		//Ground
 		new Ground(1100, 50, 50, 750, false);
 		new Ground(50, 50, 450, 700, false);
 		new Ground(50, 50, 700, 700, false);
 		
+	}
+	
+	private void createHouse() {
 		// wall
 		new Ground(50, 50, 300, 520, false);
 		new Ground(50, 50, 850, 520, false);
@@ -90,7 +101,9 @@ public class GameCanvas extends Canvas{
 		new Ground(100, 50, 300, 470, true);
 		new Ground(240, 50, 480, 470, true);
 		new Ground(100, 50, 800, 470, true);
-		
+	}
+	
+	private void createVerticalPlatforms() {
 		// left platforms
 		new Ground(100, 20, 50, 620, true);
 		new Ground(50, 40, 150, 600, true);
@@ -116,7 +129,9 @@ public class GameCanvas extends Canvas{
 		
 		new Ground(100, 20, 1050, 170, true);
 		new Ground(50, 40, 1000, 150, true);
-		
+	}
+	
+	private void createUtilities() {
 		new Bandage(30.0, 30.0, 585.0, 400.0);
 		new Bandage(30.0, 30.0, 585.0, 700.0);
 		
@@ -125,7 +140,6 @@ public class GameCanvas extends Canvas{
 		
 		new DropBox(30.0, 30.0, 50.0, 700.0);
 		new DropBox(30.0, 30.0, 1120.0, 700.0);
-
 	}
 	
 	public void loop() {
@@ -163,18 +177,12 @@ public class GameCanvas extends Canvas{
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
-		int a = 0;
-		
 		for (int i = 0; i < gameObjects.size(); i++) {
 			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
-			if (target instanceof Heavy) {
-				a += 1;
-			}
 		}
-		System.out.println(a);
 
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
@@ -205,14 +213,12 @@ public class GameCanvas extends Canvas{
 	}
 	
 	private void draw() {
-		
 		if(RenderableHolder.getInstance().getGameObjects()!=null) {
 			for(SolidObject obj: RenderableHolder.getInstance().getGameObjects()) {
 				obj.draw(this.gc);
 			}
 		}
 	}
-	
 	
 	private void loadResource() {
 		new RenderableHolder();
@@ -224,9 +230,6 @@ public class GameCanvas extends Canvas{
 	public AnimationTimer getGameLoop() {
 		return gameLoop;
 	}
-
-	public void setGameLoop(AnimationTimer gameLoop) {
-		this.gameLoop = gameLoop;
-	}
+	
 	
 }

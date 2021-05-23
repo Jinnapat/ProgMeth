@@ -14,4 +14,5 @@ public class GameConstant {
 	public static final double CHARACTER_PHYSIC_Y_OFFSET = 3.0;
 	public static final ArrayList<KeyCode> keyPressed = new ArrayList<KeyCode>();
 	public static final int UTILITY_COOLDOWN = 500;
+	public static final int CHARACTER_ANIMATION_DELAY = 7;
 }

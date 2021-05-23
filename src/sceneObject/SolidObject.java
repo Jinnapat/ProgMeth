@@ -17,7 +17,6 @@ public abstract class SolidObject implements IRenderable, Collidable {
 	private double speed_x;
 	private double speed_y;
 	private double friction;
-	private boolean fallable;
 	private Image sprite;
 
 	public SolidObject(double width, double height) {
@@ -29,7 +28,6 @@ public abstract class SolidObject implements IRenderable, Collidable {
 		this.speed_x = 0.0;
 		this.speed_y = 0.0;
 		this.friction = 0.8;
-		this.fallable = false;
 		RenderableHolder.getInstance().addWillAddObject(this);
 	}
 
@@ -97,14 +95,6 @@ public abstract class SolidObject implements IRenderable, Collidable {
 
 	public void setFriction(double friction) {
 		this.friction = friction;
-	}
-
-	public boolean isFallable() {
-		return fallable;
-	}
-
-	public void setFallable(boolean fallable) {
-		this.fallable = fallable;
 	}
 
 	public Image getSprite() {

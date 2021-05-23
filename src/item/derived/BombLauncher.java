@@ -9,6 +9,7 @@ public class BombLauncher extends Weapon{
 
 	public BombLauncher() {
 		super();
+		this.setFireRate(1);
 		this.setDamage(10);
 		this.setName("Bomb Launcher");
 	}

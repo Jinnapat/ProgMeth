@@ -15,7 +15,6 @@ import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
-import main.testSelectionGUI;
 import scene.SelectionScene;
 import systemMemory.Memory;
 
@@ -34,71 +33,58 @@ public class MainMenuGUI extends StackPane {
 		
 		Memory.getInstance().mainMenuGui = this;
 		
-		
-//		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
-//		mediaPlayer.setVolume(0.1);
-//		mediaPlayer.play();
-		
+		this.setUpTitleBox();
+		this.setUpMenuBox();
+		this.allBox = new VBox();
+		allBox.setAlignment(Pos.CENTER);
+		allBox.getChildren().add(this.titileBox);
+		allBox.getChildren().add(this.menuBox);
+		this.getChildren().add(allBox);
+	}
+	
+	private void setUpTitleBox() {
 		this.titileBox = new HBox();
-		this.menuBox = new HBox();
-		
 		this.titileBox.setAlignment(Pos.CENTER);
+		
+		Text title = new Text();
+		title.setFont(FontHolder.getInstance().dream64);
+		title.setText("tiny shooters");
+		
+		this.titileBox.getChildren().add(title);
+	}
+	
+	private void setUpMenuBox() {
+		this.menuBox = new HBox();
 		
 		this.menuBox.setAlignment(Pos.CENTER);
 		this.menuBox.setPadding(new Insets(50));
 		this.menuBox.setSpacing(20);
+		this.setUpButtons();
+	}
+	
+	private void setUpButtons() {
+		Button playBtn = addButtonToMenu("play");
+		Button exitBtn = addButtonToMenu("exit");
 		
-		Text title = new Text();
-		title.setFont(FontHolder.getInstance().dream64);
-		title.setText("this is new");
-		
-		Button play1PlayerBtn = new Button("1 player");
-		Button play2PlayerBtn = new Button("2 player");
-		Button exitBtn = new Button("exit");
-		
-		play1PlayerBtn.setFont(FontHolder.getInstance().dream24);
-		play2PlayerBtn.setFont(FontHolder.getInstance().dream24);
-		exitBtn.setFont(FontHolder.getInstance().dream24);
-		
-		play1PlayerBtn.setOnMouseClicked((e) -> {
-			play1PlayerHandler();
-		});
-		
-		play2PlayerBtn.setOnMouseClicked((e) -> {
-			play2PlayerHandler();
+		playBtn.setOnMouseClicked((e) -> {
+			playHandler();
 		});
 		
 		exitBtn.setOnMouseClicked((e) -> {
 			exitHandler();
 		});
 		
-		this.titileBox.getChildren().add(title);
-		
-		this.menuBox.getChildren().add(play1PlayerBtn);
-		this.menuBox.getChildren().add(play2PlayerBtn);
-		this.menuBox.getChildren().add(exitBtn);
-		
-		this.allBox = new VBox();
-		
-		allBox.setAlignment(Pos.CENTER);
-		allBox.getChildren().add(this.titileBox);
-		allBox.getChildren().add(this.menuBox);
-		
-		this.getChildren().add(allBox);
 	}
 	
-	private void play1PlayerHandler() {
-		//TODO
-		System.out.println("Play1Player");
+	private Button addButtonToMenu(String label) {
+		Button button = new Button(label);
+		button.setFont(FontHolder.getInstance().dream24);
+		this.menuBox.getChildren().add(button);
+		return button;
+	}
+	private void playHandler() {
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
-	
-	private void play2PlayerHandler() {
-		//TODO
-		System.out.println("Play2Player");
-		SceneHolder.switchScene(Memory.getInstance().selectionScene);
-	}
-	
 	
 	private void exitHandler() {
 		System.out.println("Exit");
