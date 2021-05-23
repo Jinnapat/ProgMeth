@@ -19,7 +19,7 @@ public class Ak47 extends Weapon{
 	}
 
 	@Override
-	public void shoot(double x, double y, int side) {
+	public void shoot(double x, double y, int side){
 		Bullet newBullet = new Bullet(3.0, 3.0, x, y);
 		newBullet.setDamage(this.getDamage());
 		newBullet.setSpeed(this.getBulletSpeed());

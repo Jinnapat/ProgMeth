@@ -2,6 +2,7 @@ package item.base;
 
 import character.Character;
 import constants.PriorityConstant;
+import exception.ShootFailedException;
 import interfaces.Collidable;
 import interfaces.Movable;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,7 +47,7 @@ public abstract class Weapon extends Item implements Movable{
 		this.currentAmmo = this.maxAmmo;
 	}
 	
-	public void holdTrigger(double x, double y, boolean headLeft) {
+	public void holdTrigger(double x, double y, boolean headLeft){
 		if (coolDown <= 0.0) {
 			if(this.currentAmmo > 0) {
 				int side = 1;
@@ -54,7 +55,11 @@ public abstract class Weapon extends Item implements Movable{
 					side = -1;
 				}
 				this.currentAmmo -= 1;
-				this.shoot(x, y, side);
+				try {
+					this.shoot(x, y, side);
+				} catch(ShootFailedException e){
+					System.out.println("Shoot Failed");
+				}
 			} else {
 				System.out.println("Can't shoot");
 			}
@@ -62,7 +67,7 @@ public abstract class Weapon extends Item implements Movable{
 		}
 	}
 	
-	public abstract void shoot(double x, double y, int side);
+	public abstract void shoot(double x, double y, int side) throws ShootFailedException;
 	
 	public void update() {
 		

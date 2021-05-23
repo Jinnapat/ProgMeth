@@ -1,5 +1,7 @@
 package interfaces;
 
+import exception.PositionException;
+
 public interface Movable {
-	void update();
+	void update() throws PositionException;
 }

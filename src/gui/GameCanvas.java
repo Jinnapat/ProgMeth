@@ -8,6 +8,7 @@ import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
 import constants.SoundHolder;
+import exception.PositionException;
 import interfaces.Movable;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
@@ -210,8 +211,8 @@ public class GameCanvas extends Canvas{
 				if(obj instanceof Movable) {
 					try {
 						((Movable) obj).update();
-					} catch(Exception e){
-						
+					} catch(PositionException e){
+						System.out.println("Position is not valid");
 					}
 				}
 			}
