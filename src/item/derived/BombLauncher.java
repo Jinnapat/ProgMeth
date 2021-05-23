@@ -16,10 +16,10 @@ public class BombLauncher extends Weapon{
 	
 	@Override
 	public void shoot(double x, double y, int side) {
-		Projectile newProjectile = new Projectile(x, y - 5.0);
-		newProjectile.setDamage(this.getDamage());
-		newProjectile.setSpeed_x(5.0 * side);
-		newProjectile.setSpeed_y(-10.0);
+		Projectile createdProjectile = new Projectile(x, y - 5.0);
+		createdProjectile.setDamage(this.getDamage());
+		createdProjectile.setSpeed_x(5.0 * side);
+		createdProjectile.setSpeed_y(-10.0);
 		(new AudioClip(SoundHolder.getInstance().gunShot)).play();
 	}
 

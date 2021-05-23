@@ -159,7 +159,8 @@ public abstract class Weapon extends Item implements Movable{
 				if (player.isHeadLeft()) {
 					side = -1;
 				}
-				gc.drawImage(getSprite(), getX() - Math.min(0.0, getSprite().getWidth() * side), getY(), getSprite().getWidth() * side, getSprite().getHeight());
+				double offsetX = Math.min(0.0, getSprite().getWidth() * side);
+				gc.drawImage(getSprite(), getX() - offsetX, getY(), getSprite().getWidth() * side, getSprite().getHeight());
 			} else {
 				gc.drawImage(getSprite(), getX(), getY(), getSprite().getWidth(), getSprite().getHeight());
 			}

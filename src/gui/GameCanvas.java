@@ -51,13 +51,21 @@ public class GameCanvas extends Canvas{
 		gameObjects.clear();
 		GameConstant.keyPressed.clear();
 		
+		this.setUpPlayer1();
+		this.setUpPlayer2();
+		this.createSceneObjects();
+	}
+	
+	private void setUpPlayer1() {
 		Character myChar = Memory.getInstance().selectionGui.getSelectCharacterBox().getCharacter();
 		gameObjects.add(myChar);
 		gameObjects.add(myChar.getWeapon());
 		myChar.setX(100.0);
 		myChar.setY(500.0);
 		myChar.setCheckControls(true);
-		
+	}
+	
+	private void setUpPlayer2() {
 		Character myChar2 = Memory.getInstance().selectionGui.getSelectCharacterBox2().getCharacter();
 		gameObjects.add(myChar2);
 		gameObjects.add(myChar2.getWeapon());
@@ -69,10 +77,8 @@ public class GameCanvas extends Canvas{
 		myChar2.getControlKeys().put("jumpKey", KeyCode.UP);
 		myChar2.getControlKeys().put("shootKey", KeyCode.ENTER);
 		myChar2.setCheckControls(true);
-		
-		this.createSceneObjects();
 	}
-	
+
 	private void createSceneObjects() {
 		this.createGrounds();
 		this.createHouse();
