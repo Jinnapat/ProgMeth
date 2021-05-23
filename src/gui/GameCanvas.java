@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import character.Character;
+import character.Heavy;
 import constants.FontHolder;
 import constants.GameConstant;
 import constants.ImageHolder;
@@ -42,8 +43,10 @@ public class GameCanvas extends Canvas{
 	
 	public void setup() {
 		this.gc = this.getGraphicsContext2D();
+		RenderableHolder.getInstance().getWillAddObjects().clear();
 		gameObjects = (ArrayList<SolidObject>) RenderableHolder.getInstance().getGameObjects();
 		gameObjects.clear();
+		System.out.println(gameObjects.size());
 		this.setWidth(GameConstant.WINDOW_WIDTH);
 		this.setHeight(GameConstant.WINDOW_HEIGHT);
 		this.loadResource();
@@ -122,9 +125,10 @@ public class GameCanvas extends Canvas{
 		
 		new DropBox(30.0, 30.0, 50.0, 700.0);
 		new DropBox(30.0, 30.0, 1120.0, 700.0);
+
 	}
 	
-	private void loop() {
+	public void loop() {
 		this.gameLoop = new AnimationTimer() {
 
 			@Override
@@ -132,10 +136,6 @@ public class GameCanvas extends Canvas{
 				lastTimeTriggered = (lastTimeTriggered < 0 ? now : lastTimeTriggered);
 				
 				if (now - lastTimeTriggered >= 10000000) {
-					
-					if (GameConstant.keyPressed.contains(KeyCode.ESCAPE)) {
-						SceneHolder.switchScene(Memory.getInstance().mainMeneScene);
-					}
 					
 					GameCanvas.this.clearScreen();
 					GameCanvas.this.draw();
@@ -147,13 +147,13 @@ public class GameCanvas extends Canvas{
 			}
 			
 		};
-		this.gameLoop.start();
 	}
 	
 	public void clearScreen() {
         this.gc.clearRect(0.0D, 0.0D, GameConstant.WINDOW_WIDTH, GameConstant.WINDOW_HEIGHT);
         this.gc.drawImage(backgroundImage, 0.0, 0.0);
         if(GameLogic.isEndGame()) {
+        	Memory.getInstance().selectionGui.reset();
         	this.gameLoop.stop();
 			SceneHolder.switchScene(Memory.getInstance().endGameScene);
 		}
@@ -163,12 +163,18 @@ public class GameCanvas extends Canvas{
 		List<SolidObject> willAddObjects = RenderableHolder.getInstance().getWillAddObjects();
 		List<SolidObject> garbage = RenderableHolder.getInstance().getGarbage();
 		
+		int a = 0;
+		
 		for (int i = 0; i < gameObjects.size(); i++) {
 			SolidObject target = gameObjects.get(i);
 			target.checkCollide();
 			target.setX(target.getX() + target.getSpeed_x());
 			target.setY(target.getY() + target.getSpeed_y());
+			if (target instanceof Heavy) {
+				a += 1;
+			}
 		}
+		System.out.println(a);
 
 		for (int i = 0; i < willAddObjects.size(); i++) {
 			gameObjects.add(willAddObjects.get(i));
@@ -213,6 +219,14 @@ public class GameCanvas extends Canvas{
 		new ImageHolder();
 		new SoundHolder();
 		new FontHolder();
+	}
+
+	public AnimationTimer getGameLoop() {
+		return gameLoop;
+	}
+
+	public void setGameLoop(AnimationTimer gameLoop) {
+		this.gameLoop = gameLoop;
 	}
 	
 }

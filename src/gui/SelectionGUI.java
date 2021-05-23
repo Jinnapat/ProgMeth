@@ -1,5 +1,8 @@
 package gui;
 
+import character.Heavy;
+import character.Scout;
+import character.Sniper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -30,6 +33,11 @@ public class SelectionGUI extends HBox{
 		this.getChildren().add(this.readyBox);
 	}
 
+	public void reset() {
+		this.selectCharacterBox.setCharacter(new Scout());
+		this.selectCharacterBox2.setCharacter(new Scout());
+	}
+	
 	public SelectCharacterUI getSelectCharacterBox() {
 		return selectCharacterBox;
 	}
