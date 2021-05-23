@@ -255,9 +255,9 @@ public abstract class Character extends SolidObject implements Movable, IRendera
 				if (getWeapon() != null) {
 					double bulletSpawnX = 0.0;
 					if (isHeadLeft()) {
-						bulletSpawnX = getX() - 10.0;
+						bulletSpawnX = getX() - 15.0;
 					} else {
-						bulletSpawnX = getX() + getWidth() + 10.0;
+						bulletSpawnX = getX() + getWidth() + 15.0;
 					}
 					getWeapon().holdTrigger(bulletSpawnX, getY() + 25.0, isHeadLeft());
 					actionTaken = true;
