@@ -32,7 +32,9 @@ public class MainMenuGUI extends StackPane {
 		background.setPreserveRatio(false);
 		this.getChildren().add(background);
 		
-//		
+		Memory.getInstance().mainMenuGui = this;
+		
+		
 //		MediaPlayer mediaPlayer = new MediaPlayer(SoundHolder.getInstance().bgm);
 //		mediaPlayer.setVolume(0.1);
 //		mediaPlayer.play();
