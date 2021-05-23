@@ -63,16 +63,11 @@ public class MainMenuGUI extends StackPane {
 	}
 	
 	private void setUpButtons() {
-		Button play1PlayerBtn = addButtonToMenu("1 player");
-		Button play2PlayerBtn = addButtonToMenu("2 player");
+		Button playBtn = addButtonToMenu("play");
 		Button exitBtn = addButtonToMenu("exit");
 		
-		play1PlayerBtn.setOnMouseClicked((e) -> {
-			play1PlayerHandler();
-		});
-		
-		play2PlayerBtn.setOnMouseClicked((e) -> {
-			play2PlayerHandler();
+		playBtn.setOnMouseClicked((e) -> {
+			playHandler();
 		});
 		
 		exitBtn.setOnMouseClicked((e) -> {
@@ -87,14 +82,9 @@ public class MainMenuGUI extends StackPane {
 		this.menuBox.getChildren().add(button);
 		return button;
 	}
-	private void play1PlayerHandler() {
+	private void playHandler() {
 		SceneHolder.switchScene(Memory.getInstance().selectionScene);
 	}
-	
-	private void play2PlayerHandler() {
-		SceneHolder.switchScene(Memory.getInstance().selectionScene);
-	}
-	
 	
 	private void exitHandler() {
 		System.out.println("Exit");
