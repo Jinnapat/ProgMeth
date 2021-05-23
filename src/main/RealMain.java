@@ -1,15 +1,8 @@
 package main;
-import constants.GameConstant;
-import gui.GameCanvas;
+import constants.ImageHolder;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import logic.SceneHolder;
-import scene.GameScene;
 
 public class RealMain extends Application{
 	
@@ -21,6 +14,7 @@ public class RealMain extends Application{
 		sceneHolder.initialize();
 		
 		stage.setTitle("Main");
+		stage.getIcons().add(ImageHolder.getInstance().charecterBlack.get(0));
 		stage.show();
 		
 	}

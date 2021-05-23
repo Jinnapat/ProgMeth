@@ -2,8 +2,6 @@ package main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import logic.SceneHolder;
-import scene.EndGameScene;
-import scene.SelectionScene;
 import systemMemory.Memory;
 
 public class testEndGameGUI extends Application{
