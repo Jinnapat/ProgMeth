@@ -57,7 +57,7 @@ public class ReadyUI extends VBox {
 	
 	private void backHandler() {
 		System.out.println("Back to mainMenu");
-		SceneHolder.switchScene(Memory.getInstance().mainMeneScene);
+		SceneHolder.switchScene(Memory.getInstance().mainMenuScene);
 	}
 	
 	

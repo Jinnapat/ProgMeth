@@ -17,7 +17,7 @@ public class MainMenuScene extends Scene{
 	public MainMenuScene() {
 		this(new StackPane());
 		this.initialize();
-		Memory.getInstance().mainMeneScene = this;
+		Memory.getInstance().mainMenuScene = this;
 	}
 	
 	private void initialize() {

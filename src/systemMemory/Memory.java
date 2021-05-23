@@ -11,7 +11,7 @@ import scene.SelectionScene;
 
 public class Memory {
 	public static Memory instance = new Memory();
-	public MainMenuScene mainMeneScene;
+	public MainMenuScene mainMenuScene;
 	public GameCanvas gameCanvas;
 	public MainMenuGUI mainMenuGui;
 	public SelectionGUI selectionGui;
